@@ -6,15 +6,15 @@
 //  Copyright (c) 2012年 renren.com. All rights reserved.
 //
 
-#import "FlipsideViewController.h"
+#import "SettingViewController.h"
 #import <QuartzCore/QuartzCore.h>
 #import "DrawLine.h"
 
-@interface FlipsideViewController ()
+@interface SettingViewController ()
 
 @end
 
-@implementation FlipsideViewController
+@implementation SettingViewController
 
 @synthesize delegate = _delegate;
 @synthesize ipLabel = _ipLabel;
@@ -23,57 +23,65 @@
 @synthesize portField = _portField;
 @synthesize settingView = _settingView;
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+- (void)dealloc
 {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-        //导航栏标题
-        [self setNavigationBarTitle:@"设置"];
-        
-        UIView *settingView = [[UIView alloc] initWithFrame:CGRectMake(20, 150, 280, 80)];
-        UIView *ipView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 280, 40)];
-        UIView *portView = [[UIView alloc] initWithFrame:CGRectMake(0, 40, 280, 40)];
-        
-        settingView.layer.cornerRadius = 8.0f;
-        settingView.layer.masksToBounds = YES;
-        settingView.layer.borderWidth = 1.0f;
-        settingView.backgroundColor = [UIColor whiteColor];
-        
-        
-        NSString *ip;
-        NSString *port;
-        
-        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-        ip = [defaults objectForKey:@"ip"];
-        port = [defaults objectForKey:@"port"];
-        
-        //ip地址和端口输入框
-        _ipField = [FlipsideViewController textInputFieldForCellWithValue:ip secure:NO];
-        _ipField.placeholder = @"ipAddress";
-        _ipField.delegate = self;
-        
-        _portField = [FlipsideViewController textInputFieldForCellWithValue:port secure:NO];
-        _portField.placeholder = @"pwd";
-        _portField.delegate = self;
-        
-        [ipView addSubview:[self containerCellWithTitle:@"地址" view:self.ipField]];
-        [portView addSubview:[self containerCellWithTitle:@"端口" view:self.portField]];
-        
-        //输入框中间的线
-        DrawLine *line = [[DrawLine alloc] initWithFrame:CGRectMake(0, 40, 280, 4)];
-        line.backgroundColor = [UIColor clearColor];
-        [settingView addSubview:ipView];
-        [settingView addSubview:portView];
-        [settingView addSubview:line];
-        [self.view addSubview:settingView];
-        [line release];
-        [ipView release];
-        [portView release];
-        [settingView release];
-                                                            
-    }
-    return self;
+    [_ipLabel release];
+    [_ipField release];
+    [_portLabel release];
+    [_portField release];
+ 
+    
+    [super dealloc];
+}
+
+- (void)loadView
+{
+    [super loadView];
+
+    // Custom initialization
+    //导航栏标题
+    //[self setNavigationBarTitle:@"设置"];
+    
+    UIView *settingView = [[UIView alloc] initWithFrame:CGRectMake(20, 60, 280, 80)];
+    UIView *ipView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 280, 40)];
+    UIView *portView = [[UIView alloc] initWithFrame:CGRectMake(0, 40, 280, 40)];
+    
+    settingView.layer.cornerRadius = 8.0f;
+    settingView.layer.masksToBounds = YES;
+    settingView.layer.borderWidth = 1.0f;
+    settingView.backgroundColor = [UIColor whiteColor];
+    
+    
+    NSString *ip;
+    NSString *port;
+    
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    ip = [defaults objectForKey:kIpAddress];
+    port = [defaults objectForKey:kPort];
+    
+    //ip地址和端口输入框
+    _ipField = [SettingViewController textInputFieldForCellWithValue:ip secure:NO];
+    _ipField.placeholder = @"ipAddress";
+    _ipField.delegate = self;
+    
+    _portField = [SettingViewController textInputFieldForCellWithValue:port secure:NO];
+    _portField.placeholder = @"pwd";
+    _portField.delegate = self;
+    
+    [ipView addSubview:[self containerCellWithTitle:@"地址" view:self.ipField]];
+    [portView addSubview:[self containerCellWithTitle:@"端口" view:self.portField]];
+    
+    //输入框中间的线
+    DrawLine *line = [[DrawLine alloc] initWithFrame:CGRectMake(0, 40, 280, 4)];
+    line.backgroundColor = [UIColor clearColor];
+    [settingView addSubview:ipView];
+    [settingView addSubview:portView];
+    [settingView addSubview:line];
+    [self.view addSubview:settingView];
+    [line release];
+    [ipView release];
+    [portView release];
+    [settingView release];
 }
 
 - (void)viewDidLoad
@@ -88,15 +96,13 @@
     // Release any retained subviews of the main view.
 }
 
-- (void)dealloc
+- (void)viewWillDisappear:(BOOL)animated
 {
-    [_ipLabel release];
-    [_ipField release];
-    [_portLabel release];
-    [_portField release];
-    
-    [super dealloc];
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setObject:self.ipField.text forKey:kIpAddress];
+    [defaults setObject:self.portField.text forKey:kPort];
 }
+
 #pragma mark - for kinds of action
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {

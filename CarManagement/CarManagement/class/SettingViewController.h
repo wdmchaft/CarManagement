@@ -9,15 +9,15 @@
 #import <UIKit/UIKit.h>
 #import "BaseViewController.h"
 
-@class FlipsideViewController;
+@class SettingViewController;
 
-@protocol FlipsideViewControllerDelegate
+@protocol SettingViewControllerDelegate
 
-- (void)flipsideViewControllerDidFinish:(FlipsideViewController *)controller;
+- (void)SettingViewControllerDidFinish:(SettingViewController *)controller;
 
 @end
 
-@interface FlipsideViewController : BaseViewController<UITextFieldDelegate,UITableViewDelegate,UITableViewDataSource>
+@interface SettingViewController : UIViewController<UITextFieldDelegate,UITableViewDelegate,UITableViewDataSource>
 {
     
     UILabel *_ipLabel;
@@ -31,7 +31,7 @@
     UITableView *_settingView;
 }
 
-@property (assign, nonatomic)id <FlipsideViewControllerDelegate> delegate;
+@property (assign, nonatomic)id <SettingViewControllerDelegate> delegate;
 
 @property (nonatomic,retain) UILabel *ipLabel;
 

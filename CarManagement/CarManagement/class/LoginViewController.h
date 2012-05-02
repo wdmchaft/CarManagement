@@ -7,28 +7,33 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "FlipsideViewController.h"
+#import "SettingViewController.h"
+#import "Socket.h"
 
-@interface LoginViewController : UIViewController<FlipsideViewControllerDelegate,UIAlertViewDelegate,UITextFieldDelegate>
+@interface LoginViewController : UIViewController<SettingViewControllerDelegate,UIAlertViewDelegate,UITextFieldDelegate>
 {
     UIImageView *_picView;
     
     UITextField *_accountField;
     
-    
     UITextField *_passwdField;
     
+    UIButton *_settingBtn;
     
-    UIButton *_setting;
+    UITextView *_msgTView;  
     
-    UITextView *_msg;
+    UIButton *_loginBtn;
+    
+    Socket *_socketDef;
 }
 
 @property (nonatomic,retain) UIImageView *picView;
 @property (nonatomic,retain) UITextField *accountField;
 @property (nonatomic,retain) UITextField *passwdField;
-@property (nonatomic,retain) UIButton *setting;
-@property (nonatomic,retain) UITextView *msg;
+@property (nonatomic,retain) UIButton *settingBtn;
+@property (nonatomic,retain) UITextView *msgTView;
+@property (nonatomic,retain) UIButton *loginBtn;
+@property (nonatomic,retain) Socket *socketDef;
 
 
 //产生文本输入框

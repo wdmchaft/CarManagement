@@ -53,4 +53,11 @@
 
 #define RN_DEBUG_LOG NSLog(@"-------%s---%d",__FUNCTION__,__LINE__)
 
+//forlogin
+#define kUser                     @"userName"
+#define kPassword                 @"password"
+#define kIpAddress                @"ipAddress"
+#define kPort                     @"portNum"
+
+
 #endif

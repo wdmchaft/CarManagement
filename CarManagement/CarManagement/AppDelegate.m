@@ -12,11 +12,14 @@
 
 @synthesize window = _window;
 @synthesize loginViewController = _loginViewController;
+@synthesize rootViewController = _rootViewController;
 
 - (void)dealloc
 {
     [_window release];
     [_loginViewController release];
+    [_rootViewController release];
+    
     [super dealloc];
 }
 
@@ -27,9 +30,14 @@
     
     self.window.backgroundColor = [UIColor whiteColor];
     
-    LoginViewController *loginViewController = [[[LoginViewController alloc] init] autorelease];
+    LoginViewController *loginViewController = [[LoginViewController alloc] init];
     self.loginViewController = loginViewController;
-    self.window.rootViewController = self.loginViewController;
+    [loginViewController release];
+    UINavigationController *rootViewController = [[UINavigationController alloc] initWithRootViewController:self.loginViewController];
+    self.rootViewController = rootViewController;
+    [rootViewController release];
+  
+    self.window.rootViewController = self.rootViewController;
     
     [self.window makeKeyAndVisible];
     return YES;
@@ -60,6 +68,21 @@
 - (void)applicationWillTerminate:(UIApplication *)application
 {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+}
+
+#pragma mark - for modelViewController
+- (void)pushModelViewController:(UIViewController *)viewController
+{
+    if ( viewController == nil ) {
+        return;
+    }
+    
+    [self.rootViewController presentModalViewController:viewController animated:YES];
+}
+
+- (void)popModelViewController
+{
+    [self.rootViewController dismissModalViewControllerAnimated:YES];
 }
 
 @end
