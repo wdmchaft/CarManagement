@@ -7,10 +7,15 @@
 //
 
 #import "AppDelegate.h"
+#import "LoginViewController.h"
+#import "MainViewController.h"
+#import "CMUser.h"
 
 @implementation AppDelegate
 
 @synthesize window = _window;
+@synthesize rootViewController = _rootViewController;
+@synthesize client = _client;
 
 - (void)dealloc
 {
@@ -22,6 +27,19 @@
 {
     self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
     // Override point for customization after application launch.
+    UIViewController *firstViewController = nil;
+    
+    CMUser *user = [CMUser getInstance];
+    if ( [user checkLoginInfo] ) {
+        MainViewController *firstViewController = [[MainViewController alloc] init];    
+    }
+    else {
+        LoginViewController *firstViewController = [[LoginViewController alloc] init];
+    }
+    
+    UINavigationController *rootViewController = [[UINavigationController alloc] initWithRootViewController:firstViewController];
+    self.rootViewController = rootViewController;
+    
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     return YES;

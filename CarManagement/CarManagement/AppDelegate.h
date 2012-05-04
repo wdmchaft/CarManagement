@@ -7,9 +7,17 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "AsyncSocket.h"
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
+{
+    UINavigationController *_rootViewController;
+    
+    AsyncSocket *_client;
+}
 
 @property (strong, nonatomic) UIWindow *window;
+@property (nonatomic,retain) UINavigationController *rootViewController;
+@property (nonatomic,retain) AsyncSocket *client;
 
 @end

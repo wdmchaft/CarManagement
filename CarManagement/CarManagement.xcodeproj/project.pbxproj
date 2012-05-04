@@ -19,6 +19,10 @@
 		CF3709F21553B78E0064A190 /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CF3709F11553B78E0064A190 /* DetailViewController.m */; };
 		CF370A011553BF790064A190 /* CMResManager.m in Sources */ = {isa = PBXBuildFile; fileRef = CF370A001553BF790064A190 /* CMResManager.m */; };
 		CF370A091553C4D70064A190 /* Image.bundle in Resources */ = {isa = PBXBuildFile; fileRef = CF370A081553C4D70064A190 /* Image.bundle */; };
+		CF9AFC4E1554326200953818 /* AsyncSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = CF9AFC4D1554326200953818 /* AsyncSocket.m */; };
+		CF9AFC56155433BF00953818 /* CMConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = CF9AFC55155433BF00953818 /* CMConfig.m */; };
+		CF9AFC591554386400953818 /* CMUser.m in Sources */ = {isa = PBXBuildFile; fileRef = CF9AFC581554386400953818 /* CMUser.m */; };
+		CF9AFC5C1554482300953818 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF9AFC5B1554482300953818 /* CFNetwork.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -43,6 +47,14 @@
 		CF3709FF1553BF790064A190 /* CMResManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CMResManager.h; path = CMClass/CMResManager.h; sourceTree = "<group>"; };
 		CF370A001553BF790064A190 /* CMResManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CMResManager.m; path = CMClass/CMResManager.m; sourceTree = "<group>"; };
 		CF370A081553C4D70064A190 /* Image.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Image.bundle; sourceTree = "<group>"; };
+		CF9AFC4C1554326200953818 /* AsyncSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AsyncSocket.h; path = CMClass/AsyncSocket.h; sourceTree = "<group>"; };
+		CF9AFC4D1554326200953818 /* AsyncSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AsyncSocket.m; path = CMClass/AsyncSocket.m; sourceTree = "<group>"; };
+		CF9AFC54155433BF00953818 /* CMConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CMConfig.h; path = CMClass/CMConfig.h; sourceTree = "<group>"; };
+		CF9AFC55155433BF00953818 /* CMConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CMConfig.m; path = CMClass/CMConfig.m; sourceTree = "<group>"; };
+		CF9AFC571554386400953818 /* CMUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CMUser.h; path = CMClass/CMUser.h; sourceTree = "<group>"; };
+		CF9AFC581554386400953818 /* CMUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CMUser.m; path = CMClass/CMUser.m; sourceTree = "<group>"; };
+		CF9AFC5A15543BF800953818 /* GlobalMacros.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = GlobalMacros.h; path = CMClass/GlobalMacros.h; sourceTree = "<group>"; };
+		CF9AFC5B1554482300953818 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -50,6 +62,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CF9AFC5C1554482300953818 /* CFNetwork.framework in Frameworks */,
 				CF3709D11553B71D0064A190 /* UIKit.framework in Frameworks */,
 				CF3709D31553B71D0064A190 /* Foundation.framework in Frameworks */,
 				CF3709D51553B71D0064A190 /* CoreGraphics.framework in Frameworks */,
@@ -79,6 +92,7 @@
 		CF3709CF1553B71D0064A190 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				CF9AFC5B1554482300953818 /* CFNetwork.framework */,
 				CF3709D01553B71D0064A190 /* UIKit.framework */,
 				CF3709D21553B71D0064A190 /* Foundation.framework */,
 				CF3709D41553B71D0064A190 /* CoreGraphics.framework */,
@@ -120,8 +134,15 @@
 		CF3709FD1553BF4F0064A190 /* CMCommon */ = {
 			isa = PBXGroup;
 			children = (
+				CF9AFC4C1554326200953818 /* AsyncSocket.h */,
+				CF9AFC4D1554326200953818 /* AsyncSocket.m */,
 				CF3709FF1553BF790064A190 /* CMResManager.h */,
 				CF370A001553BF790064A190 /* CMResManager.m */,
+				CF9AFC54155433BF00953818 /* CMConfig.h */,
+				CF9AFC55155433BF00953818 /* CMConfig.m */,
+				CF9AFC571554386400953818 /* CMUser.h */,
+				CF9AFC581554386400953818 /* CMUser.m */,
+				CF9AFC5A15543BF800953818 /* GlobalMacros.h */,
 			);
 			name = CMCommon;
 			sourceTree = "<group>";
@@ -196,6 +217,9 @@
 				CF3709EF1553B7790064A190 /* MainViewController.m in Sources */,
 				CF3709F21553B78E0064A190 /* DetailViewController.m in Sources */,
 				CF370A011553BF790064A190 /* CMResManager.m in Sources */,
+				CF9AFC4E1554326200953818 /* AsyncSocket.m in Sources */,
+				CF9AFC56155433BF00953818 /* CMConfig.m in Sources */,
+				CF9AFC591554386400953818 /* CMUser.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

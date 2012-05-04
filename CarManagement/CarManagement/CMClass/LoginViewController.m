@@ -13,15 +13,28 @@
 @end
 
 @implementation LoginViewController
+@synthesize logoImage = _logoImage;
+@synthesize loginInputView = _loginInPutView;
+@synthesize userAccountField = _userAccountField;
+@synthesize userPasswordField = _userPasswordField;
+@synthesize loginBtn = _loginBtn;
+@synthesize reserveTView = _reserveTView;
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+- (void)dealloc
 {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
+    [_logoImage release];
+    [_loginInPutView release];
+    [_userAccountField release];
+    [_userPasswordField release];
+    [_loginBtn release];
+    [_reserveTView release];
+    
+    [super dealloc];
+}
 
-    }
-    return self;
+- (void)loadView
+{
+    
 }
 
 - (void)viewDidLoad
