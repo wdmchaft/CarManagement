@@ -1,0 +1,290 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		CF3709D11553B71D0064A190 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF3709D01553B71D0064A190 /* UIKit.framework */; };
+		CF3709D31553B71D0064A190 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF3709D21553B71D0064A190 /* Foundation.framework */; };
+		CF3709D51553B71D0064A190 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF3709D41553B71D0064A190 /* CoreGraphics.framework */; };
+		CF3709DB1553B71D0064A190 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = CF3709D91553B71D0064A190 /* InfoPlist.strings */; };
+		CF3709DD1553B71D0064A190 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = CF3709DC1553B71D0064A190 /* main.m */; };
+		CF3709E11553B71D0064A190 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = CF3709E01553B71D0064A190 /* AppDelegate.m */; };
+		CF3709E91553B7570064A190 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CF3709E81553B7570064A190 /* LoginViewController.m */; };
+		CF3709EC1553B76C0064A190 /* SettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CF3709EB1553B76C0064A190 /* SettingViewController.m */; };
+		CF3709EF1553B7790064A190 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CF3709EE1553B7790064A190 /* MainViewController.m */; };
+		CF3709F21553B78E0064A190 /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CF3709F11553B78E0064A190 /* DetailViewController.m */; };
+		CF3709F81553BAA10064A190 /* Image.bundle in Resources */ = {isa = PBXBuildFile; fileRef = CF3709F71553BAA10064A190 /* Image.bundle */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		CF3709CC1553B71D0064A190 /* CarManagement.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CarManagement.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		CF3709D01553B71D0064A190 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		CF3709D21553B71D0064A190 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		CF3709D41553B71D0064A190 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		CF3709D81553B71D0064A190 /* CarManagement-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "CarManagement-Info.plist"; sourceTree = "<group>"; };
+		CF3709DA1553B71D0064A190 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		CF3709DC1553B71D0064A190 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		CF3709DE1553B71D0064A190 /* CarManagement-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CarManagement-Prefix.pch"; sourceTree = "<group>"; };
+		CF3709DF1553B71D0064A190 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		CF3709E01553B71D0064A190 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		CF3709E71553B7570064A190 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LoginViewController.h; path = CMClass/LoginViewController.h; sourceTree = "<group>"; };
+		CF3709E81553B7570064A190 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LoginViewController.m; path = CMClass/LoginViewController.m; sourceTree = "<group>"; };
+		CF3709EA1553B76C0064A190 /* SettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SettingViewController.h; path = CMClass/SettingViewController.h; sourceTree = "<group>"; };
+		CF3709EB1553B76C0064A190 /* SettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SettingViewController.m; path = CMClass/SettingViewController.m; sourceTree = "<group>"; };
+		CF3709ED1553B7790064A190 /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MainViewController.h; path = CMClass/MainViewController.h; sourceTree = "<group>"; };
+		CF3709EE1553B7790064A190 /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MainViewController.m; path = CMClass/MainViewController.m; sourceTree = "<group>"; };
+		CF3709F01553B78E0064A190 /* DetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DetailViewController.h; path = CMClass/DetailViewController.h; sourceTree = "<group>"; };
+		CF3709F11553B78E0064A190 /* DetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DetailViewController.m; path = CMClass/DetailViewController.m; sourceTree = "<group>"; };
+		CF3709F71553BAA10064A190 /* Image.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Image.bundle; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		CF3709C91553B71D0064A190 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CF3709D11553B71D0064A190 /* UIKit.framework in Frameworks */,
+				CF3709D31553B71D0064A190 /* Foundation.framework in Frameworks */,
+				CF3709D51553B71D0064A190 /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		CF3709C11553B71D0064A190 = {
+			isa = PBXGroup;
+			children = (
+				CF3709D61553B71D0064A190 /* CarManagement */,
+				CF3709CF1553B71D0064A190 /* Frameworks */,
+				CF3709CD1553B71D0064A190 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		CF3709CD1553B71D0064A190 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				CF3709CC1553B71D0064A190 /* CarManagement.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		CF3709CF1553B71D0064A190 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				CF3709D01553B71D0064A190 /* UIKit.framework */,
+				CF3709D21553B71D0064A190 /* Foundation.framework */,
+				CF3709D41553B71D0064A190 /* CoreGraphics.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		CF3709D61553B71D0064A190 /* CarManagement */ = {
+			isa = PBXGroup;
+			children = (
+				CF3709DF1553B71D0064A190 /* AppDelegate.h */,
+				CF3709E01553B71D0064A190 /* AppDelegate.m */,
+				CF3709E71553B7570064A190 /* LoginViewController.h */,
+				CF3709E81553B7570064A190 /* LoginViewController.m */,
+				CF3709EA1553B76C0064A190 /* SettingViewController.h */,
+				CF3709EB1553B76C0064A190 /* SettingViewController.m */,
+				CF3709ED1553B7790064A190 /* MainViewController.h */,
+				CF3709EE1553B7790064A190 /* MainViewController.m */,
+				CF3709F01553B78E0064A190 /* DetailViewController.h */,
+				CF3709F11553B78E0064A190 /* DetailViewController.m */,
+				CF3709D71553B71D0064A190 /* Supporting Files */,
+			);
+			path = CarManagement;
+			sourceTree = "<group>";
+		};
+		CF3709D71553B71D0064A190 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				CF3709D81553B71D0064A190 /* CarManagement-Info.plist */,
+				CF3709D91553B71D0064A190 /* InfoPlist.strings */,
+				CF3709DC1553B71D0064A190 /* main.m */,
+				CF3709DE1553B71D0064A190 /* CarManagement-Prefix.pch */,
+				CF3709F71553BAA10064A190 /* Image.bundle */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		CF3709CB1553B71D0064A190 /* CarManagement */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CF3709E41553B71D0064A190 /* Build configuration list for PBXNativeTarget "CarManagement" */;
+			buildPhases = (
+				CF3709C81553B71D0064A190 /* Sources */,
+				CF3709C91553B71D0064A190 /* Frameworks */,
+				CF3709CA1553B71D0064A190 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = CarManagement;
+			productName = CarManagement;
+			productReference = CF3709CC1553B71D0064A190 /* CarManagement.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		CF3709C31553B71D0064A190 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0430;
+				ORGANIZATIONNAME = gpssos.com;
+			};
+			buildConfigurationList = CF3709C61553B71D0064A190 /* Build configuration list for PBXProject "CarManagement" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = CF3709C11553B71D0064A190;
+			productRefGroup = CF3709CD1553B71D0064A190 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				CF3709CB1553B71D0064A190 /* CarManagement */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		CF3709CA1553B71D0064A190 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CF3709DB1553B71D0064A190 /* InfoPlist.strings in Resources */,
+				CF3709F81553BAA10064A190 /* Image.bundle in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		CF3709C81553B71D0064A190 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CF3709DD1553B71D0064A190 /* main.m in Sources */,
+				CF3709E11553B71D0064A190 /* AppDelegate.m in Sources */,
+				CF3709E91553B7570064A190 /* LoginViewController.m in Sources */,
+				CF3709EC1553B76C0064A190 /* SettingViewController.m in Sources */,
+				CF3709EF1553B7790064A190 /* MainViewController.m in Sources */,
+				CF3709F21553B78E0064A190 /* DetailViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		CF3709D91553B71D0064A190 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				CF3709DA1553B71D0064A190 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		CF3709E21553B71D0064A190 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		CF3709E31553B71D0064A190 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		CF3709E51553B71D0064A190 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "CarManagement/CarManagement-Prefix.pch";
+				INFOPLIST_FILE = "CarManagement/CarManagement-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		CF3709E61553B71D0064A190 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "CarManagement/CarManagement-Prefix.pch";
+				INFOPLIST_FILE = "CarManagement/CarManagement-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		CF3709C61553B71D0064A190 /* Build configuration list for PBXProject "CarManagement" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CF3709E21553B71D0064A190 /* Debug */,
+				CF3709E31553B71D0064A190 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CF3709E41553B71D0064A190 /* Build configuration list for PBXNativeTarget "CarManagement" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CF3709E51553B71D0064A190 /* Debug */,
+				CF3709E61553B71D0064A190 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = CF3709C31553B71D0064A190 /* Project object */;
+}
