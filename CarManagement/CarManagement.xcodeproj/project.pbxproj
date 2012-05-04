@@ -17,7 +17,8 @@
 		CF3709EC1553B76C0064A190 /* SettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CF3709EB1553B76C0064A190 /* SettingViewController.m */; };
 		CF3709EF1553B7790064A190 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CF3709EE1553B7790064A190 /* MainViewController.m */; };
 		CF3709F21553B78E0064A190 /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CF3709F11553B78E0064A190 /* DetailViewController.m */; };
-		CF3709F81553BAA10064A190 /* Image.bundle in Resources */ = {isa = PBXBuildFile; fileRef = CF3709F71553BAA10064A190 /* Image.bundle */; };
+		CF370A011553BF790064A190 /* CMResManager.m in Sources */ = {isa = PBXBuildFile; fileRef = CF370A001553BF790064A190 /* CMResManager.m */; };
+		CF370A091553C4D70064A190 /* Image.bundle in Resources */ = {isa = PBXBuildFile; fileRef = CF370A081553C4D70064A190 /* Image.bundle */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -39,7 +40,9 @@
 		CF3709EE1553B7790064A190 /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MainViewController.m; path = CMClass/MainViewController.m; sourceTree = "<group>"; };
 		CF3709F01553B78E0064A190 /* DetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DetailViewController.h; path = CMClass/DetailViewController.h; sourceTree = "<group>"; };
 		CF3709F11553B78E0064A190 /* DetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DetailViewController.m; path = CMClass/DetailViewController.m; sourceTree = "<group>"; };
-		CF3709F71553BAA10064A190 /* Image.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Image.bundle; sourceTree = "<group>"; };
+		CF3709FF1553BF790064A190 /* CMResManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CMResManager.h; path = CMClass/CMResManager.h; sourceTree = "<group>"; };
+		CF370A001553BF790064A190 /* CMResManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CMResManager.m; path = CMClass/CMResManager.m; sourceTree = "<group>"; };
+		CF370A081553C4D70064A190 /* Image.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Image.bundle; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,6 +99,7 @@
 				CF3709EE1553B7790064A190 /* MainViewController.m */,
 				CF3709F01553B78E0064A190 /* DetailViewController.h */,
 				CF3709F11553B78E0064A190 /* DetailViewController.m */,
+				CF3709FD1553BF4F0064A190 /* CMCommon */,
 				CF3709D71553B71D0064A190 /* Supporting Files */,
 			);
 			path = CarManagement;
@@ -108,9 +112,18 @@
 				CF3709D91553B71D0064A190 /* InfoPlist.strings */,
 				CF3709DC1553B71D0064A190 /* main.m */,
 				CF3709DE1553B71D0064A190 /* CarManagement-Prefix.pch */,
-				CF3709F71553BAA10064A190 /* Image.bundle */,
+				CF370A081553C4D70064A190 /* Image.bundle */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		CF3709FD1553BF4F0064A190 /* CMCommon */ = {
+			isa = PBXGroup;
+			children = (
+				CF3709FF1553BF790064A190 /* CMResManager.h */,
+				CF370A001553BF790064A190 /* CMResManager.m */,
+			);
+			name = CMCommon;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -165,7 +178,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CF3709DB1553B71D0064A190 /* InfoPlist.strings in Resources */,
-				CF3709F81553BAA10064A190 /* Image.bundle in Resources */,
+				CF370A091553C4D70064A190 /* Image.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -182,6 +195,7 @@
 				CF3709EC1553B76C0064A190 /* SettingViewController.m in Sources */,
 				CF3709EF1553B7790064A190 /* MainViewController.m in Sources */,
 				CF3709F21553B78E0064A190 /* DetailViewController.m in Sources */,
+				CF370A011553BF790064A190 /* CMResManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -248,6 +262,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CarManagement/CarManagement-Prefix.pch";
 				INFOPLIST_FILE = "CarManagement/CarManagement-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -259,6 +274,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CarManagement/CarManagement-Prefix.pch";
 				INFOPLIST_FILE = "CarManagement/CarManagement-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -283,6 +299,7 @@
 				CF3709E61553B71D0064A190 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
