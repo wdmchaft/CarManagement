@@ -9,5 +9,12 @@
 #import <UIKit/UIKit.h>
 
 @interface MainViewController : UIViewController
+{
+    UITableView *_carInfoTView;
+    
+    UIButton *_refreshBtn;
+    
+    UITabBar *_tooBar;
+}
 
 @end

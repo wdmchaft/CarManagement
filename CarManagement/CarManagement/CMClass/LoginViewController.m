@@ -8,6 +8,7 @@
 
 #import "LoginViewController.h"
 #import "SettingViewController.h"
+#import "MainViewController.h"
 #import "CMResManager.h"
 #import "AppDelegate.h"
 //test
@@ -233,6 +234,7 @@
 //                NSData *loginMsgData = [loginMsg dataUsingEncoding:NSUTF8StringEncoding];
 //                [appdelegate.client writeData:loginMsgData withTimeout:-1 tag:0];
 //            }
+            NSLog(@"%@:%@",serverIpAddress,serverIpPort);
             NSError *error = nil;
             if ( ![self.socket connectToHost:serverIpAddress onPort:[serverIpPort intValue] error:&error] ) {
                 NSLog(@"error = %@",error.description);
@@ -339,6 +341,10 @@
 {
     [self.socket readDataWithTimeout:-1 tag:0];
     NSLog(@"didConnectToHost");
+    MainViewController *mainViewController = [[MainViewController alloc] init];
+    [self presentModalViewController:mainViewController animated:YES];
+    [mainViewController release];
+    
 }
 
 - (void)onSocket:(AsyncSocket *)sock willDisconnectWithError:(NSError *)err 
@@ -353,9 +359,17 @@
 
 - (void)onSocket:(AsyncSocket *)sock didReadData:(NSData *)data withTag:(long)tag
 {
+    NSLog(@"recvData = %@",data);
+    
+    NSStringEncoding enc = CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingGB_18030_2000);
+    NSString *recvMsg1 = [[NSString alloc] initWithData:data encoding:enc];
+   
     NSString *recvMsg = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
     NSLog(@"recvMsg = %@",recvMsg);
+    NSLog(@"recvMsg1 = %@",recvMsg1);
+    
     [recvMsg release];
+    [recvMsg1 release];
 }
 
 /**链接服务器
@@ -364,3 +378,4 @@
 
 
 @end
+//218.85.134.124:1439 
