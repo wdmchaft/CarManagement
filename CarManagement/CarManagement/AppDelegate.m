@@ -77,4 +77,23 @@
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
+- (void)pushViewController:(UIViewController *)viewController animated:(BOOL)animated
+{
+    if ( viewController ) {
+        [self.rootViewController pushViewController:viewController animated:YES];
+    }
+}
+
+- (void)popViewController:(BOOL)animated
+{
+    [self.rootViewController popViewControllerAnimated:animated];
+}
+
+- (void)presentModleViewController:(UIViewController *)viewController animated:(BOOL)animated
+{
+    if ( viewController ) {
+        [self presentModleViewController:viewController animated:YES];
+    }
+}
+
 @end

@@ -20,6 +20,8 @@
     
     UIButton *_loginBtn;
     
+    UIButton *_settingBtn;
+    
     UITextView *_reserveTView;
 }
 
@@ -28,5 +30,6 @@
 @property (nonatomic,retain) UITextField *userAccountField;
 @property (nonatomic,retain) UITextField *userPasswordField;
 @property (nonatomic,retain) UIButton *loginBtn;
+@property (nonatomic,retain) UIButton *settingBtn;
 @property (nonatomic,retain) UITextView *reserveTView;
 @end

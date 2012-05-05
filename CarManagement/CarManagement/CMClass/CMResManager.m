@@ -85,4 +85,30 @@ static CMResManager *_instance = nil;
     UIImage *image = [[CMResManager getInstance] imageForKey:key];
     return [image stretchableImageWithLeftCapWidth:image.size.width/2 topCapHeight:image.size.height/2];
 }
+
++ (id) allocWithZone:(NSZone*) zone {
+	@synchronized(self) { 
+		if (_instance == nil) {
+			_instance = [super allocWithZone:zone];  // assignment and return on first allocation
+			return _instance;
+		}
+	}
+	return nil;
+}
+
+- (id) copyWithZone:(NSZone*) zone {
+	return _instance;
+}
+
+- (id) retain {
+	return _instance;
+}
+
+- (unsigned) retainCount {
+	return UINT_MAX;  //denotes an object that cannot be released
+}
+
+- (id) autorelease {
+	return self;
+}
 @end

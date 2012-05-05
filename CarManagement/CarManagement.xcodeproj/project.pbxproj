@@ -23,6 +23,7 @@
 		CF9AFC56155433BF00953818 /* CMConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = CF9AFC55155433BF00953818 /* CMConfig.m */; };
 		CF9AFC591554386400953818 /* CMUser.m in Sources */ = {isa = PBXBuildFile; fileRef = CF9AFC581554386400953818 /* CMUser.m */; };
 		CF9AFC5C1554482300953818 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF9AFC5B1554482300953818 /* CFNetwork.framework */; };
+		CFCF1D401554D4BE00C1B1E3 /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = CFCF1D3F1554D4BE00C1B1E3 /* icon.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -55,6 +56,7 @@
 		CF9AFC581554386400953818 /* CMUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CMUser.m; path = CMClass/CMUser.m; sourceTree = "<group>"; };
 		CF9AFC5A15543BF800953818 /* GlobalMacros.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = GlobalMacros.h; path = CMClass/GlobalMacros.h; sourceTree = "<group>"; };
 		CF9AFC5B1554482300953818 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		CFCF1D3F1554D4BE00C1B1E3 /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -122,6 +124,7 @@
 		CF3709D71553B71D0064A190 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				CFCF1D3F1554D4BE00C1B1E3 /* icon.png */,
 				CF3709D81553B71D0064A190 /* CarManagement-Info.plist */,
 				CF3709D91553B71D0064A190 /* InfoPlist.strings */,
 				CF3709DC1553B71D0064A190 /* main.m */,
@@ -200,6 +203,7 @@
 			files = (
 				CF3709DB1553B71D0064A190 /* InfoPlist.strings in Resources */,
 				CF370A091553C4D70064A190 /* Image.bundle in Resources */,
+				CFCF1D401554D4BE00C1B1E3 /* icon.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

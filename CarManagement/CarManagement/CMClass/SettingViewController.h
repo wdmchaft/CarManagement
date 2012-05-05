@@ -8,6 +8,24 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SettingViewController : UIViewController
+@interface SettingViewController : UIViewController<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate>
+{
+    UITableView *_settingTView;
+    
+    NSDictionary *_settingsDic;
+    
+    NSArray *_settingKeys;
+    
+    UITextField *_serverIpAddressField;
+    
+    UITextField *_serverIpPortField;
+}
+
+@property (nonatomic,retain) UITableView *settingTView;
+@property (nonatomic,retain) NSDictionary *settingsDic;
+@property (nonatomic,retain) NSArray *settingKeys;
+@property (nonatomic,retain) UITextField *serverIpAddressField;
+@property (nonatomic,retain) UITextField *serverIpPortField;
+
 
 @end

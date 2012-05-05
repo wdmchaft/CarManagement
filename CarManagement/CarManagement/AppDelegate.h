@@ -20,4 +20,9 @@
 @property (nonatomic,retain) UINavigationController *rootViewController;
 @property (nonatomic,retain) AsyncSocket *client;
 
+- (void)pushViewController:(UIViewController *)viewController animate:(BOOL)animate;
+
+- (void)popViewController:(BOOL)animated;
+
+- (void)presentModleViewController:(UIViewController *)viewController animated:(BOOL)animated;
 @end

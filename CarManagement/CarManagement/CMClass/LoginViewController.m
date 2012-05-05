@@ -7,10 +7,14 @@
 //
 
 #import "LoginViewController.h"
+#import "SettingViewController.h"
 #import "CMResManager.h"
+#import "AppDelegate.h"
 
 #define kAlertLoginMsgLoss              2000
 #define kAlertServerMsgLoss             2001
+#define kLoginInputViewTopY             130
+#define kLoginInputViewBottomY          220
 
 @interface LoginViewController ()
 
@@ -22,6 +26,7 @@
 @synthesize userAccountField = _userAccountField;
 @synthesize userPasswordField = _userPasswordField;
 @synthesize loginBtn = _loginBtn;
+@synthesize settingBtn = _settingBtn;
 @synthesize reserveTView = _reserveTView;
 
 - (void)dealloc
@@ -47,7 +52,7 @@
     
     //1.0 logoImage
     UIImage *image = [[CMResManager getInstance] imageForKey:@"logo"];
-    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(110, 40, 100, 80)];
+    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(110, 40, 90, 80)];
     [imageView setImage:image];
     self.logoImageView = imageView;
     [view addSubview:self.logoImageView];
@@ -58,13 +63,19 @@
     UIImage *loginBackgroundImg = [[CMResManager getInstance] imageForKey:@"input_background"];
     [loginInputView setBackgroundColor:[UIColor colorWithPatternImage:loginBackgroundImg]];
     
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     //2.1账号输入框
     UITextField *userAccountField = [[UITextField alloc] initWithFrame:CGRectMake(48, 5, 201, 40)];
     userAccountField.backgroundColor = [UIColor clearColor];
+    userAccountField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
+    userAccountField.placeholder = @"账号";
+    userAccountField.text = [defaults objectForKey:kLastUserAccount];
     userAccountField.autocorrectionType = UITextAutocorrectionTypeNo;
     userAccountField.autocapitalizationType = UITextAutocapitalizationTypeNone;
     userAccountField.keyboardType = UIKeyboardTypeASCIICapable;
     userAccountField.textAlignment = UITextAlignmentLeft;
+    userAccountField.clearButtonMode = UITextFieldViewModeWhileEditing;
+    userAccountField.returnKeyType = UIReturnKeyDone;
     self.userAccountField = userAccountField;
     self.userAccountField.delegate = self;
     [loginInputView addSubview:self.userAccountField];
@@ -73,10 +84,16 @@
     //2.2密码输入框
     UITextField *userPasswordField = [[UITextField alloc] initWithFrame:CGRectMake(48,45, 201, 40)];
     userPasswordField.backgroundColor = [UIColor clearColor];
+    userPasswordField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
+    userPasswordField.placeholder = @"密码";
+    userPasswordField.text = [defaults objectForKey:kLastUserPassword];
     userPasswordField.autocorrectionType = UITextAutocorrectionTypeNo;
     userPasswordField.autocapitalizationType = UITextAutocapitalizationTypeNone;
     userPasswordField.keyboardType = UIKeyboardTypeASCIICapable;
     userPasswordField.textAlignment = UITextAlignmentLeft;
+    userPasswordField.clearButtonMode = UITextFieldViewModeWhileEditing;
+    userPasswordField.secureTextEntry = YES;
+    userPasswordField.returnKeyType = UIReturnKeyGo;
     self.userPasswordField = userPasswordField;
     self.userPasswordField.delegate = self;
     [loginInputView addSubview:self.userPasswordField];
@@ -89,8 +106,8 @@
     //3.0登陆button
     UIButton *loginBtn = [[UIButton buttonWithType:UIButtonTypeRoundedRect] retain];
     loginBtn.frame = CGRectMake(30, 230, 260, 40);
-    UIImage *loginBtnImg = [CMResManager middleStretchableImageWithKey:@"btn_blue"];
-    [loginBtn setImage:loginBtnImg forState:UIControlStateNormal];
+    //UIImage *loginBtnImg = [CMResManager middleStretchableImageWithKey:@"btn_blue"];
+    //[loginBtn setImage:loginBtnImg forState:UIControlStateNormal];
     [loginBtn setTitle:@"登陆" forState:UIControlStateNormal];
     [loginBtn addTarget:self action:@selector(loginAction) forControlEvents:UIControlEventTouchUpInside];
     self.loginBtn = loginBtn;
@@ -170,7 +187,60 @@
         title = kAlertTitleDefault;
     }
     UIAlertView *tip = [[UIAlertView alloc] initWithTitle:title message:message delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil];
+    tip.tag = alertTag;
     [tip show];
     [tip release];
 }
+
+/**alertView按钮点击事件处理
+ *@param alertView:当前alertView buttonIndex:点击第几个按钮
+ **/
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    NSLog(@"alert Enter in LoginViewController");
+    switch ( alertView.tag ) {
+        case kAlertLoginMsgLoss:
+        {
+        
+        }break;
+        case kAlertServerMsgLoss:
+        {
+            SettingViewController *settingViewController = [[SettingViewController alloc] init];
+            AppDelegate *appdelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+            [appdelegate pushViewController:settingViewController animate:YES];
+            NSLog(@"kAlertServerMsgLoss");
+            
+        }break;
+        default:NSLog(@"setp over~ alertView.tag = %d",alertView.tag);
+            break;
+    }
+}
+
+/**触摸事件
+ *@param nil
+ *return nil*/
+- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    UITouch *touch = [touches anyObject];
+    CGPoint point = [touch locationInView:self.view];
+    if ( point.y > kLoginInputViewTopY && point.y < kLoginInputViewTopY + 45 ) {
+        [self.userAccountField becomeFirstResponder];
+    }
+    else if ( point.y > kLoginInputViewTopY + 45 && point.y < kLoginInputViewBottomY ) {
+        [self.userPasswordField becomeFirstResponder];
+    }
+    else {
+        [self.userAccountField resignFirstResponder];
+        [self.userPasswordField resignFirstResponder];
+    }
+}
+
+#pragma textField
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    [textField resignFirstResponder];
+    
+    return YES;
+}
+ 
 @end
