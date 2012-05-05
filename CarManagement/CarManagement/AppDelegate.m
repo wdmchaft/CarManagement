@@ -9,6 +9,7 @@
 #import "AppDelegate.h"
 #import "LoginViewController.h"
 #import "MainViewController.h"
+#import "CMResManager.h"
 #import "CMUser.h"
 
 @implementation AppDelegate
@@ -27,6 +28,10 @@
 {
     self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
     // Override point for customization after application launch.
+    AsyncSocket *client = [[AsyncSocket alloc] initWithDelegate:self];
+    self.client = client;
+    [client release];
+    
     UIViewController *firstViewController = nil;
     
     CMUser *user = [CMUser getInstance];
@@ -40,7 +45,9 @@
     }
     
     UINavigationController *rootViewController = [[UINavigationController alloc] initWithRootViewController:firstViewController];
+    [rootViewController.navigationBar setBackgroundColor:[UIColor colorWithPatternImage:[CMResManager middleStretchableImageWithKey:@"navigationbar_background"]]];
     self.rootViewController = rootViewController;
+    [self.rootViewController setNavigationBarHidden:YES];
     self.window.rootViewController = self.rootViewController;
     [firstViewController release];
     [rootViewController release];
@@ -77,13 +84,20 @@
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
-- (void)pushViewController:(UIViewController *)viewController animated:(BOOL)animated
+#pragma viewController stack
+/**push一个viweController到root
+ *@param viewController:push的viewcontroller animate:动画
+ *return nil*/
+- (void)pushViewController:(UIViewController *)viewController animate:(BOOL)animated
 {
     if ( viewController ) {
         [self.rootViewController pushViewController:viewController animated:YES];
     }
 }
 
+/**pop顶层viweController
+ *@param animate:动画
+ *return nil*/
 - (void)popViewController:(BOOL)animated
 {
     [self.rootViewController popViewControllerAnimated:animated];
@@ -96,4 +110,9 @@
     }
 }
 
+#pragma AsyncSocket
+- (void)onSocket:(AsyncSocket *)sock didConnectToHost:(NSString *)host port:(UInt16)port
+{
+    
+}
 @end

@@ -19,4 +19,5 @@
 #define kContentWithoutBarWidth     320.0
 #define kContentWithoutBarHight     420.0
 #define kAlertTitleDefault          @"胖总管提醒您"
+#define kCMNavigationBarHight       44
 #endif

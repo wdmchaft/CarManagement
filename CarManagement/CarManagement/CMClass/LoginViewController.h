@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "AsyncSocket.h"
 
 @interface LoginViewController : UIViewController<UITextFieldDelegate,UIAlertViewDelegate>
 {
@@ -23,6 +24,11 @@
     UIButton *_settingBtn;
     
     UITextView *_reserveTView;
+    
+    UIView *_logionIndicatorView;
+    
+    AsyncSocket *_socket;
+    
 }
 
 @property (nonatomic,retain) UIImageView *logoImageView;
@@ -32,4 +38,8 @@
 @property (nonatomic,retain) UIButton *loginBtn;
 @property (nonatomic,retain) UIButton *settingBtn;
 @property (nonatomic,retain) UITextView *reserveTView;
+@property (nonatomic,retain) UIView *loginIndicatorView;
+@property (nonatomic,retain) AsyncSocket *socket;
+
+- (int)connectServer:(NSString *)hostIp port:(int)hostPort;
 @end

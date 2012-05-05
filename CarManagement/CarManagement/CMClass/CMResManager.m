@@ -83,6 +83,8 @@ static CMResManager *_instance = nil;
 + (UIImage*)middleStretchableImageWithKey:(NSString*)key 
 {
     UIImage *image = [[CMResManager getInstance] imageForKey:key];
+    NSLog(@"image.width = %f,image.hight = %f",image.size.width,image.size.height);
+    
     return [image stretchableImageWithLeftCapWidth:image.size.width/2 topCapHeight:image.size.height/2];
 }
 

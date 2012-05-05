@@ -20,9 +20,16 @@
 @property (nonatomic,retain) UINavigationController *rootViewController;
 @property (nonatomic,retain) AsyncSocket *client;
 
-- (void)pushViewController:(UIViewController *)viewController animate:(BOOL)animate;
+/**push一个viweController到root
+ *@param viewController:push的viewcontroller animate:动画
+ *return nil*/
+- (void)pushViewController:(UIViewController *)viewController animate:(BOOL)animated;
 
+/**pop顶层viweController
+ *@param animate:动画
+ *return nil*/
 - (void)popViewController:(BOOL)animated;
 
 - (void)presentModleViewController:(UIViewController *)viewController animated:(BOOL)animated;
+ 
 @end

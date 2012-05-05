@@ -7,6 +7,7 @@
 //
 
 #import "SettingViewController.h"
+#import "CMResManager.h"
 
 #define kServerSettingKey             @"服务器配置"
 #define kSetServerIpAddress           @"ip地址"
@@ -42,12 +43,14 @@
     //0.0self.view
     UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kFullScreenWidth, kFullScreenWidth)];
     view.backgroundColor = [UIColor whiteColor];
-    
+    self.navigationController.navigationBarHidden = NO;
+    self.title = @"设置";
+    //[self.navigationController.navigationBar setBackgroundImage:[CMResManager middleStretchableImageWithKey:@"navigationbar_background"] forBarMetrics:UIBarMetricsDefault];
     //1.0tableview
     UITableView *settingTView = [[UITableView alloc] initWithFrame:[[UIScreen mainScreen] bounds] style:UITableViewStyleGrouped];
     settingTView.backgroundColor = [UIColor whiteColor];
     settingTView.sectionHeaderHeight = 20;
-    settingTView.sectionFooterHeight = 10;
+    settingTView.sectionFooterHeight = 2;
     self.settingTView = settingTView;
     self.settingTView.delegate = self;
     self.settingTView.dataSource = self;
@@ -81,6 +84,13 @@
     // Release any retained subviews of the main view.
 }
 
+- (void)viewWillDisappear:(BOOL)animated
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setObject:self.serverIpAddressField.text forKey:kLastServerIpAddress];
+    [defaults setObject:self.serverIpPortField.text forKey:kLastServerIpPort];
+}
+
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
@@ -102,12 +112,15 @@
     
     if ( [settingName isEqualToString:kSetServerIpAddress] ) {
         if ( !self.serverIpAddressField ) {
-            UITextField *serverIpAddressField = [[UITextField alloc] initWithFrame:CGRectMake(60, 0, 200, kSettingTableCellHight)];
+            UITextField *serverIpAddressField = [[UITextField alloc] initWithFrame:CGRectMake(40, 5, 200, kSettingTableCellHight)];
             serverIpAddressField.placeholder = kSetServerIpAddress;
             serverIpAddressField.text = [defaults objectForKey:kLastServerIpAddress];
-            serverIpAddressField.keyboardType = UIKeyboardTypeASCIICapable;
+            serverIpAddressField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
+            serverIpAddressField.keyboardType = UIKeyboardTypeDecimalPad;
             serverIpAddressField.clearButtonMode  = UITextFieldViewModeWhileEditing;
             serverIpAddressField.returnKeyType = UIReturnKeyDone;
+            serverIpAddressField.autocapitalizationType = UITextAutocapitalizationTypeNone;
+            serverIpAddressField.autocorrectionType = UITextAutocorrectionTypeNo;
             self.serverIpAddressField = serverIpAddressField;
             self.serverIpAddressField.delegate = self;
             [serverIpAddressField release];
@@ -118,12 +131,15 @@
     }
     else if ( [settingName isEqualToString:kSetServerIpPort] ) {
         if ( !self.serverIpPortField ) {
-            UITextField *serverIpPortField = [[UITextField alloc] initWithFrame:CGRectMake(60, 0, 200, kSettingTableCellHight)];
+            UITextField *serverIpPortField = [[UITextField alloc] initWithFrame:CGRectMake(40, 5, 200, kSettingTableCellHight)];
             serverIpPortField.placeholder = kSetServerIpPort;
             serverIpPortField.text = [defaults objectForKey:kLastServerIpPort];
+            serverIpPortField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
             serverIpPortField.keyboardType = UIKeyboardTypeASCIICapable;
             serverIpPortField.clearButtonMode  = UITextFieldViewModeWhileEditing;
             serverIpPortField.returnKeyType = UIReturnKeyDone;
+            serverIpPortField.autocapitalizationType = UITextAutocapitalizationTypeNone;
+            serverIpPortField.autocorrectionType = UITextAutocorrectionTypeNo;
             self.serverIpPortField = serverIpPortField;
             self.serverIpPortField.delegate = self;
             [serverIpPortField release];
@@ -161,6 +177,11 @@
     return key;
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [tableView deselectRowAtIndexPath:[tableView indexPathForSelectedRow] animated:YES];
+}
+
 #pragma textField
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
@@ -168,4 +189,17 @@
        
     return YES;
 }
+
+//- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
+//{
+//    UITouch *touch = [touches anyObject];
+//    CGPoint point = [touch locationInView:self.settingTView];
+//    NSLog(@"touchesEnded");
+//    
+//    if ( point.y < CGRectGetMinY(self.serverIpAddressField.frame) || point.y > CGRectGetMaxY(self.serverIpPortField.frame) ) {
+//        [self.serverIpAddressField resignFirstResponder];
+//        [self.serverIpPortField resignFirstResponder];
+//        NSLog(@"touchesEnded if");
+//    }
+//}
 @end

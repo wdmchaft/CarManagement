@@ -10,6 +10,8 @@
 #import "SettingViewController.h"
 #import "CMResManager.h"
 #import "AppDelegate.h"
+//test
+#import "CMBaseViewController.h"
 
 #define kAlertLoginMsgLoss              2000
 #define kAlertServerMsgLoss             2001
@@ -23,19 +25,23 @@
 @implementation LoginViewController
 @synthesize logoImageView = _logoImageView;
 @synthesize loginInputView = _loginInPutView;
+@synthesize loginIndicatorView = _loginIndicatorView;
 @synthesize userAccountField = _userAccountField;
 @synthesize userPasswordField = _userPasswordField;
 @synthesize loginBtn = _loginBtn;
 @synthesize settingBtn = _settingBtn;
 @synthesize reserveTView = _reserveTView;
+@synthesize socket = _socket;
 
 - (void)dealloc
 {
     [_logoImageView release];
     [_loginInPutView release];
+    [_loginIndicatorView release];
     [_userAccountField release];
     [_userPasswordField release];
     [_loginBtn release];
+    [_settingBtn release];
     [_reserveTView release];
     
     [super dealloc];
@@ -48,12 +54,13 @@
     //0.0 self.view
     UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kFullScreenWidth, kFullScreenHight)];
     view.backgroundColor = [UIColor whiteColor];
-    self.navigationController.navigationBarHidden =  YES;
+    //self.navigationController.navigationBarHidden =  YES;
     
     //1.0 logoImage
     UIImage *image = [[CMResManager getInstance] imageForKey:@"logo"];
     UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(110, 40, 90, 80)];
     [imageView setImage:image];
+    imageView.userInteractionEnabled = YES;
     self.logoImageView = imageView;
     [view addSubview:self.logoImageView];
     [imageView release];
@@ -103,18 +110,46 @@
     [view addSubview:self.loginInputView];
     [loginInputView release];
     
-    //3.0登陆button
-    UIButton *loginBtn = [[UIButton buttonWithType:UIButtonTypeRoundedRect] retain];
+    //3.0设置按钮
+    UIButton *settingBtn = [[UIButton buttonWithType:UIButtonTypeInfoDark] retain];
+    settingBtn.frame = CGRectMake(250, 40, 40, 40);
+    settingBtn.backgroundColor = [UIColor clearColor];
+    [settingBtn addTarget:self action:@selector(settingAction) forControlEvents:UIControlEventTouchUpInside];
+    self.settingBtn = settingBtn;
+    [view addSubview:self.settingBtn];
+    
+    //4.0登陆button
+    UIButton *loginBtn = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
     loginBtn.frame = CGRectMake(30, 230, 260, 40);
-    //UIImage *loginBtnImg = [CMResManager middleStretchableImageWithKey:@"btn_blue"];
-    //[loginBtn setImage:loginBtnImg forState:UIControlStateNormal];
+    
+    UIImage *loginBtnImg = [CMResManager middleStretchableImageWithKey:@"btn_blue"];
+    [loginBtn setBackgroundImage:loginBtnImg forState:UIControlStateNormal];
     [loginBtn setTitle:@"登陆" forState:UIControlStateNormal];
     [loginBtn addTarget:self action:@selector(loginAction) forControlEvents:UIControlEventTouchUpInside];
     self.loginBtn = loginBtn;
     [view addSubview:self.loginBtn];
     [loginBtn release];
     
-    //4.0版权说明                                                                         
+    //5.0登陆进度指示
+    UIView *loginIndicatorView = [[UIView alloc] initWithFrame:CGRectMake(30, 230, 260, 40)];
+    loginIndicatorView.backgroundColor = [UIColor clearColor];
+    UIActivityIndicatorView *indicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    indicator.frame = CGRectMake(70, 5, 30, 30);
+    //indicator.backgroundColor = [UIColor clearColor];
+    [indicator startAnimating];
+    UILabel *msgLabel = [[UILabel alloc] initWithFrame:CGRectMake(100, 5, 100, 30)];
+    msgLabel.backgroundColor = [UIColor clearColor];
+    msgLabel.text = @"正在登陆...";
+    [loginIndicatorView addSubview:indicator];
+    [loginIndicatorView addSubview:msgLabel];
+    [indicator release];
+    [msgLabel release];
+    self.loginIndicatorView = loginIndicatorView;
+    self.loginIndicatorView.hidden = YES;
+    [view addSubview:self.loginIndicatorView];
+    [loginIndicatorView release];
+    
+    //6.0版权说明                                                                         
     UITextView *reserveTView = [[UITextView alloc] initWithFrame:CGRectMake(20, 400, 280, 60)];
     reserveTView.textAlignment = UITextAlignmentCenter;
     [reserveTView setText:@"Copyright 2012-2014©gpssos \nAll rights reserved."];
@@ -131,12 +166,25 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
+    AsyncSocket *socket = [[AsyncSocket alloc] initWithDelegate:self];
+    self.socket = socket;
+    [socket release];
 }
 
 - (void)viewDidUnload
 {
     [super viewDidUnload];
     // Release any retained subviews of the main view.
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [self.navigationController setNavigationBarHidden:YES];
+    self.userAccountField.enabled = YES;
+    self.userPasswordField.enabled = YES;
+    if ( !self.userAccountField ) {
+        [self.userAccountField becomeFirstResponder];
+    }
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -150,8 +198,9 @@
  *return nil*/
 - (void)loginAction
 {
-    self.userAccountField.enabled  = FALSE;
-    self.userPasswordField.enabled = FALSE;
+    self.userAccountField.enabled  = NO;
+    self.userPasswordField.enabled = NO;
+    self.settingBtn.enabled = NO;
     [self.userPasswordField resignFirstResponder];
     [self.userPasswordField resignFirstResponder];
     
@@ -174,8 +223,52 @@
         }
         else {
             //登陆
+//            AppDelegate *appdelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+//            appdelegate.client.delegate = self;
+//            NSError *error;
+//            BOOL isConnected = [appdelegate.client connectToHost:serverIpAddress onPort:[serverIpPort intValue] withTimeout:5 error:&error];
+//            if ( isConnected ) {////$187:super:181125:10
+//                NSString *loginMsg = [NSString stringWithFormat:@"$187:%@:%@:11",user,pwd];
+//                NSLog(@"loginMsg = %@",loginMsg);
+//                NSData *loginMsgData = [loginMsg dataUsingEncoding:NSUTF8StringEncoding];
+//                [appdelegate.client writeData:loginMsgData withTimeout:-1 tag:0];
+//            }
+            NSError *error = nil;
+            if ( ![self.socket connectToHost:serverIpAddress onPort:[serverIpPort intValue] error:&error] ) {
+                NSLog(@"error = %@",error.description);
+            }
+            else {
+                [self loginAnimated]; 
+                NSString *loginMsg = [NSString stringWithFormat:@"$187:%@:%@:11",user,pwd];
+                NSLog(@"loginMsg = %@",loginMsg);
+                NSData *loginMsgData = [loginMsg dataUsingEncoding:NSUTF8StringEncoding];
+                [self.socket writeData:loginMsgData withTimeout:-1 tag:0];
+            }
         }
     }
+}
+
+/**设置
+ *@param nil
+ *return nil*/
+- (void)settingAction
+{
+    AppDelegate *appdelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+    SettingViewController *settingViewController = [[SettingViewController alloc] init];
+    [appdelegate pushViewController:settingViewController animate:YES];
+    [settingViewController release];
+}
+
+/**登陆动画
+ *@param nil
+ *return nil*/
+- (void)loginAnimated
+{
+    [UIView beginAnimations:nil context:nil];
+    [UIView setAnimationDuration:0.5];
+    [self.loginBtn setAlpha:0.0];
+    [self.loginIndicatorView setHidden:NO];
+    [UIView commitAnimations];
 }
 
 /**提醒
@@ -205,9 +298,7 @@
         }break;
         case kAlertServerMsgLoss:
         {
-            SettingViewController *settingViewController = [[SettingViewController alloc] init];
-            AppDelegate *appdelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
-            [appdelegate pushViewController:settingViewController animate:YES];
+            [self settingAction];
             NSLog(@"kAlertServerMsgLoss");
             
         }break;
@@ -237,10 +328,39 @@
 
 #pragma textField
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
-{
+{    
     [textField resignFirstResponder];
     
     return YES;
 }
- 
+
+#pragma AsyncSocket
+- (void)onSocket:(AsyncSocket *)sock didConnectToHost:(NSString *)host port:(UInt16)port
+{
+    [self.socket readDataWithTimeout:-1 tag:0];
+    NSLog(@"didConnectToHost");
+}
+
+- (void)onSocket:(AsyncSocket *)sock willDisconnectWithError:(NSError *)err 
+{
+    NSLog(@"Error");
+}
+
+- (void)onSocketDidDisconnect:(AsyncSocket *)sock
+{
+    NSLog(@"Sorry this connect is failure");
+}
+
+- (void)onSocket:(AsyncSocket *)sock didReadData:(NSData *)data withTag:(long)tag
+{
+    NSString *recvMsg = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+    NSLog(@"recvMsg = %@",recvMsg);
+    [recvMsg release];
+}
+
+/**链接服务器
+ *@param hostIp:服务器ip hostPort:服务器端口
+ **/
+
+
 @end

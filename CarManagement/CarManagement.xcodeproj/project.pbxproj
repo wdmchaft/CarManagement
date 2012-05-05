@@ -24,6 +24,9 @@
 		CF9AFC591554386400953818 /* CMUser.m in Sources */ = {isa = PBXBuildFile; fileRef = CF9AFC581554386400953818 /* CMUser.m */; };
 		CF9AFC5C1554482300953818 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF9AFC5B1554482300953818 /* CFNetwork.framework */; };
 		CFCF1D401554D4BE00C1B1E3 /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = CFCF1D3F1554D4BE00C1B1E3 /* icon.png */; };
+		CFCF1D4A1555056800C1B1E3 /* CMNavigationBar.m in Sources */ = {isa = PBXBuildFile; fileRef = CFCF1D491555056800C1B1E3 /* CMNavigationBar.m */; };
+		CFCF1D50155505B100C1B1E3 /* CMNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = CFCF1D4F155505B100C1B1E3 /* CMNavigationController.m */; };
+		CFCF1D531555245100C1B1E3 /* CMBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CFCF1D521555245100C1B1E3 /* CMBaseViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -57,6 +60,12 @@
 		CF9AFC5A15543BF800953818 /* GlobalMacros.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = GlobalMacros.h; path = CMClass/GlobalMacros.h; sourceTree = "<group>"; };
 		CF9AFC5B1554482300953818 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		CFCF1D3F1554D4BE00C1B1E3 /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
+		CFCF1D481555056800C1B1E3 /* CMNavigationBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CMNavigationBar.h; path = CMClass/CMNavigationBar.h; sourceTree = "<group>"; };
+		CFCF1D491555056800C1B1E3 /* CMNavigationBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CMNavigationBar.m; path = CMClass/CMNavigationBar.m; sourceTree = "<group>"; };
+		CFCF1D4E155505B100C1B1E3 /* CMNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CMNavigationController.h; path = CMClass/CMNavigationController.h; sourceTree = "<group>"; };
+		CFCF1D4F155505B100C1B1E3 /* CMNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CMNavigationController.m; path = CMClass/CMNavigationController.m; sourceTree = "<group>"; };
+		CFCF1D511555245100C1B1E3 /* CMBaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CMBaseViewController.h; path = CMClass/CMBaseViewController.h; sourceTree = "<group>"; };
+		CFCF1D521555245100C1B1E3 /* CMBaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CMBaseViewController.m; path = CMClass/CMBaseViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -115,6 +124,7 @@
 				CF3709EE1553B7790064A190 /* MainViewController.m */,
 				CF3709F01553B78E0064A190 /* DetailViewController.h */,
 				CF3709F11553B78E0064A190 /* DetailViewController.m */,
+				CFCF1D461555054100C1B1E3 /* Navigation */,
 				CF3709FD1553BF4F0064A190 /* CMCommon */,
 				CF3709D71553B71D0064A190 /* Supporting Files */,
 			);
@@ -148,6 +158,19 @@
 				CF9AFC5A15543BF800953818 /* GlobalMacros.h */,
 			);
 			name = CMCommon;
+			sourceTree = "<group>";
+		};
+		CFCF1D461555054100C1B1E3 /* Navigation */ = {
+			isa = PBXGroup;
+			children = (
+				CFCF1D481555056800C1B1E3 /* CMNavigationBar.h */,
+				CFCF1D491555056800C1B1E3 /* CMNavigationBar.m */,
+				CFCF1D4E155505B100C1B1E3 /* CMNavigationController.h */,
+				CFCF1D4F155505B100C1B1E3 /* CMNavigationController.m */,
+				CFCF1D511555245100C1B1E3 /* CMBaseViewController.h */,
+				CFCF1D521555245100C1B1E3 /* CMBaseViewController.m */,
+			);
+			name = Navigation;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -224,6 +247,9 @@
 				CF9AFC4E1554326200953818 /* AsyncSocket.m in Sources */,
 				CF9AFC56155433BF00953818 /* CMConfig.m in Sources */,
 				CF9AFC591554386400953818 /* CMUser.m in Sources */,
+				CFCF1D4A1555056800C1B1E3 /* CMNavigationBar.m in Sources */,
+				CFCF1D50155505B100C1B1E3 /* CMNavigationController.m in Sources */,
+				CFCF1D531555245100C1B1E3 /* CMBaseViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
