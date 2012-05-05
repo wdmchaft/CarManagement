@@ -31,14 +31,19 @@
     
     CMUser *user = [CMUser getInstance];
     if ( [user checkLoginInfo] ) {
-        MainViewController *firstViewController = [[MainViewController alloc] init];    
+        NSLog(@"MainViewController");
+        firstViewController = [[MainViewController alloc] init];    
     }
     else {
-        LoginViewController *firstViewController = [[LoginViewController alloc] init];
+        firstViewController = [[LoginViewController alloc] init];
+        NSLog(@"LoginViewController");
     }
     
     UINavigationController *rootViewController = [[UINavigationController alloc] initWithRootViewController:firstViewController];
     self.rootViewController = rootViewController;
+    self.window.rootViewController = self.rootViewController;
+    [firstViewController release];
+    [rootViewController release];
     
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];

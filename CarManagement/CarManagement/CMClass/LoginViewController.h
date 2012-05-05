@@ -8,9 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-@interface LoginViewController : UIViewController
+@interface LoginViewController : UIViewController<UITextFieldDelegate,UIAlertViewDelegate>
 {
-    UIImageView *_logoImage;
+    UIImageView *_logoImageView;
     
     UIView *_loginInPutView;
     
@@ -23,7 +23,7 @@
     UITextView *_reserveTView;
 }
 
-@property (nonatomic,retain) UIImageView *logoImage;
+@property (nonatomic,retain) UIImageView *logoImageView;
 @property (nonatomic,retain) UIView *loginInputView;
 @property (nonatomic,retain) UITextField *userAccountField;
 @property (nonatomic,retain) UITextField *userPasswordField;

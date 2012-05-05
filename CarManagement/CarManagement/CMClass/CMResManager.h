@@ -17,6 +17,11 @@
 
 @property (nonatomic,retain) NSBundle *imageResourceBundle;
 
+/**获取实例
+ *@param nil
+ *return nil*/
++ (CMResManager *)getInstance;
+
 /**获取图片资源
  *@param key:图片名(不含后缀)
  *@return nil*/
@@ -26,5 +31,10 @@
  *@param name:图片名
  *@return nil*/
 - (UIImage *)imageForName:(NSString *)name;
+
+/**获取自适应拉伸image
+ *@param key:png图片名称
+ *return image:拉伸后的图片*/
++ (UIImage*)middleStretchableImageWithKey:(NSString*)key;
 @end
 

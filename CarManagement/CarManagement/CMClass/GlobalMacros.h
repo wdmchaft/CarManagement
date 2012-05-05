@@ -14,4 +14,9 @@
 #define kLastServerIpAddress        @"LastServerIpAddress"
 #define kLastServerIpPort           @"LastServerIpPort"
 #define kMainUserFileName           @"user"
+#define kFullScreenWidth            320.0
+#define kFullScreenHight            460.0
+#define kContentWithoutBarWidth     320.0
+#define kContentWithoutBarHight     420.0
+#define kAlertTitleDefault          @"胖总管提醒您"
 #endif

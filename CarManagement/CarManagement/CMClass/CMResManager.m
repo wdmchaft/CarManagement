@@ -77,4 +77,12 @@ static CMResManager *_instance = nil;
     return image;
 }
 
+/**获取自适应拉伸image
+ *@param key:png图片名称
+ *return image:拉伸后的图片*/
++ (UIImage*)middleStretchableImageWithKey:(NSString*)key 
+{
+    UIImage *image = [[CMResManager getInstance] imageForKey:key];
+    return [image stretchableImageWithLeftCapWidth:image.size.width/2 topCapHeight:image.size.height/2];
+}
 @end
