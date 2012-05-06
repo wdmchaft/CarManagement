@@ -28,7 +28,7 @@
 {
     self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
     // Override point for customization after application launch.
-    AsyncSocket *client = [[AsyncSocket alloc] initWithDelegate:self];
+    AsyncSocket *client = [[AsyncSocket alloc] init];
     self.client = client;
     [client release];
     
@@ -110,9 +110,4 @@
     }
 }
 
-#pragma AsyncSocket
-- (void)onSocket:(AsyncSocket *)sock didConnectToHost:(NSString *)host port:(UInt16)port
-{
-    
-}
 @end

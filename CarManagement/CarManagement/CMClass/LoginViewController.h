@@ -29,6 +29,8 @@
     
     AsyncSocket *_socket;
     
+    UINavigationController *_carInfoNavigationController;
+    
 }
 
 @property (nonatomic,retain) UIImageView *logoImageView;
@@ -40,6 +42,7 @@
 @property (nonatomic,retain) UITextView *reserveTView;
 @property (nonatomic,retain) UIView *loginIndicatorView;
 @property (nonatomic,retain) AsyncSocket *socket;
+@property (nonatomic,retain) UINavigationController *carInfoNavigationController;
 
 - (int)connectServer:(NSString *)hostIp port:(int)hostPort;
 @end

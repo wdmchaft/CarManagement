@@ -28,6 +28,7 @@ static CMConfig *_instance = nil;
     self = [super init];
     if ( self)  {
         self.loginParam = @"";
+        self.passwordWrongParam = @"0;3;1;0";
     }
     
     return self;

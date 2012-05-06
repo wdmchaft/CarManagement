@@ -12,9 +12,11 @@
 {
     NSString *_loginParam;
     
+    NSString *_passwordWrongParam;
 }
 
 @property (nonatomic,copy) NSString *loginParam;
+@property (nonatomic,copy) NSString *passwordWrongParam;
 //@property (nonatomic,copy) NSString *password;
 //@property (nonatomic,copy) NSString *serverIpAddress;
 //@property (nonatomic,copy) NSString *serverIpPort;

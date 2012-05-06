@@ -16,6 +16,7 @@
 
 #define kAlertLoginMsgLoss              2000
 #define kAlertServerMsgLoss             2001
+#define kAlertNetWorkUnusable           2002
 #define kLoginInputViewTopY             130
 #define kLoginInputViewBottomY          220
 
@@ -24,6 +25,7 @@
 @end
 
 @implementation LoginViewController
+@synthesize carInfoNavigationController = _carInfoNavigationController;
 @synthesize logoImageView = _logoImageView;
 @synthesize loginInputView = _loginInPutView;
 @synthesize loginIndicatorView = _loginIndicatorView;
@@ -37,6 +39,7 @@
 - (void)dealloc
 {
     [_logoImageView release];
+    [_carInfoNavigationController release];
     [_loginInPutView release];
     [_loginIndicatorView release];
     [_userAccountField release];
@@ -181,11 +184,8 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [self.navigationController setNavigationBarHidden:YES];
-    self.userAccountField.enabled = YES;
-    self.userPasswordField.enabled = YES;
-    if ( !self.userAccountField ) {
-        [self.userAccountField becomeFirstResponder];
-    }
+    [self loginPrepareAnimated];
+    [self.userAccountField becomeFirstResponder];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -236,15 +236,17 @@
 //            }
             NSLog(@"%@:%@",serverIpAddress,serverIpPort);
             NSError *error = nil;
-            if ( ![self.socket connectToHost:serverIpAddress onPort:[serverIpPort intValue] error:&error] ) {
+            AppDelegate *appdelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+            appdelegate.client.delegate = self;
+            if ( ![appdelegate.client connectToHost:serverIpAddress onPort:[serverIpPort intValue] error:&error] ) {
                 NSLog(@"error = %@",error.description);
             }
             else {
                 [self loginAnimated]; 
-                NSString *loginMsg = [NSString stringWithFormat:@"$187:%@:%@:11",user,pwd];
-                NSLog(@"loginMsg = %@",loginMsg);
-                NSData *loginMsgData = [loginMsg dataUsingEncoding:NSUTF8StringEncoding];
-                [self.socket writeData:loginMsgData withTimeout:-1 tag:0];
+                NSString *loginParam = [NSString createLoginParam:user password:pwd];
+                NSLog(@"loginMsg = %@",loginParam);
+                NSData *loginMsgData = [loginParam dataUsingEncoding:NSUTF8StringEncoding];
+                [appdelegate.client writeData:loginMsgData withTimeout:-1 tag:0];
             }
         }
     }
@@ -273,6 +275,21 @@
     [UIView commitAnimations];
 }
 
+/**登陆准备
+ *@param nil
+ *return nil*/
+- (void)loginPrepareAnimated
+{
+    [UIView beginAnimations:nil context:nil];
+    [UIView setAnimationDuration:0.2];
+    [self.loginBtn setAlpha:1.0];
+    [self.loginIndicatorView setHidden:YES];
+    self.userAccountField.enabled = YES;
+    self.userPasswordField.enabled = YES;
+    self.settingBtn.enabled = YES;
+    [UIView commitAnimations];
+}
+
 /**提醒
  *@param
  *return nil*/
@@ -296,13 +313,18 @@
     switch ( alertView.tag ) {
         case kAlertLoginMsgLoss:
         {
-        
+            [self loginPrepareAnimated];
+            [self.userPasswordField becomeFirstResponder];
         }break;
         case kAlertServerMsgLoss:
         {
             [self settingAction];
             NSLog(@"kAlertServerMsgLoss");
             
+        }break;
+        case kAlertNetWorkUnusable:
+        {
+            [self loginPrepareAnimated];
         }break;
         default:NSLog(@"setp over~ alertView.tag = %d",alertView.tag);
             break;
@@ -333,23 +355,32 @@
 {    
     [textField resignFirstResponder];
     
+    if ( textField == self.userPasswordField ) {
+        [self loginAction];
+    }
+    
     return YES;
 }
 
 #pragma AsyncSocket
 - (void)onSocket:(AsyncSocket *)sock didConnectToHost:(NSString *)host port:(UInt16)port
 {
-    [self.socket readDataWithTimeout:-1 tag:0];
+    AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+    [appDelegate.client readDataWithTimeout:-1 tag:0];
     NSLog(@"didConnectToHost");
-    MainViewController *mainViewController = [[MainViewController alloc] init];
-    [self presentModalViewController:mainViewController animated:YES];
-    [mainViewController release];
+//    MainViewController *mainViewController = [[MainViewController alloc] init];
+//    UINavigationController *carInfoNavigationController = [[UINavigationController alloc] initWithRootViewController:mainViewController];
+//    self.carInfoNavigationController = carInfoNavigationController;
+//    [self presentModalViewController:carInfoNavigationController animated:NO];
+//    [mainViewController release];
+//    [carInfoNavigationController release];
     
 }
 
 - (void)onSocket:(AsyncSocket *)sock willDisconnectWithError:(NSError *)err 
 {
     NSLog(@"Error");
+    [self showAlert:kAlertNetWorkUnusable title:nil message:@"当前网络不可用，请检查后重新登陆"];
 }
 
 - (void)onSocketDidDisconnect:(AsyncSocket *)sock
@@ -362,14 +393,14 @@
     NSLog(@"recvData = %@",data);
     
     NSStringEncoding enc = CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingGB_18030_2000);
-    NSString *recvMsg1 = [[NSString alloc] initWithData:data encoding:enc];
-   
-    NSString *recvMsg = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-    NSLog(@"recvMsg = %@",recvMsg);
-    NSLog(@"recvMsg1 = %@",recvMsg1);
+    NSString *recvMsg = [[NSString alloc] initWithData:data encoding:enc];
     
+    NSMutableArray *carInfoArrays = [NSString parseLoginRecv:recvMsg];
+    CMLoginREsultType loginResultType = [[carInfoArrays objectAtIndex:0] intValue];
+    
+
+    NSLog(@"%@",recvMsg);
     [recvMsg release];
-    [recvMsg1 release];
 }
 
 /**链接服务器

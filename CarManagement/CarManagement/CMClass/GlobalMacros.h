@@ -9,6 +9,21 @@
 #ifndef CarManagement_GlobalMacros_h
 #define CarManagement_GlobalMacros_h
 
+typedef enum
+{
+    CMCameraTypeFront = 1,
+    CMCameraTypeRear,
+}CMCameraType;
+
+typedef enum
+{
+    CMLoinResultTypeSuccess = 1,
+    CMLoinResultTypeAcountNotExist,
+    CMLoinResultTypePasswordWrong,
+    CMLoinResultTypeServerIpWrong,
+    CMLoinResultTypeServerPortWrong,
+}CMLoginREsultType;
+
 #define kLastUserAccount            @"LastUserAccount"
 #define kLastUserPassword           @"LastUserPassword"
 #define kLastServerIpAddress        @"LastServerIpAddress"
@@ -20,4 +35,13 @@
 #define kContentWithoutBarHight     420.0
 #define kAlertTitleDefault          @"胖总管提醒您"
 #define kCMNavigationBarHight       44
+//for detail
+#define kCarInfoItemTag             199
+#define kContactsItemTag            200
+#define kHistoryTrackItemTag        201
+#define kLocationMapItemTag         202
+#define kTackPhotoItemTag           203
+//关于car的key
+#define key                         k 
+
 #endif

@@ -8,6 +8,16 @@
 
 #import <UIKit/UIKit.h>
 
-@interface DetailViewController : UIViewController
+@interface DetailViewController : UIViewController<UITabBarDelegate>
+{
+    UITabBarItem *_CMTabBarItem;
+    
+    UITabBar *_toolBar;
+    
+    UITabBarController *_tabBarController;
+}
 
+@property (nonatomic,retain) UITabBarItem *CMTabBarItem;
+@property (nonatomic,retain) UITabBar *toolBar;
+@property (nonatomic,retain) UITabBarController *tabBarController;
 @end
