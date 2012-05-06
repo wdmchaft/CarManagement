@@ -17,6 +17,10 @@
 #define kAlertLoginMsgLoss              2000
 #define kAlertServerMsgLoss             2001
 #define kAlertNetWorkUnusable           2002
+#define kAlertAccountNotExist           2003
+#define kAlertPasswordWrong             2004
+#define kAlertServerIpWrong             2005
+#define kAlertServerPortWrong           2006
 #define kLoginInputViewTopY             130
 #define kLoginInputViewBottomY          220
 
@@ -326,6 +330,11 @@
         {
             [self loginPrepareAnimated];
         }break;
+        case kAlertPasswordWrong:
+        {
+            [self loginPrepareAnimated];
+            [self.userPasswordField becomeFirstResponder];
+        }break;
         default:NSLog(@"setp over~ alertView.tag = %d",alertView.tag);
             break;
     }
@@ -396,8 +405,37 @@
     NSString *recvMsg = [[NSString alloc] initWithData:data encoding:enc];
     
     NSMutableArray *carInfoArrays = [NSString parseLoginRecv:recvMsg];
+    NSLog(@"carInfoArrays = %@",carInfoArrays);
     CMLoginREsultType loginResultType = [[carInfoArrays objectAtIndex:0] intValue];
-    
+    switch ( loginResultType ) {
+        case CMLoinResultTypeAcountNotExist:
+        {
+        
+        }break;
+        case CMLoinResultTypePasswordWrong:
+        {
+            [self showAlert:kAlertPasswordWrong title:nil message:@"您输入的密码有误，请重新输入"];
+        }break;
+        case CMLoinResultTypeServerIpWrong:
+        {
+        
+        }break;
+        case CMLoinResultTypeServerPortWrong:
+        {
+        
+        }break;
+        case CMLoinResultTypeSuccess:
+        {
+            MainViewController *mainViewController = [[MainViewController alloc] initWithParam:carInfoArrays];
+            UINavigationController *carInfoNavigationController = [[UINavigationController alloc] initWithRootViewController:mainViewController];
+            self.carInfoNavigationController = carInfoNavigationController;
+            [self presentModalViewController:carInfoNavigationController animated:NO];
+            [mainViewController release];
+            [carInfoNavigationController release];
+        }break;
+        default:NSLog(@"Login error~ %d",loginResultType);
+            break;
+    }
 
     NSLog(@"%@",recvMsg);
     [recvMsg release];

@@ -22,11 +22,19 @@
 - (void)loadView
 {
     [super loadView];
-    //1.0 barItem
+    
+    //1.0 view
+    UIView *view = [[UIView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    view.backgroundColor = [UIColor blueColor];
+    
+    //2.0 barItem
     UITabBarItem *carInfoItem = [[UITabBarItem alloc] initWithTabBarSystemItem:UITabBarSystemItemFavorites tag:kCarInfoItemTag];
     carInfoItem.title = @"车辆信息";
     self.tabBarItem = carInfoItem;
     [carInfoItem release];
+    
+    self.view = view;
+    [view release];
 }
 
 - (void)viewDidLoad

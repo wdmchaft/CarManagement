@@ -102,15 +102,15 @@
         [param addObject:[NSString stringWithFormat:@"%d",CMLoinResultTypeSuccess]];
         
         NSArray *semicolonArray = [recv componentsSeparatedByString:@";"];
-        [param addObject:[semicolonArray objectAtIndex:1]];//第一个字段位公司名称
-        NSString *carsInfo = [semicolonArray objectAtIndex:2];
+        [param addObject:[semicolonArray objectAtIndex:4]];//第一个字段位公司名称
+        NSString *carsInfo = [semicolonArray objectAtIndex:5];
         NSArray *carInfoArray = [carsInfo componentsSeparatedByString:@","];
         for ( NSString *carInfos in carInfoArray ) {
             NSArray *carDetailInfo = [carInfos componentsSeparatedByString:@":"];
             [param addObject:carDetailInfo];
         }
     }
-    
+    NSLog(@"param = %@",param);
     return [param autorelease];
 }
 

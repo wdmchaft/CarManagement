@@ -14,10 +14,18 @@
     
     UITabBar *_toolBar;
     
+    NSString *_carID;
+    
     UITabBarController *_tabBarController;
 }
 
+@property (nonatomic,copy) NSString *carID;
 @property (nonatomic,retain) UITabBarItem *CMTabBarItem;
 @property (nonatomic,retain) UITabBar *toolBar;
 @property (nonatomic,retain) UITabBarController *tabBarController;
+
+/**初始化
+ *@param param:车辆ID
+ *return self*/
+- (id)initwithParam:(NSString *)param;
 @end

@@ -30,7 +30,6 @@
     AsyncSocket *_socket;
     
     UINavigationController *_carInfoNavigationController;
-    
 }
 
 @property (nonatomic,retain) UIImageView *logoImageView;

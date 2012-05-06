@@ -22,11 +22,19 @@
 - (void)loadView
 {
     [super loadView];
-    //1.0 barItem
+    
+    //1.0 view
+    UIView *view = [[UIView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    view.backgroundColor = [UIColor redColor];
+    
+    //2.0 barItem
     UITabBarItem *historyTrackItem = [[UITabBarItem alloc] initWithTabBarSystemItem:UITabBarSystemItemHistory tag:kCarInfoItemTag];
     historyTrackItem.title = @"历史轨迹";
     self.tabBarItem = historyTrackItem;
     [historyTrackItem release];
+    
+    self.view = view;
+    [view release];
 }
 
 - (void)viewDidLoad

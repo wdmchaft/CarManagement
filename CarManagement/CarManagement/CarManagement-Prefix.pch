@@ -13,4 +13,5 @@
     #import <Foundation/Foundation.h>
     #import "GlobalMacros.h"
     #import "NSString+CMAdditions.h"
+    #import "CMResManager.h"
 #endif

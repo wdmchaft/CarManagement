@@ -7,6 +7,8 @@
 //
 
 #import "MainViewController.h"
+#import "DetailViewController.h"
+
 
 @interface MainViewController ()
 
@@ -17,13 +19,36 @@
 @synthesize carInfoTView = _carInfoTView;
 @synthesize refreshBtn = _refreshBtn;
 @synthesize toolBar = _toolBar;
-         
-- (id)init
+@synthesize companyName = _companyName;
+@synthesize carInfoKind = _carInfoKind;
+@synthesize carInfoDics = _carInfoDics;
+@synthesize isSearchOn = _isSearchOn;
+@synthesize canSelectRow = _canSelectRow;
+@synthesize carIDs = _carIDs;
+@synthesize searchResult = _searchResult;
+      
+
+/**初始化
+ *@param param:初始化参数
+ *return nil*/
+- (id)initWithParam:(NSMutableArray *)param
 {
     self = [super init];
+    if ( self ) {
+        NSLog(@"MainView param = %@",param);
+        NSMutableArray *arrays = [NSMutableArray arrayWithArray:param];
+        self.companyName = [arrays objectAtIndex:1];
+        [arrays removeObjectAtIndex:0];
+        [arrays removeObjectAtIndex:0];
+        NSMutableArray *carInfoKind = [[NSMutableArray alloc] initWithArray:arrays];
+        self.carInfoKind = carInfoKind;
+        [carInfoKind release];
+        NSLog(@"MainView self.carInfoKind = %@",self.carInfoKind);
+    }
     
     return self;
 }
+
 
 - (void)dealloc
 {
@@ -31,6 +56,11 @@
     [_carInfoTView release];
     [_refreshBtn release];
     [_toolBar release];
+    [_carInfoKind release];
+    [_carInfoDics release];
+    [_carIDs release];
+    [_searchResult release];
+    
     
     [super dealloc];
 }
@@ -38,7 +68,7 @@
 - (void)loadView
 {
     [super loadView];
-    self.title = @"车辆列表情况";
+    self.title = self.companyName;
     
     //0.0
     UIView *view = [[UIView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
@@ -51,7 +81,7 @@
     [refreshBtn release];
     
     //2.0tableview
-    UITableView *carInfoTView = [[UITableView alloc] initWithFrame:[[UIScreen mainScreen] bounds] style:UITableViewStyleGrouped];
+    UITableView *carInfoTView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kFullScreenWidth, 416) style:UITableViewStyleGrouped];
     carInfoTView.backgroundColor = [UIColor whiteColor];
     carInfoTView.sectionFooterHeight = 10;
     carInfoTView.sectionFooterHeight = 2;
@@ -62,20 +92,42 @@
     
     //2.1搜索
     UISearchBar *searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, kFullScreenWidth, kCMNavigationBarHight)];
-    self.searchBar = searchBar;
-    self.carInfoTView.tableHeaderView = self.searchBar;
     searchBar.autocorrectionType = UITextAutocorrectionTypeYes;
+    searchBar.autocapitalizationType = UITextAutocapitalizationTypeNone;
+    searchBar.keyboardType = UIKeyboardTypeAlphabet; 
+    searchBar.showsCancelButton = NO;
+    self.searchBar = searchBar;
+    self.searchBar.delegate = self;
+    self.carInfoTView.tableHeaderView = self.searchBar;
     [searchBar release];
-        
     
-    
-    
+    [view addSubview:self.carInfoTView];
+    self.view = view;
+    [view release];
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
+    //1.0复制车ID到carID
+    NSString *carID;
+    NSMutableArray *tmpCarIDs = [[NSMutableArray alloc] init];
+    for ( NSArray *array in self.carInfoKind ) {
+        carID = [array objectAtIndex:0];
+        [tmpCarIDs addObject:carID];
+    }
+    
+    self.carIDs = tmpCarIDs;
+    [tmpCarIDs release];
+    
+    //2.0
+    NSMutableArray *searchResult = [[NSMutableArray alloc] init];
+    self.searchResult = searchResult;
+    [searchResult release];
+    
+    _isSearchOn = NO;
+    _canSelectRow = YES;
 }
 
 - (void)viewDidUnload
@@ -104,12 +156,133 @@
     static NSString *cellIndentifier = @"cell";
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIndentifier];
-    
+
     if ( !cell ) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIndentifier];
+        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier
+                                                      :cellIndentifier] autorelease];
     }
     
+    NSString *carID;
+    if ( _isSearchOn ) {
+        carID = [self.searchResult objectAtIndex:[indexPath row]];
+    }
+    else {
+        NSArray *carInfo = [self.carInfoKind objectAtIndex:[indexPath row]];
+        NSLog(@"%d",[indexPath section]);
+        carID = [carInfo objectAtIndex:0];
+        NSLog(@"carID = %@",carID);
+        //NSString *carType = [carInfo objectAtIndex:2];
+        
+        UIImage *image =  [[CMResManager getInstance] imageForKey:@"car_red"];
+        cell.imageView.image = image;
+    }
+        cell.textLabel.text = carID;
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        cell.selectionStyle = UITableViewCellSelectionStyleBlue;
     
+    return cell;
+}
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    if ( _isSearchOn ) {
+        return [self.searchResult count];
+    }
+    
+    return [self.carInfoKind count];
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    DetailViewController *detailViewController = [[DetailViewController alloc] initwithParam:[tableView cellForRowAtIndexPath:indexPath].textLabel.text];
+    [self.navigationController pushViewController:detailViewController animated:YES];
+    [detailViewController release];
+    
+    [tableView deselectRowAtIndexPath:[tableView indexPathForSelectedRow] animated:YES];
+}
+
+#pragma searchBar
+- (void)searchAction
+{
+    [self.searchResult removeAllObjects];
+    
+    for ( NSString *carID in self.carIDs )
+    {
+        NSRange carIDResultRange = [carID rangeOfString:self.searchBar.text options:NSCaseInsensitiveSearch];
+        if ( carIDResultRange.length > 0 ) {
+            [self.searchResult addObject:carID];
+        }
+    }
+}
+
+- (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar
+{
+    _isSearchOn = YES;
+    _canSelectRow = NO;
+    self.carInfoTView.scrollEnabled = NO;
+    [searchBar setShowsCancelButton:YES animated:YES];
+}
+
+//- (BOOL)textFieldShouldReturn:(UITextField *)textField
+//{
+//    _isSearchOn = NO;
+//    _canSelectRow = YES;
+//    self.carInfoTView.scrollEnabled = YES;
+//    [self.searchBar resignFirstResponder];
+//    
+//    [self.carInfoTView reloadData];
+//    
+//    return YES;
+//}
+
+- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText 
+{
+    if ( [self.searchBar.text length] > 0 ) {
+        _isSearchOn = YES;
+        _canSelectRow = YES;
+        self.carInfoTView.scrollEnabled = YES;
+        [self searchAction];
+    }
+    else {
+        _isSearchOn = NO;
+        _canSelectRow = NO;
+        self.carInfoTView.scrollEnabled = NO;
+    }
+    
+    [self.carInfoTView reloadData];
+}
+
+- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
+{
+    _isSearchOn = NO;
+    _canSelectRow = YES;
+    self.carInfoTView.scrollEnabled = YES;
+    [searchBar resignFirstResponder];
+    [self searchAction];
+    [searchBar setShowsCancelButton:NO animated:YES];
+    
+    [self.carInfoTView reloadData];
+}
+
+- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    if ( ![self.searchBar isExclusiveTouch] ) {
+        [self.searchBar resignFirstResponder];
+    }
+}
+
+- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar   
+{
+    searchBar.text = @"";
+    [searchBar setShowsCancelButton:NO animated:YES];
+    [searchBar resignFirstResponder];
+    _canSelectRow = YES;
+    self.carInfoTView.scrollEnabled = YES;
 }
 
 @end
