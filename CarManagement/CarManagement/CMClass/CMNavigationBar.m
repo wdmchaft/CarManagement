@@ -7,7 +7,6 @@
 //
 
 #import "CMNavigationBar.h"
-#import "CMResManager.h"
 
 #define MAX_EXTENDBUTTON_COUNT         3
 #define BACK_BUTTON_X                  5
@@ -55,6 +54,7 @@
         //1.0左返回按钮
         UIButton *backBtn = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
         self.backBtn = backBtn;
+        [self addSubview:self.backBtn];
         
         //2.0标题lable
         UILabel *titleLabel = [[UILabel alloc] init];
@@ -62,11 +62,13 @@
         titleLabel.backgroundColor = [UIColor clearColor];
         titleLabel.userInteractionEnabled = NO;
         self.titleLabel = titleLabel;
+        [self addSubview:self.titleLabel];
         [titleLabel release];
         
         //3.0右侧按钮
         UIButton *rightBtn = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
         self.rightBtn = rightBtn;
+        [self addSubview:self.rightBtn];
         
         
         self.backButtonEnable = YES;

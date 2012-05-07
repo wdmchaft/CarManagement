@@ -18,6 +18,7 @@
 @synthesize searchBar = _searchBar;
 @synthesize carInfoTView = _carInfoTView;
 @synthesize refreshBtn = _refreshBtn;
+@synthesize logoutBtn = _logoutBtn;
 @synthesize toolBar = _toolBar;
 @synthesize companyName = _companyName;
 @synthesize carInfoKind = _carInfoKind;
@@ -55,6 +56,7 @@
     [_searchBar release];
     [_carInfoTView release];
     [_refreshBtn release];
+    [_logoutBtn release];
     [_toolBar release];
     [_carInfoKind release];
     [_carInfoDics release];
@@ -74,7 +76,16 @@
     UIView *view = [[UIView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     view.backgroundColor = [UIColor whiteColor];
     
-    //1.0刷新
+    [self.navigationController setToolbarHidden:YES];
+    
+    //navigationbar
+    //1.0登出
+    UIBarButtonItem *logoutBtn = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(logoutAction)];
+    self.logoutBtn = logoutBtn;
+    self.navigationItem.leftBarButtonItem = self.logoutBtn;
+    [logoutBtn release];
+    
+    //1.1刷新
     UIBarButtonItem *refreshBtn = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(refreshAction)];
     self.refreshBtn = refreshBtn;
     self.navigationItem.rightBarButtonItem = self.refreshBtn;
@@ -150,6 +161,11 @@
     NSLog(@"刷新啦~");
 }
 
+- (void)logoutAction
+{
+    NSLog(@"退出啦~");
+}
+
 #pragma tableView
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -203,6 +219,7 @@
     [self.navigationController pushViewController:detailViewController animated:YES];
     [detailViewController release];
     
+    NSLog(@"MainViewControllerArrays = %@",self.navigationController.viewControllers);
     [tableView deselectRowAtIndexPath:[tableView indexPathForSelectedRow] animated:YES];
 }
 

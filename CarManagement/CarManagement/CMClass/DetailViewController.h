@@ -7,8 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CMBaseViewController.h"
 
-@interface DetailViewController : UIViewController<UITabBarDelegate>
+//@protocol DetailViewControllerDelegate <NSObject>
+//
+//- (void)popBackToMainView:(BOOL)animated;
+//
+//@end
+
+@interface DetailViewController : UIViewController<UITabBarDelegate,BaseViewControllerDelegate>
 {
     UITabBarItem *_CMTabBarItem;
     
@@ -17,15 +24,20 @@
     NSString *_carID;
     
     UITabBarController *_tabBarController;
+    
+//    id <DetailViewControllerDelegate> *_detailDelegate;
 }
 
 @property (nonatomic,copy) NSString *carID;
 @property (nonatomic,retain) UITabBarItem *CMTabBarItem;
 @property (nonatomic,retain) UITabBar *toolBar;
 @property (nonatomic,retain) UITabBarController *tabBarController;
+//@property (nonatomic,assign) id<DetailViewControllerDelegate> *detailDeleagte;
 
 /**初始化
  *@param param:车辆ID
  *return self*/
 - (id)initwithParam:(NSString *)param;
 @end
+
+

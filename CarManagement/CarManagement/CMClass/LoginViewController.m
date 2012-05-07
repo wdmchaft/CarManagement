@@ -9,7 +9,6 @@
 #import "LoginViewController.h"
 #import "SettingViewController.h"
 #import "MainViewController.h"
-#import "CMResManager.h"
 #import "AppDelegate.h"
 //test
 #import "CMBaseViewController.h"
@@ -432,6 +431,7 @@
             [self presentModalViewController:carInfoNavigationController animated:NO];
             [mainViewController release];
             [carInfoNavigationController release];
+            NSLog(@"LoginViewControllerArrays = %@",self.navigationController.viewControllers);
         }break;
         default:NSLog(@"Login error~ %d",loginResultType);
             break;

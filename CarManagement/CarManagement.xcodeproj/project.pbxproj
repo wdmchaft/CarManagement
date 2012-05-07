@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CF255F5D1557D6A3002AC394 /* CarInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = CF255F5C1557D6A3002AC394 /* CarInfo.m */; };
 		CF3709D11553B71D0064A190 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF3709D01553B71D0064A190 /* UIKit.framework */; };
 		CF3709D31553B71D0064A190 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF3709D21553B71D0064A190 /* Foundation.framework */; };
 		CF3709D51553B71D0064A190 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF3709D41553B71D0064A190 /* CoreGraphics.framework */; };
@@ -37,6 +38,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		CF255F5B1557D6A3002AC394 /* CarInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CarInfo.h; path = CMClass/CarInfo.h; sourceTree = "<group>"; };
+		CF255F5C1557D6A3002AC394 /* CarInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CarInfo.m; path = CMClass/CarInfo.m; sourceTree = "<group>"; };
 		CF3709CC1553B71D0064A190 /* CarManagement.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CarManagement.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CF3709D01553B71D0064A190 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		CF3709D21553B71D0064A190 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -104,6 +107,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		CF255F5A1557D670002AC394 /* Car */ = {
+			isa = PBXGroup;
+			children = (
+				CF255F5B1557D6A3002AC394 /* CarInfo.h */,
+				CF255F5C1557D6A3002AC394 /* CarInfo.m */,
+			);
+			name = Car;
+			sourceTree = "<group>";
+		};
 		CF3709C11553B71D0064A190 = {
 			isa = PBXGroup;
 			children = (
@@ -146,12 +158,12 @@
 				CF3709EE1553B7790064A190 /* MainViewController.m */,
 				CF3709F01553B78E0064A190 /* DetailViewController.h */,
 				CF3709F11553B78E0064A190 /* DetailViewController.m */,
+				CFE752D81556687000559A95 /* CarInfoViewController.h */,
+				CFE752D91556687000559A95 /* CarInfoViewController.m */,
 				CFE752CE15565E0100559A95 /* HistoryTrackViewController.h */,
 				CFE752CF15565E0100559A95 /* HistoryTrackViewController.m */,
 				CFE752D215565E1700559A95 /* LocationMapViewController.h */,
 				CFE752D315565E1700559A95 /* LocationMapViewController.m */,
-				CFE752D81556687000559A95 /* CarInfoViewController.h */,
-				CFE752D91556687000559A95 /* CarInfoViewController.m */,
 				CFE752D515565E8B00559A95 /* AboutCarManagerViewController.h */,
 				CFE752D615565E8B00559A95 /* AboutCarManagerViewController.m */,
 				CFCF1D461555054100C1B1E3 /* Navigation */,
@@ -177,6 +189,7 @@
 		CF3709FD1553BF4F0064A190 /* CMCommon */ = {
 			isa = PBXGroup;
 			children = (
+				CF255F5A1557D670002AC394 /* Car */,
 				CF9AFC4C1554326200953818 /* AsyncSocket.h */,
 				CF9AFC4D1554326200953818 /* AsyncSocket.m */,
 				CF3709FF1553BF790064A190 /* CMResManager.h */,
@@ -197,10 +210,10 @@
 		CFCF1D461555054100C1B1E3 /* Navigation */ = {
 			isa = PBXGroup;
 			children = (
-				CFCF1D4F155505B100C1B1E3 /* CMNavigationController.m */,
 				CFCF1D481555056800C1B1E3 /* CMNavigationBar.h */,
 				CFCF1D491555056800C1B1E3 /* CMNavigationBar.m */,
 				CFCF1D4E155505B100C1B1E3 /* CMNavigationController.h */,
+				CFCF1D4F155505B100C1B1E3 /* CMNavigationController.m */,
 				CFCF1D511555245100C1B1E3 /* CMBaseViewController.h */,
 				CFCF1D521555245100C1B1E3 /* CMBaseViewController.m */,
 			);
@@ -290,6 +303,7 @@
 				CFE752D415565E1800559A95 /* LocationMapViewController.m in Sources */,
 				CFE752D715565E8C00559A95 /* AboutCarManagerViewController.m in Sources */,
 				CFE752DA1556687100559A95 /* CarInfoViewController.m in Sources */,
+				CF255F5D1557D6A3002AC394 /* CarInfo.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

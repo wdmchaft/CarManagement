@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import <MapKit/MapKit.h>
+#import "CMBaseViewController.h"
 
-@interface LocationMapViewController : UIViewController
+@interface LocationMapViewController : CMBaseViewController
 {
     MKMapView *_mapView;
     

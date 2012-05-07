@@ -13,9 +13,12 @@
 @end
 
 @implementation CarInfoViewController
+@synthesize backBtn = _backBtn;
 
 - (void)dealloc
 {
+    [_backBtn release];
+    
     [super dealloc];
 }
 
@@ -24,17 +27,18 @@
     [super loadView];
     
     //1.0 view
-    UIView *view = [[UIView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    view.backgroundColor = [UIColor blueColor];
+    self.view.backgroundColor = [UIColor yellowColor];
     
-    //2.0 barItem
+    //2.0返回按钮
+//    UIImage *image = [[CMResManager getInstance] imageForKey:@"navigationbar_btn_back"];
+//    [self.navBar.backBtn setImage:image forState:UIControlStateNormal];
+//    [self.navBar.backBtn addTarget:self action:@selector(backAction) forControlEvents:UIControlEventTouchUpInside];
+    
+    //3.0 barItem
     UITabBarItem *carInfoItem = [[UITabBarItem alloc] initWithTabBarSystemItem:UITabBarSystemItemFavorites tag:kCarInfoItemTag];
     carInfoItem.title = @"车辆信息";
     self.tabBarItem = carInfoItem;
     [carInfoItem release];
-    
-    self.view = view;
-    [view release];
 }
 
 - (void)viewDidLoad
@@ -54,4 +58,13 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
+#pragma buttonAction
+- (void)backAction
+{
+    //[self.navigationController popViewControllerAnimated:YES];
+    //[self dismissModalViewControllerAnimated:YES];
+    NSLog(@"CarInfoViewControllerArrays = %@",self.navigationController.viewControllers);
+    NSLog(@"backAction~");
+    NSLog(@"self = %@",self);
+}
 @end

@@ -26,9 +26,7 @@
 {
     [super loadView];
     
-    //1.0 view
-    UIView *view = [[UIView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    view.backgroundColor = [UIColor yellowColor];
+    self.view.backgroundColor = [UIColor greenColor];
     
     //2.0当前位置
     UIImage *currentLocationImg = [[CMResManager getInstance] imageForKey:@"current_location"];
@@ -40,10 +38,10 @@
     self.navigationController.navigationBarHidden = YES;
 
     //3.0mapView
-    MKMapView *mapView = [[MKMapView alloc] initWithFrame:CGRectMake(0, 0, kFullScreenWidth, 400)];
+    MKMapView *mapView = [[MKMapView alloc] initWithFrame:CGRectMake(0, kCMNavigationBarHight, kFullScreenWidth, 400)];
     mapView.showsUserLocation = YES;
     self.mapView = mapView;
-    [view addSubview:self.mapView];
+    [self.view addSubview:self.mapView];
     [mapView release];
     
     //3.0 barItem
@@ -51,9 +49,6 @@
     locationMapItem.title = @"GPS定位";
     self.tabBarItem = locationMapItem;
     [locationMapItem release];
-    
-    self.view = view;
-    [view release];
 }
 
 - (void)viewDidLoad

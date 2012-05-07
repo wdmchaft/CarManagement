@@ -7,7 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CMBaseViewController.h"
+#import "DetailViewController.h"
 
-@interface CarInfoViewController : UIViewController
+@interface CarInfoViewController : CMBaseViewController<UINavigationControllerDelegate>
+{
+    UIButton *_backBtn;
+}
+
+@property (nonatomic,retain) UIButton *backBtn;
 
 @end

@@ -25,7 +25,7 @@
     
     //1.0 view
     UIView *view = [[UIView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    view.backgroundColor = [UIColor redColor];
+    view.backgroundColor = [UIColor blueColor];
     
     //2.0 barItem
     UITabBarItem *historyTrackItem = [[UITabBarItem alloc] initWithTabBarSystemItem:UITabBarSystemItemHistory tag:kCarInfoItemTag];

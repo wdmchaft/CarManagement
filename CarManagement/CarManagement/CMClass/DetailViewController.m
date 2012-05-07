@@ -12,6 +12,7 @@
 #import "CarInfoViewController.h"
 
 
+
 @interface DetailViewController ()
 
 @end
@@ -20,6 +21,7 @@
 @synthesize CMTabBarItem = _CMTabBarItem;
 @synthesize tabBarController = _tabBarController;
 @synthesize carID = _carID;
+//@synthesize detailDeleagte = _detailDelegate;
 
 /**初始化
  *@param param:车辆ID
@@ -48,16 +50,28 @@
     
     //0.0 view
     UIView *view = [[UIView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    view.backgroundColor = [UIColor grayColor];
-    [self.navigationController setNavigationBarHidden:YES animated:YES];
+    view.backgroundColor = [UIColor redColor];
+    //[self.navigationController setNavigationBarHidden:YES animated:YES];
+//    [self.navigationController setToolbarHidden:NO];
+    
+//    //test
+//    UIBarButtonItem *carInfoItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemBookmarks target:self action:@selector(callAction)];
+//    UIBarButtonItem *historyTrackItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCamera target:self action:@selector(historyTrackAction)];
+//    UIBarButtonItem *locationMapItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCompose target:self action:@selector(locationMapAction)];
+//    UIBarButtonItem *takePhotoItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCamera target:self action:@selector(takePhotoAction)];
+//    [self.navigationController.toolbar setItems:[NSArray arrayWithObjects:carInfoItem,historyTrackItem,locationMapItem,takePhotoItem,nil]];
+//    [carInfoItem release];
+//    [historyTrackItem release];
+//    [locationMapItem release];
+//    [takePhotoItem release];
     
     //2.0 tabBarController
     UITabBarController *tabBarController = [[UITabBarController alloc] init];
-    
+  
     CarInfoViewController *carInfoViewController = [[CarInfoViewController alloc] init];
-    LocationMapViewController *locationMapViewController = [[LocationMapViewController alloc] init];
     HistoryTrackViewController *historyTracViewController = [[HistoryTrackViewController alloc] init];
-    NSArray *viewControllers = [[NSArray alloc] initWithObjects:carInfoViewController,locationMapViewController,historyTracViewController,nil];
+    LocationMapViewController *locationMapViewController = [[LocationMapViewController alloc] init];
+    NSArray *viewControllers = [[NSArray alloc] initWithObjects:carInfoViewController,historyTracViewController,locationMapViewController,nil];
     tabBarController.viewControllers = viewControllers;
     [carInfoViewController release];
     [locationMapViewController release];
@@ -65,7 +79,7 @@
     [viewControllers release];
     self.tabBarController = tabBarController;
     [tabBarController release];
-    
+ 
     [view addSubview:self.tabBarController.view];
     self.view = view;
     [view release];
@@ -86,5 +100,13 @@
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
+}
+
+#pragma DetailViewControllerDelegate
+- (void)popBackToMainViewController:(BOOL)animated
+{
+    NSLog(@"DetailViewControllerArrays = %@",self.navigationController.viewControllers);
+    [self.navigationController popViewControllerAnimated:animated];
+
 }
 @end

@@ -7,7 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CMBaseViewController.h"
 
-@interface HistoryTrackViewController : UIViewController
+@interface HistoryTrackViewController : CMBaseViewController
+{
+
+}
 
 @end

@@ -24,6 +24,16 @@ typedef enum
     CMLoinResultTypeServerPortWrong,
 }CMLoginREsultType;
 
+typedef enum
+{
+    CMCarTypeCar = 1,
+    CMCarTypeCrane,
+    CMCarTypeTruck,
+}CMCarType;
+
+
+#define NAVIGATIONBAR_ANIMATION_TIMINTERVAL     0.5
+
 #define kLastUserAccount            @"LastUserAccount"
 #define kLastUserPassword           @"LastUserPassword"
 #define kLastServerIpAddress        @"LastServerIpAddress"

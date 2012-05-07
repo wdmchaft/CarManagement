@@ -53,7 +53,7 @@
  *return takePhoteParam:拍照口令*/
 + (NSString *)createTakePhotoParam:(NSString *)terminalId cameraType:(CMCameraType)cameraType;
 {
-    NSString *takePhotoParam = [[NSString alloc] initWithFormat:@"60:+%@+:$GETPHOTO:+1+1+,+%d+,+1",cameraType];
+    NSString *takePhotoParam = [[NSString alloc] initWithFormat:@"60:%@:$GETPHOTO:1,%d,1",cameraType];
     
     return [takePhotoParam autorelease];
 }

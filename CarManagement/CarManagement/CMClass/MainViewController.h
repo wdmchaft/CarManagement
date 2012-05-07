@@ -16,6 +16,8 @@
     
     UIBarButtonItem *_refreshBtn;
     
+    UIBarButtonItem *_logoutBtn;
+    
     UITabBar *_toolBar;
     
     NSMutableArray *_carInfoKind;
@@ -32,6 +34,7 @@
 @property (nonatomic,retain) UISearchBar *searchBar;
 @property (nonatomic,retain) UITableView *carInfoTView;
 @property (nonatomic,retain) UIBarButtonItem *refreshBtn;
+@property (nonatomic,retain) UIBarButtonItem *logoutBtn;
 @property (nonatomic,retain) UITabBar *toolBar;
 @property (nonatomic,copy) NSString *companyName;
 @property (nonatomic,retain) NSMutableArray *carInfoKind;
