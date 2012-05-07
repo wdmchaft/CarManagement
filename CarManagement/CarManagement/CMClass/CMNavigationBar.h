@@ -39,4 +39,24 @@
 //右侧按钮是否可用，NO会隐藏右侧按钮，YES会隐藏扩展按钮们，默认为NO
 @property (nonatomic,assign) BOOL rightButtonEnable;
 
+
+- (void)setBackButtonEnable:(BOOL)backButtonEnable;
+
+- (void)setRightButtonEnable:(BOOL)rightButtonEnable;
+
+/**添加一个扩展按钮
+ *@param target:目标 selector:选择方法 normalImage:常态背景图 hightLightedImage:高亮背景图
+ **/
+- (BOOL)addExtendButtonWithTarget:(id)target 
+            touchUpInsideSelector:(SEL)selector
+                      normalImage:(UIImage *)normalImage
+                hightLightedImage:(UIImage *)hightLightedImage;
+
+/**添加一组按钮
+ *@param buttons:按钮数据
+ *return YES:成功 NO:失败*/
+- (BOOL)addExtendButtons:(NSArray *)buttons;
+
+
+
 @end

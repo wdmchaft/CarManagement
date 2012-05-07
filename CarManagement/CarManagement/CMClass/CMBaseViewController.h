@@ -29,4 +29,10 @@
  *return nil*/
 - (void)setNavBarHidden:(BOOL)hidden animated:(BOOL)animated;
 
+/**重写添加右侧按钮
+ *@param nomralImae:常态图标 selector:方法选择 target:目标
+ *return nil*/
+- (void)addRightBtn:(UIImage *)nomralImage controllerEventTouchUpInside:(SEL)selector
+             target:(id)target;
+
 @end

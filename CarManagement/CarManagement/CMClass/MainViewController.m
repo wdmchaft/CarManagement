@@ -190,12 +190,22 @@
     else {
         NSArray *carInfo = [self.carInfoKind objectAtIndex:[indexPath row]];
         NSLog(@"%d",[indexPath section]);
-        carID = [carInfo objectAtIndex:0];
+        carID = [carInfo objectAtIndex:1];
+        CMCarType carType = [[carInfo objectAtIndex:3] intValue];
         NSLog(@"carID = %@",carID);
         //NSString *carType = [carInfo objectAtIndex:2];
         
         UIImage *image =  [[CMResManager getInstance] imageForKey:@"car_red"];
-        cell.imageView.image = image;
+        UIImage *craneImg = [[CMResManager getInstance] imageForKey:@"crane"];
+        NSLog(@"carType = %d",carType);
+        if ( carType == CMCarTypeCar ) {
+            cell.imageView.image = image;
+        }
+        else if ( carType == CMCarTypeCrane ) {
+            cell.imageView.image = craneImg;
+        }
+        else 
+            cell.imageView.image = nil;
     }
         cell.textLabel.text = carID;
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;

@@ -26,7 +26,7 @@ typedef enum
 
 typedef enum
 {
-    CMCarTypeCar = 1,
+    CMCarTypeCar = 2,
     CMCarTypeCrane,
     CMCarTypeTruck,
 }CMCarType;

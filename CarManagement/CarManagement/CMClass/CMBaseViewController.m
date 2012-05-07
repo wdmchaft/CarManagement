@@ -45,6 +45,11 @@
     UIImage *image = [[CMResManager getInstance] imageForKey:@"navigationbar_btn_back"];
     [self.navBar.backBtn setImage:image forState:UIControlStateNormal];
     [self.navBar.backBtn addTarget:self action:@selector(backAction) forControlEvents:UIControlEventTouchUpInside];
+    
+    //继承的view有call功能
+    UIImage *callImg = [[CMResManager getInstance] imageForKey:@"call"];
+    [self.navBar addExtendButtonWithTarget:self touchUpInsideSelector:@selector(callAction) normalImage:callImg hightLightedImage:callImg];
+    
 }
 
 
@@ -91,6 +96,16 @@
     [super setTitle:title];
     
     self.navBar.title = title;
+}
+
+/**重写添加右侧按钮
+ *@param nomralImae:常态图标 selector:方法选择 target:目标
+ *return nil*/
+- (void)addRightBtn:(UIImage *)nomralImage controllerEventTouchUpInside:(SEL)selector
+             target:(id)target
+{
+    [self.navBar.rightBtn setImage:nomralImage forState:UIControlStateNormal];
+    [self.navBar.rightBtn addTarget:target action:selector forControlEvents:UIControlEventTouchUpInside];
 }
 
 - (void)backAction
