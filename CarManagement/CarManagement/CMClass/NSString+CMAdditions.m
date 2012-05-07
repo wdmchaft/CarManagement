@@ -40,13 +40,38 @@
     return [loginParam autorelease];
 }
 
-/**请求车辆信息口令
+/**请求车辆信息口令1
  *@param
  *return*/
-+ (NSString *)createRequireCarInfoParam:(NSString *)carId
++ (NSString *)createRequireCarInfoFirstParam:(NSArray *)carIds
 {
-    return  nil;
+    NSMutableString *tmpParam = [NSMutableString stringWithFormat:@"1"];
+    NSString *part;
+    for ( NSString *carId in carIds ) {
+        part = [NSString stringWithFormat:@":%@,-1",carId];
+        [tmpParam stringByAppendingString:part];
+    }
+    NSString *param = [NSString stringWithString:tmpParam];
+    
+    return  param;
 }
+
+/**请求车辆信息口令2
+ *@param
+ *return*/
++ (NSString *)createRequireCarInfoSecondParam:(NSArray *)carIds
+{
+    NSMutableString *tmpParam = [NSMutableString stringWithFormat:@"2"];
+    NSString *part;
+    for ( NSString *carId in carIds ) {
+        part = [NSString stringWithFormat:@":%@,-1",carId];
+        [tmpParam stringByAppendingString:part];
+    }
+    NSString *param = [NSString stringWithString:tmpParam];
+    
+    return  param;
+}
+
 
 /**拍照口令
  *@param terminalId:终端编号 cameraType:摄像头类型(前置/后置)

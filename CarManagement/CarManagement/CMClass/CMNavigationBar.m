@@ -45,8 +45,8 @@
         // Initialization code
         //0.0背景
         UIImage *backgroundImg = [CMResManager middleStretchableImageWithKey:@"navigationbar_background"];
-        UIImageView *backgroundImgView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, kFullScreenHight, kCMNavigationBarHight)];
-        [backgroundImgView setImage:backgroundImg];
+        UIImageView *backgroundImgView = [[UIImageView alloc] initWithImage:backgroundImg];
+        backgroundImgView.frame = CGRectMake(0, 0, kFullScreenHight, kCMNavigationBarHight);
         self.backgroundImgView = backgroundImgView;
         [backgroundImgView release];
         [self addSubview:self.backgroundImgView];
@@ -59,6 +59,7 @@
         //2.0标题lable
         UILabel *titleLabel = [[UILabel alloc] init];
         titleLabel.font = [UIFont systemFontOfSize:18];
+        titleLabel.textColor = [UIColor whiteColor];
         titleLabel.backgroundColor = [UIColor clearColor];
         titleLabel.userInteractionEnabled = NO;
         self.titleLabel = titleLabel;

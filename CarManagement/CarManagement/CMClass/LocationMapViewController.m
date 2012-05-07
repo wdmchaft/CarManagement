@@ -27,6 +27,7 @@
     [super loadView];
     
     self.view.backgroundColor = [UIColor greenColor];
+    self.title = @"GPS定位";
     
     //2.0当前位置
     UIImage *currentLocationImg = [[CMResManager getInstance] imageForKey:@"current_location"];

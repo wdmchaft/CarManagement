@@ -7,6 +7,7 @@
 //
 
 #import "DetailViewController.h"
+#import "CMBaseViewController.h"
 #import "HistoryTrackViewController.h"
 #import "LocationMapViewController.h"
 #import "CarInfoViewController.h"
@@ -51,26 +52,17 @@
     //0.0 view
     UIView *view = [[UIView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     view.backgroundColor = [UIColor redColor];
-    //[self.navigationController setNavigationBarHidden:YES animated:YES];
-//    [self.navigationController setToolbarHidden:NO];
-    
-//    //test
-//    UIBarButtonItem *carInfoItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemBookmarks target:self action:@selector(callAction)];
-//    UIBarButtonItem *historyTrackItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCamera target:self action:@selector(historyTrackAction)];
-//    UIBarButtonItem *locationMapItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCompose target:self action:@selector(locationMapAction)];
-//    UIBarButtonItem *takePhotoItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCamera target:self action:@selector(takePhotoAction)];
-//    [self.navigationController.toolbar setItems:[NSArray arrayWithObjects:carInfoItem,historyTrackItem,locationMapItem,takePhotoItem,nil]];
-//    [carInfoItem release];
-//    [historyTrackItem release];
-//    [locationMapItem release];
-//    [takePhotoItem release];
+    [self.navigationController setNavigationBarHidden:YES animated:YES];
     
     //2.0 tabBarController
     UITabBarController *tabBarController = [[UITabBarController alloc] init];
   
     CarInfoViewController *carInfoViewController = [[CarInfoViewController alloc] init];
+    carInfoViewController.delegate = self;
     HistoryTrackViewController *historyTracViewController = [[HistoryTrackViewController alloc] init];
+    historyTracViewController.delegate = self;
     LocationMapViewController *locationMapViewController = [[LocationMapViewController alloc] init];
+    locationMapViewController.delegate = self;
     NSArray *viewControllers = [[NSArray alloc] initWithObjects:carInfoViewController,historyTracViewController,locationMapViewController,nil];
     tabBarController.viewControllers = viewControllers;
     [carInfoViewController release];

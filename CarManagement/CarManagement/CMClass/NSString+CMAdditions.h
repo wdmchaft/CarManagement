@@ -14,10 +14,15 @@
  *return loginParam:登陆口令*/
 + (NSString *)createLoginParam:(NSString *)userAccount password:(NSString *)userPassword;
 
-/**请求车辆信息口令
+/**请求车辆信息口令1
  *@param
  *return*/
-+ (NSString *)createRequireCarInfoParam:(NSString *)carId;
++ (NSString *)createRequireCarInfoFirstParam:(NSArray *)carIds;
+
+/**请求车辆信息口令2
+ *@param
+ *return*/
++ (NSString *)createRequireCarInfoSecondParam:(NSArray *)carIds;
 
 /**拍照口令
  *@param terminalId:终端编号 cameraType:摄像头类型(前置/后置)

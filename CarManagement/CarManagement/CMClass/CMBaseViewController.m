@@ -13,7 +13,7 @@
 @end
 
 @implementation CMBaseViewController
-@synthesize baseViewControllerDelegate = _baseViewControllerDelegate;
+@synthesize delegate = delegate;
 @synthesize navBar = _navBar;
 
 - (id)init
@@ -96,7 +96,7 @@
 - (void)backAction
 {
 //    if ( self.baseViewControllerDelegate ) {
-    [self.baseViewControllerDelegate popBackToMainViewController:YES];
+    [self.delegate popBackToMainViewController:YES];
 //    }
 }
 

@@ -25,18 +25,20 @@
     UIImage *_lastPhoto;
 
 }
+
 @property (nonatomic,copy) NSString *companyName;
 @property (nonatomic,copy) NSString *angentId;
 @property (nonatomic,copy) NSString *terminalNo;
 @property (nonatomic,copy) NSString *carNo;
 @property (nonatomic,copy) NSString *lastPhotoName;
-@property (nonatomic,copy) NSString *lastPhotoTime;
+@property (nonatomic) NSInteger *lastPhotoTime;
 @property (nonatomic,retain) UIImage *lastPhoto;
 @property (nonatomic) CMCarType carType;
 @property (nonatomic) NSInteger cameraNum;
 @property (nonatomic,retain) NSArray *drivers;
 @property (nonatomic,retain) NSArray *phones;
 @property (nonatomic) BOOL hasNewPhoto;
+
 @end
 
 @interface CMCars : NSObject

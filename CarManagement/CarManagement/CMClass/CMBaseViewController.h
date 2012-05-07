@@ -8,8 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "CMNavigationBar.h"
-
-@protocol BaseViewControllerDelegate <NSObject>
+@protocol BaseViewControllerDelegate
 
 - (void)popBackToMainViewController:(BOOL)animated;
 
@@ -19,14 +18,15 @@
 {
     CMNavigationBar *_navBar;
     
-    id<BaseViewControllerDelegate> _baseViewControllerDelegate;
+    id<BaseViewControllerDelegate> delegate;
 }
 
 @property (nonatomic,retain) CMNavigationBar *navBar;
-@property (nonatomic,assign) id<BaseViewControllerDelegate> baseViewControllerDelegate;
+@property (nonatomic,assign) id<BaseViewControllerDelegate> delegate;
 
 /**设置navBar的显示或隐藏
  *@param hidden:是否隐藏 animated:动画
  *return nil*/
 - (void)setNavBarHidden:(BOOL)hidden animated:(BOOL)animated;
+
 @end
