@@ -46,9 +46,7 @@
     [self.navBar.backBtn setImage:image forState:UIControlStateNormal];
     [self.navBar.backBtn addTarget:self action:@selector(backAction) forControlEvents:UIControlEventTouchUpInside];
     
-    //继承的view有call功能
-    UIImage *callImg = [[CMResManager getInstance] imageForKey:@"call"];
-    [self.navBar addExtendButtonWithTarget:self touchUpInsideSelector:@selector(callAction) normalImage:callImg hightLightedImage:callImg];
+    
     
 }
 

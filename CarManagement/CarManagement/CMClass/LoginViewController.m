@@ -402,7 +402,7 @@
     
     NSStringEncoding enc = CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingGB_18030_2000);
     NSString *recvMsg = [[NSString alloc] initWithData:data encoding:enc];
-    
+    NSLog(@"recvMsg = %@",recvMsg);
     NSMutableArray *carInfoArrays = [NSString parseLoginRecv:recvMsg];
     NSLog(@"carInfoArrays = %@",carInfoArrays);
     CMLoginREsultType loginResultType = [[carInfoArrays objectAtIndex:0] intValue];

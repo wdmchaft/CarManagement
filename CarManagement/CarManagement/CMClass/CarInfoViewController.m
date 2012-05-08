@@ -35,6 +35,10 @@
     carInfoItem.title = @"车辆信息";
     self.tabBarItem = carInfoItem;
     [carInfoItem release];
+   
+    //4.0有call功能
+    UIImage *callImg = [[CMResManager getInstance] imageForKey:@"call"];
+    [self.navBar addExtendButtonWithTarget:self touchUpInsideSelector:@selector(callAction) normalImage:callImg hightLightedImage:callImg];
 }
 
 - (void)viewDidLoad
@@ -63,4 +67,9 @@
 //    NSLog(@"backAction~");
 //    NSLog(@"self = %@",self);
 //}
+
+- (void)callAction
+{
+    NSLog(@"call~");
+}
 @end

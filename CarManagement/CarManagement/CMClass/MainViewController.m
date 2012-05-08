@@ -44,6 +44,7 @@
         NSMutableArray *carInfoKind = [[NSMutableArray alloc] initWithArray:arrays];
         self.carInfoKind = carInfoKind;
         [carInfoKind release];
+
         NSLog(@"MainView self.carInfoKind = %@",self.carInfoKind);
     }
     
