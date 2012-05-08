@@ -26,7 +26,9 @@
     
     NSString *_companyName;
     
-    NSMutableArray *_carIDs;
+    NSMutableArray *_terminalNos;
+    
+    NSMutableArray *_carNos;
     
     NSMutableArray *_searchResult;
 }
@@ -39,7 +41,8 @@
 @property (nonatomic,copy) NSString *companyName;
 @property (nonatomic,retain) NSMutableArray *carInfoKind;
 @property (nonatomic,retain) NSMutableDictionary *carInfoDics;
-@property (nonatomic,retain) NSMutableArray *carIDs;
+@property (nonatomic,retain) NSMutableArray *terminalNos;
+@property (nonatomic,retain) NSMutableArray *carNos;
 @property (nonatomic,retain) NSMutableArray *searchResult;
 @property (nonatomic) BOOL isSearchOn;
 @property (nonatomic) BOOL canSelectRow;
@@ -48,4 +51,9 @@
  *@param param:初始化参数
  *return nil*/
 - (id)initWithParam:(NSMutableArray *)param;
+
+/**初始化
+ *@param companyName:公司名称 terminalNos:终端号码数组
+ *return self*/
+- (id)initwithCompanyName:(NSString *)companyName terminalNos:(NSMutableArray *)terminalNosParam;
 @end

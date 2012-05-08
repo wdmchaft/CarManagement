@@ -39,6 +39,7 @@
 @synthesize reserveTView = _reserveTView;
 @synthesize socket = _socket;
 @synthesize process = _process;
+@synthesize companyName = _companyName;
 
 - (void)dealloc
 {
@@ -425,23 +426,17 @@
             }break;
             case CMLoinResultTypeSuccess:
             {
-    //            MainViewController *mainViewController = [[MainViewController alloc] initWithParam:carInfoArrays];
-    //            UINavigationController *carInfoNavigationController = [[UINavigationController alloc] initWithRootViewController:mainViewController];
-    //            self.carInfoNavigationController = carInfoNavigationController;
-    //            [self presentModalViewController:carInfoNavigationController animated:NO];
-    //            [mainViewController release];
-    //            [carInfoNavigationController release];
-    //            NSLog(@"LoginViewControllerArrays = %@",self.navigationController.viewControllers);
                 
-                //登陆成功
-//                NSArray *carNos = [[CMCars getInstance] carNos];
-               NSArray *terminalNos;
-               terminalNos = [NSArray arrayWithArray:[[CMCars getInstance] terminalNos]];
-               NSLog(@"terminalNos = %@",terminalNos);
-               NSString *requireCarsInfoFirstParam = [NSString createRequireCarInfoFirstParam:terminalNos];
-               NSLog(@"requireCarsInfoFirstParam = %@",requireCarsInfoFirstParam);
-               NSData *requireCarsInfoFirstParamData = [requireCarsInfoFirstParam dataUsingEncoding:NSUTF8StringEncoding];
-               [self.socket writeData:requireCarsInfoFirstParamData withTimeout:-1 tag:1];
+               //登陆成功
+//             NSArray *carNos = [[CMCars getInstance] carNos];
+                self.companyName = [carInfoArrays objectAtIndex:1];
+                NSArray *terminalNos;
+                terminalNos = [NSArray arrayWithArray:[[CMCars getInstance] terminalNos]];
+                NSLog(@"terminalNos = %@",terminalNos);
+                NSString *requireCarsInfoFirstParam = [NSString createRequireCarInfoFirstParam:terminalNos];
+                NSLog(@"requireCarsInfoFirstParam = %@",requireCarsInfoFirstParam);
+                NSData *requireCarsInfoFirstParamData = [requireCarsInfoFirstParam dataUsingEncoding:NSUTF8StringEncoding];
+                [self.socket writeData:requireCarsInfoFirstParamData withTimeout:-1 tag:1];
                 
 //                NSString *requireCarsInfoSecondParam = [NSString createRequireCarInfoSecondParam:terminalNos];
 //                NSLog(@"requireCarsInfoSecondParam = %@",requireCarsInfoSecondParam);
@@ -457,6 +452,15 @@
     }
     else if ( self.process == CMProcessRequireCarsInfoStateFirst ) {
         NSLog(@"CMProcessRequireCarsInfoStateFirst Sucess");
+        NSMutableArray *terminalNos = [NSString parseRequestCarInfoRecv:recvMsg];
+        NSLog(@"Login terminalNos = %@",terminalNos);
+        MainViewController *mainViewController = [[MainViewController alloc] initwithCompanyName:self.companyName terminalNos:terminalNos];
+        UINavigationController *carInfoNavigationController = [[UINavigationController alloc] initWithRootViewController:mainViewController];
+        self.carInfoNavigationController = carInfoNavigationController;
+        [self presentModalViewController:carInfoNavigationController animated:NO];
+        [mainViewController release];
+        [carInfoNavigationController release];
+        NSLog(@"LoginViewControllerArrays = %@",self.navigationController.viewControllers);
     }
     else if ( self.process == CMProcessRequireCarsInfoStateSecond ) {
         NSLog(@"CMProcessRequireCarsInfoStateSecond Sucess");

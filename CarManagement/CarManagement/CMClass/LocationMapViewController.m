@@ -14,6 +14,20 @@
 
 @implementation LocationMapViewController
 @synthesize mapView = _mapView;
+@synthesize terminalNo = _terminalNo;
+/**初始化
+ *@param terminalNo:终端号码
+ *return self*/
+- (id)initWithTerminalNo:(NSString *)terminalNoParam
+{
+    self = [super init];
+    if ( self ) {
+        self.terminalNo = terminalNoParam;
+        
+    }
+    
+    return self;
+}
 
 - (void)dealloc
 {

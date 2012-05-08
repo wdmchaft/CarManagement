@@ -32,6 +32,8 @@
     UINavigationController *_carInfoNavigationController;
     
     CMProcess _process;
+    
+    NSString *_companyName;
 }
 
 @property (nonatomic,retain) UIImageView *logoImageView;
@@ -45,6 +47,7 @@
 @property (nonatomic,retain) AsyncSocket *socket;
 @property (nonatomic,retain) UINavigationController *carInfoNavigationController;
 @property (nonatomic) CMProcess process;
+@property (nonatomic,copy) NSString *companyName;
 
 - (int)connectServer:(NSString *)hostIp port:(int)hostPort;
 @end

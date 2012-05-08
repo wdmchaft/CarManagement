@@ -21,23 +21,23 @@
     
     UITabBar *_toolBar;
     
-    CarInfo *_theCarInfo;
+    NSString *_terminalNo;
     
     UITabBarController *_tabBarController;
     
 //    id <DetailViewControllerDelegate> *_detailDelegate;
 }
 
-@property (nonatomic,retain) CarInfo *theCarInfo;
+@property (nonatomic,copy) NSString *terminalNo;
 @property (nonatomic,retain) UITabBarItem *CMTabBarItem;
 @property (nonatomic,retain) UITabBar *toolBar;
 @property (nonatomic,retain) UITabBarController *tabBarController;
 //@property (nonatomic,assign) id<DetailViewControllerDelegate> *detailDeleagte;
 
 /**初始化
- *@param param:车辆ID
+ *@param terminalNo:终端号码
  *return self*/
-- (id)initwithParam:(CarInfo *)theCarInfo;
+- (id)initWithTerminalNo:(NSString *)terminalNoParam;
 @end
 
 

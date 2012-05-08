@@ -11,8 +11,8 @@
 
 @interface CMTableViewCell : UITableViewCell
 {
-    CarInfo *_theCarInfo;
+    NSString *_terminalNo;
 }
 
-@property (nonatomic,retain) CarInfo *theCarInfo;
+@property (nonatomic,copy) NSString *terminalNo;
 @end

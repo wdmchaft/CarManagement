@@ -16,7 +16,7 @@
     //速度
     float _speed;
     //报警位(车辆状态)
-    NSInteger _state;
+    long _state;
     //里程
     float _mileage;
     //方向
@@ -46,7 +46,7 @@
 }
 @property (nonatomic,retain) CLLocation *location;
 @property (nonatomic) float speed;
-@property (nonatomic) NSInteger state;
+@property (nonatomic) long state;
 @property (nonatomic) float mileage;
 @property (nonatomic) float direction;
 @property (nonatomic) long lastTransmissionTime;
@@ -91,5 +91,5 @@
 /**由终端号获取当前车辆信息
  *@param terminalNo:车牌号
  *return theCarInfo:车辆信息*/
-- (CurrentCarInfo *)theCarInfo:(NSString *)terminalNo;
+- (CurrentCarInfo *)theCurrentCarInfo:(NSString *)terminalNo;
 @end

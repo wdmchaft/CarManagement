@@ -51,8 +51,8 @@
 
 /**车辆信息请求返回解析
  *@param recv:车辆信息请求接收到的数据
- *return nil*/
-- (void)parseRequestCarInfoRecv:(NSString *)recv;
+ *return terminalNos:终端号码数组*/
++ (NSMutableArray *)parseRequestCarInfoRecv:(NSString *)recv;
 
 /**拍照返回数据解析
  *@param recv:拍照接收到的数据
@@ -68,5 +68,10 @@
  *@param recv:查询剩余油量接收到的数据
  **/
 + (NSArray *)oilAnalysis:(NSString *)recv;
+
+/**获取对应车类型的车图片
+ *@param carType:车类型
+ *return key:对应车类型的图片的key*/
++ (NSString *)carImage:(CMCarType)carType;
 
 @end

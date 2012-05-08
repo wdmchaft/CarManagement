@@ -26,32 +26,48 @@
 @synthesize carInfoDics = _carInfoDics;
 @synthesize isSearchOn = _isSearchOn;
 @synthesize canSelectRow = _canSelectRow;
-@synthesize carIDs = _carIDs;
+@synthesize terminalNos = _terminalNos;
 @synthesize searchResult = _searchResult;
+@synthesize carNos = _carNos;
       
 
 /**初始化
  *@param param:初始化参数
  *return nil*/
-- (id)initWithParam:(NSMutableArray *)param
+//- (id)initWithParam:(NSMutableArray *)param
+//{
+//    self = [super init];
+//    if ( self ) {
+//        NSLog(@"MainView param = %@",param);
+//        NSMutableArray *arrays = [NSMutableArray arrayWithArray:param];
+//        self.companyName = [arrays objectAtIndex:1];
+//        [arrays removeObjectAtIndex:0];
+//        [arrays removeObjectAtIndex:0];
+//        NSMutableArray *carInfoKind = [[NSMutableArray alloc] initWithArray:arrays];
+//        self.carInfoKind = carInfoKind;
+//        [carInfoKind release];
+//
+//        NSLog(@"MainView self.carInfoKind = %@",self.carInfoKind);
+//    }
+//    
+//    return self;
+//}
+
+/**初始化
+ *@param companyName:公司名称 terminalNos:终端号码数组
+ *return self*/
+- (id)initwithCompanyName:(NSString *)companyName terminalNos:(NSMutableArray *)terminalNosParam
 {
     self = [super init];
     if ( self ) {
-        NSLog(@"MainView param = %@",param);
-        NSMutableArray *arrays = [NSMutableArray arrayWithArray:param];
-        self.companyName = [arrays objectAtIndex:1];
-        [arrays removeObjectAtIndex:0];
-        [arrays removeObjectAtIndex:0];
-        NSMutableArray *carInfoKind = [[NSMutableArray alloc] initWithArray:arrays];
-        self.carInfoKind = carInfoKind;
-        [carInfoKind release];
-
-        NSLog(@"MainView self.carInfoKind = %@",self.carInfoKind);
+        self.companyName = companyName;
+        NSMutableArray *terminalNos = [[NSMutableArray alloc] initWithArray:terminalNosParam];
+        self.terminalNos = terminalNos;
+        [terminalNos release];
     }
     
     return self;
 }
-
 
 - (void)dealloc
 {
@@ -62,7 +78,8 @@
     [_toolBar release];
     [_carInfoKind release];
     [_carInfoDics release];
-    [_carIDs release];
+    [_terminalNos release];
+    [_carNos release];
     [_searchResult release];
     
     
@@ -123,16 +140,10 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
-    //1.0复制车ID到carID
-    NSString *carID;
-    NSMutableArray *tmpCarIDs = [[NSMutableArray alloc] init];
-    for ( NSArray *array in self.carInfoKind ) {
-        carID = [array objectAtIndex:0];
-        [tmpCarIDs addObject:carID];
-    }
-    
-    self.carIDs = tmpCarIDs;
-    [tmpCarIDs release];
+    //获取carNos
+    NSMutableArray *carNos = [[NSMutableArray alloc] initWithArray:[[CMCars getInstance] carNos]];
+    self.carNos = carNos;
+    [carNos release];
     
     //2.0
     NSMutableArray *searchResult = [[NSMutableArray alloc] init];
@@ -174,14 +185,14 @@
 }
 
 #pragma tableView
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+- (CMTableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *cellIndentifier = @"cell";
     
     CMTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIndentifier];
 
     if ( !cell ) {
-        cell = [[[CMTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier
+        cell = [[[CMTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier
                                                       :cellIndentifier] autorelease];
     }
     
@@ -190,29 +201,42 @@
         carNo = [self.searchResult objectAtIndex:[indexPath row]];
     }
     else {
-        NSArray *carInfo = [self.carInfoKind objectAtIndex:[indexPath row]];
-        CarInfo *theCarIno = [[CarInfo alloc] initWithParam:carInfo];
-        cell.theCarInfo = theCarIno;
-        [theCarIno release];
-        NSLog(@"%d",[indexPath section]);
-        carNo = cell.theCarInfo.carNo;
-        CMCarType carType = cell.theCarInfo.carType;
-        NSLog(@"carID = %@",carNo);
-        //NSString *carType = [carInfo objectAtIndex:2];
+        cell.terminalNo = [self.terminalNos objectAtIndex:[indexPath row]];
+        CurrentCarInfo *theCurrentCarInfo = [[CMCurrentCars getInstance] theCurrentCarInfo:cell.terminalNo];
+        CarInfo *theCarInfo = [[CMCars getInstance] theCarInfo:cell.terminalNo];
+        NSLog(@"theCarInfo.carNo = %@",theCarInfo.carNo);
+        NSLog(@"theCurrentCarInfo.carPosition = %@",theCurrentCarInfo.carPosition);
+        NSLog(@"carType = %d",theCarInfo.carType);
+        cell.textLabel.text = theCarInfo.carNo;
+        cell.detailTextLabel.lineBreakMode = UILineBreakModeWordWrap;
+        cell.detailTextLabel.text = theCurrentCarInfo.carPosition;
+        UIImage *carImg = [[CMResManager getInstance] imageForKey:[NSString carImage:theCarInfo.carType]];
+        cell.imageView.image = carImg;
         
-        UIImage *image =  [[CMResManager getInstance] imageForKey:@"car_red"];
-        UIImage *craneImg = [[CMResManager getInstance] imageForKey:@"crane"];
-        NSLog(@"carType = %d",carType);
-        if ( carType == CMCarTypeCar ) {
-            cell.imageView.image = image;
-        }
-        else if ( carType == CMCarTypeCrane ) {
-            cell.imageView.image = craneImg;
-        }
-        else 
-            cell.imageView.image = nil;
+        
+//        NSArray *carInfo = [self.carInfoKind objectAtIndex:[indexPath row]];
+//        CarInfo *theCarIno = [[CarInfo alloc] initWithParam:carInfo];
+//        cell.theCarInfo = theCarIno;
+//        [theCarIno release];
+//        NSLog(@"%d",[indexPath section]);
+//        carNo = cell.theCarInfo.carNo;
+//        CMCarType carType = cell.theCarInfo.carType;
+//        NSLog(@"carID = %@",carNo);
+//        //NSString *carType = [carInfo objectAtIndex:2];
+//        
+//        UIImage *image =  [[CMResManager getInstance] imageForKey:@"car_red"];
+//        UIImage *craneImg = [[CMResManager getInstance] imageForKey:@"crane"];
+//        NSLog(@"carType = %d",carType);
+//        if ( carType == CMCarTypeCar ) {
+//            cell.imageView.image = image;
+//        }
+//        else if ( carType == CMCarTypeCrane ) {
+//            cell.imageView.image = craneImg;
+//        }
+//        else 
+//            cell.imageView.image = nil;
     }
-        cell.textLabel.text = carNo;
+//        cell.textLabel.text = carNo;
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         cell.selectionStyle = UITableViewCellSelectionStyleBlue;
     
@@ -230,12 +254,13 @@
         return [self.searchResult count];
     }
     
-    return [self.carInfoKind count];
+    return [self.terminalNos count];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    DetailViewController *detailViewController = [[DetailViewController alloc] initwithParam:[tableView cellForRowAtIndexPath:indexPath].textLabel.text];
+    CMTableViewCell *cell = (CMTableViewCell *)[tableView cellForRowAtIndexPath:indexPath];
+    DetailViewController *detailViewController = [[DetailViewController alloc] initWithTerminalNo:cell.terminalNo];
     [self.navigationController pushViewController:detailViewController animated:YES];
     [detailViewController release];
     
@@ -243,16 +268,25 @@
     [tableView deselectRowAtIndexPath:[tableView indexPathForSelectedRow] animated:YES];
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSString *key = [self.terminalNos objectAtIndex:[indexPath row]];
+    NSString *carPosition = [[CMCurrentCars getInstance] theCurrentCarInfo:key].carPosition;
+    CGSize size = [carPosition sizeWithFont:[UIFont systemFontOfSize:16]];
+    
+    return size.width * 0.2;
+}
+
 #pragma searchBar
 - (void)searchAction
 {
     [self.searchResult removeAllObjects];
     
-    for ( NSString *carID in self.carIDs )
+    for ( NSString *carNo in self.carNos )
     {
-        NSRange carIDResultRange = [carID rangeOfString:self.searchBar.text options:NSCaseInsensitiveSearch];
+        NSRange carIDResultRange = [carNo rangeOfString:self.searchBar.text options:NSCaseInsensitiveSearch];
         if ( carIDResultRange.length > 0 ) {
-            [self.searchResult addObject:carID];
+            [self.searchResult addObject:carNo];
         }
     }
 }

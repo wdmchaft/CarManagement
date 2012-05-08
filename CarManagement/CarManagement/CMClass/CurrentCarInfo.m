@@ -37,29 +37,35 @@
  *return self*/
 - (id)initWithParam:(NSArray *)currentCarInfoParam
 {
+    NSLog(@"hello currentinfo = %@",currentCarInfoParam);
     self = [super init];
     if ( self ) {
+        NSLog(@"count = %d",[currentCarInfoParam count]);
+        NSInteger count = 0;
+        for ( NSString *key in currentCarInfoParam ) {
+            NSLog(@"index = %d,key = %@",count ++,key);
+        }
         NSArray *currentCarInfo = [NSArray arrayWithArray:currentCarInfoParam];
-        self.terminalNo = [currentCarInfo objectAtIndex:1];
-        CLLocation *location = [[CLLocation alloc] initWithLatitude:[[currentCarInfo objectAtIndex:2] floatValue] 
-                                                          longitude:[[currentCarInfo objectAtIndex:3] floatValue]];
+        self.terminalNo = [currentCarInfo objectAtIndex:0];
+        CLLocation *location = [[CLLocation alloc] initWithLatitude:[[currentCarInfo objectAtIndex:1] floatValue] 
+                                                          longitude:[[currentCarInfo objectAtIndex:2] floatValue]];
         self.location = location;
         [location release];
-        self.speed = [[currentCarInfo objectAtIndex:4] floatValue];
-        self.state = [[currentCarInfo objectAtIndex:5] longValue];
-        self.direction = [[currentCarInfo objectAtIndex:6] floatValue];
-        self.mileage = [[currentCarInfo objectAtIndex:7] floatValue];
-        self.lastTransmissionTime = [[currentCarInfo objectAtIndex:8] longValue];
-        self.continueDirverTime = [[currentCarInfo objectAtIndex:9] longValue];
-        self.oilLeft = [[currentCarInfo objectAtIndex:10] floatValue];
-        self.carPosition = [currentCarInfo objectAtIndex:11];
-        self.voltage = [[currentCarInfo objectAtIndex:12] floatValue];
-        self.expand1 = [currentCarInfo objectAtIndex:13];
-        self.version = [currentCarInfo objectAtIndex:14];
-        self.expand2 = [currentCarInfo objectAtIndex:15];
-        self.photoName = [currentCarInfo objectAtIndex:16];
-        self.uitrasonicWaveDistance = [[currentCarInfo objectAtIndex:17] floatValue];
-        self.lastTakePhotoTime = [[currentCarInfo objectAtIndex:18] longValue];
+        self.speed = [[currentCarInfo objectAtIndex:3] floatValue];
+        self.state = [[currentCarInfo objectAtIndex:4] longLongValue];
+        self.direction = [[currentCarInfo objectAtIndex:5] floatValue];
+        self.mileage = [[currentCarInfo objectAtIndex:6] floatValue];
+        self.lastTransmissionTime = [[currentCarInfo objectAtIndex:7] longLongValue];
+        self.continueDirverTime = [[currentCarInfo objectAtIndex:8] longLongValue];
+        self.oilLeft = [[currentCarInfo objectAtIndex:9] floatValue];
+        self.carPosition = [currentCarInfo objectAtIndex:10];
+        self.voltage = [[currentCarInfo objectAtIndex:11] floatValue];
+        self.expand1 = [currentCarInfo objectAtIndex:12];
+        self.version = [currentCarInfo objectAtIndex:13];
+        self.expand2 = [currentCarInfo objectAtIndex:14];
+        self.photoName = [currentCarInfo objectAtIndex:15];
+        self.uitrasonicWaveDistance = [[currentCarInfo objectAtIndex:16] floatValue];
+        self.lastTakePhotoTime = [[currentCarInfo objectAtIndex:17] longLongValue];
     }
     
     return self;
@@ -90,6 +96,17 @@ static CMCurrentCars *_instance = nil;
         NSString *key;
         for ( CurrentCarInfo *theCurrentCarInfo in currentCarsInfoParam ){
             key = theCurrentCarInfo.terminalNo;
+            //currentCarInfo 从 carInfo赋值
+            
+//            CarInfo *theCarInfo = [[CMCars getInstance] theCarInfo:key];
+//            theCurrentCarInfo.carNo = theCarInfo.carNo;
+//            theCurrentCarInfo.carSIMNo = theCarInfo.carSIMNo;
+//            theCurrentCarInfo.carType = theCarInfo.carType;
+//            theCurrentCarInfo.cameraNum = theCarInfo.cameraNum;
+//            theCurrentCarInfo.drivers = theCarInfo.drivers;
+//            theCurrentCarInfo.lastPhotoName = theCarInfo.lastPhotoName;
+//            theCurrentCarInfo.lastPhotoTime = theCarInfo.lastPhotoTime;
+//            theCurrentCarInfo.lastPhoto = theCarInfo.lastPhoto;
             [currentCarDics setObject:theCurrentCarInfo forKey:key];
         }
         
@@ -130,7 +147,7 @@ static CMCurrentCars *_instance = nil;
 /**由终端号获取当前车辆信息
  *@param terminalNo:车牌号
  *return theCarInfo:车辆信息*/
-- (CurrentCarInfo *)theCarInfo:(NSString *)terminalNo
+- (CurrentCarInfo *)theCurrentCarInfo:(NSString *)terminalNo
 {
     return [self.currentCars objectForKey:terminalNo];
 }

@@ -21,17 +21,17 @@
 @implementation DetailViewController
 @synthesize CMTabBarItem = _CMTabBarItem;
 @synthesize tabBarController = _tabBarController;
-@synthesize theCarInfo = _theCarInfo;
+@synthesize terminalNo = _terminalNo;
 //@synthesize detailDeleagte = _detailDelegate;
 
 /**初始化
- *@param param:车辆ID
+ *@param terminalNo:终端号码
  *return self*/
-- (id)initwithParam:(CarInfo *)theCarInfo
+- (id)initWithTerminalNo:(NSString *)terminalNoParam
 {
     self = [super init];
     if ( self ) {
-        self.theCarInfo = [theCarInfo retain];
+        self.terminalNo = terminalNoParam;
     }
     
     return self;
@@ -41,7 +41,6 @@
 {
     [_CMTabBarItem release];
     [_tabBarController release];
-    [_theCarInfo release];
     
     [super dealloc];
 }
@@ -58,11 +57,11 @@
     //2.0 tabBarController
     UITabBarController *tabBarController = [[UITabBarController alloc] init];
   
-    CarInfoViewController *carInfoViewController = [[CarInfoViewController alloc] init];
+    CarInfoViewController *carInfoViewController = [[CarInfoViewController alloc] initWithTerminalNo:self.terminalNo];
     carInfoViewController.delegate = self;
-    HistoryTrackViewController *historyTracViewController = [[HistoryTrackViewController alloc] init];
+    HistoryTrackViewController *historyTracViewController = [[HistoryTrackViewController alloc] initWithTerminalNo:self.terminalNo];
     historyTracViewController.delegate = self;
-    LocationMapViewController *locationMapViewController = [[LocationMapViewController alloc] init];
+    LocationMapViewController *locationMapViewController = [[LocationMapViewController alloc] initWithTerminalNo:self.terminalNo];
     locationMapViewController.delegate = self;
     NSArray *viewControllers = [[NSArray alloc] initWithObjects:carInfoViewController,historyTracViewController,locationMapViewController,nil];
     tabBarController.viewControllers = viewControllers;

@@ -146,23 +146,31 @@
 
 /**车辆信息请求返回解析
  *@param recv:车辆信息请求接收到的数据
- *return nil*/
-- (void)parseRequestCarInfoRecv:(NSString *)recv
+ *return terminalNos:终端号码数组*/
++ (NSMutableArray *)parseRequestCarInfoRecv:(NSString *)recv
 {
     NSMutableArray *param = [[NSMutableArray alloc] init];
+    NSMutableArray *terminalNos = [[NSMutableArray alloc] init];
     //冒号分割
     NSArray *colonArray = [recv componentsSeparatedByString:@":"];
     //逗号分割
     NSArray *commaArray = [[colonArray objectAtIndex:1] componentsSeparatedByString:@","];
+    NSLog(@"commArray = %@",commaArray);
     for ( NSString *currentCarInfos in commaArray ) {
-        NSArray *currentCarInfoParam = [currentCarInfos componentsSeparatedByString:@","];
-        CurrentCarInfo *currentCarInfo = [[CurrentCarInfo alloc] initWithParam:currentCarInfoParam];
-        [param addObject:currentCarInfo];
+        //分号分割
+        if ( ![currentCarInfos isEqualToString:@""] ) {
+            NSArray *currentCarInfoParam = [currentCarInfos componentsSeparatedByString:@";"];
+            CurrentCarInfo *currentCarInfo = [[CurrentCarInfo alloc] initWithParam:currentCarInfoParam];
+            [terminalNos addObject:currentCarInfo.terminalNo];
+            [param addObject:currentCarInfo];
+        }
     }
     
     CMCurrentCars *currentCars = [[[CMCurrentCars alloc] initWithCurrentCarInfoParam:param] autorelease];
     NSLog(@"currentCars = %@",currentCars);
     [param release];
+    
+    return [terminalNos autorelease];
 }
 
 /**拍照返回数据解析
@@ -188,4 +196,28 @@
 {
    
 }
+
+/**获取对应车类型的车图片
+ *@param carType:车类型
+ *return key:对应车类型的图片的key*/
++ (NSString *)carImage:(CMCarType)carType
+{
+    NSString *key = [[NSString alloc] init];
+    if ( carType == CMCarTypeCar ) {
+        key = @"car_red";
+    }
+    else if ( carType == CMCarTypeCrane ) {
+        key = @"crane";
+    }
+    else if ( carType == CMCarTypeTruck ) {
+        key = @"truck";
+    }
+    
+    return [key autorelease];
+}
+
+/**获取对应车类型的车图片
+ *@param carType:车类型
+ *return keys:对应车类型的图片的keys*/
+
 @end

@@ -14,7 +14,14 @@
 {
     MKMapView *_mapView;
     
+    NSString *_terminalNo;
 }
 
 @property (nonatomic,retain) MKMapView *mapView;
+@property (nonatomic,copy) NSString *terminalNo;
+
+/**初始化
+ *@param terminalNo:终端号码
+ *return self*/
+- (id)initWithTerminalNo:(NSString *)terminalNoParam;
 @end

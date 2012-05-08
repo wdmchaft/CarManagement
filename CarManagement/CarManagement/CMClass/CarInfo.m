@@ -90,7 +90,7 @@ static CMCars *_instance = nil;
         NSMutableDictionary *carInfoDics = [[NSMutableDictionary alloc] init];
         NSString *key;
         for ( CarInfo *theCarInfo in carsInfoParam ){
-            key = theCarInfo.carNo;
+            key = theCarInfo.terminalNo;
             [carInfoDics setObject:theCarInfo forKey:key];
         }
         
@@ -122,7 +122,8 @@ static CMCars *_instance = nil;
 {
     NSMutableArray *carNos = [[[NSMutableArray alloc] init] autorelease];
     for ( id key in self.cars ) {
-        [carNos addObject:key];
+        CarInfo *theCarInfo = [self.cars objectForKey:key];
+        [carNos addObject:theCarInfo.carNo];
     }
     
     return [NSArray arrayWithArray:carNos];
@@ -142,12 +143,12 @@ static CMCars *_instance = nil;
     return [NSArray arrayWithArray:terminalNos];
 }
 
-/**由车牌获取车辆信息
+/**由终端获取车辆信息
  *@param carNo:车牌号
  *return theCarInfo:车辆信息*/
-- (CarInfo *)theCarInfo:(NSString *)carNo
+- (CarInfo *)theCarInfo:(NSString *)terminalNo
 {
-    return [self.cars objectForKey:carNo];
+    return [self.cars objectForKey:terminalNo];
 }
 
 + (id)allocWithZone:(NSZone *)zone

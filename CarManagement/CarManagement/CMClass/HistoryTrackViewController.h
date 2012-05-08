@@ -11,7 +11,14 @@
 
 @interface HistoryTrackViewController : CMBaseViewController
 {
-
+    NSString *_terminalNo;
 }
+
+@property (nonatomic,copy) NSString *terminalNo;
+
+/**初始化
+ *@param terminalNo:终端号码
+ *return self*/
+- (id)initWithTerminalNo:(NSString *)terminalNoParam;
 
 @end
