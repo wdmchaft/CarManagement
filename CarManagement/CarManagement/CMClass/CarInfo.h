@@ -78,6 +78,11 @@
  *return 所有车牌号*/
 - (NSArray *)carNos;
 
+/**获取所有终端号
+ *@param nil
+ *return 所有车终端号*/
+- (NSArray *)terminalNos;
+
 /**由车牌获取车辆信息
  *@param carNo:车牌号
  *return theCarInfo:车辆信息*/

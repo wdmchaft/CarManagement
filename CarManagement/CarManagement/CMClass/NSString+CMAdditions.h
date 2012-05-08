@@ -17,12 +17,12 @@
 /**请求车辆信息口令1
  *@param
  *return*/
-+ (NSString *)createRequireCarInfoFirstParam:(NSArray *)carIds;
++ (NSString *)createRequireCarInfoFirstParam:(NSArray *)carNos;
 
 /**请求车辆信息口令2
  *@param
  *return*/
-+ (NSString *)createRequireCarInfoSecondParam:(NSArray *)carIds;
++ (NSString *)createRequireCarInfoSecondParam:(NSArray *)carNos;
 
 /**拍照口令
  *@param terminalId:终端编号 cameraType:摄像头类型(前置/后置)
@@ -39,6 +39,11 @@
  *return oilAnalysis*/
 + (NSString *)createOilAnalysisParam:(NSString *)terminalId beginTime:(NSString *)beginTime endTime:(NSString *)endTime;
 
+/**车辆状态
+ *@param staate:车辆状态码 
+ *return param*/
++ (NSString *)createCarStateParam:(long)state;
+
 /**登陆返回解析
  *@param recv:登陆后接收到的数据
  *return */
@@ -46,8 +51,8 @@
 
 /**车辆信息请求返回解析
  *@param recv:车辆信息请求接收到的数据
- **/
-+ (NSArray *)parseRequestCarInfoRecv:(NSString *)recv;
+ *return nil*/
+- (void)parseRequestCarInfoRecv:(NSString *)recv;
 
 /**拍照返回数据解析
  *@param recv:拍照接收到的数据

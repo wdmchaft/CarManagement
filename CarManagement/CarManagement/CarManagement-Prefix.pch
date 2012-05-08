@@ -15,4 +15,5 @@
     #import "NSString+CMAdditions.h"
     #import "CMResManager.h"
     #import "CarInfo.h"
+    #import "CurrentCarInfo.h"
 #endif

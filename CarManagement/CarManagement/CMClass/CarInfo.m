@@ -128,6 +128,20 @@ static CMCars *_instance = nil;
     return [NSArray arrayWithArray:carNos];
 }
 
+/**获取所有终端号
+ *@param nil
+ *return 所有车终端号*/
+- (NSArray *)terminalNos
+{
+    NSMutableArray *terminalNos = [[[NSMutableArray alloc] init] autorelease];
+    for ( id key in self.cars ){
+        CarInfo *theCarInfo = [self.cars objectForKey:key];
+        [terminalNos addObject:theCarInfo.terminalNo];
+    }
+    
+    return [NSArray arrayWithArray:terminalNos];
+}
+
 /**由车牌获取车辆信息
  *@param carNo:车牌号
  *return theCarInfo:车辆信息*/

@@ -229,21 +229,8 @@
             [self showAlert:kAlertServerMsgLoss title:nil message:@"请配置服务器信息"];
         }
         else {
-            //登陆
-//            AppDelegate *appdelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
-//            appdelegate.client.delegate = self;
-//            NSError *error;
-//            BOOL isConnected = [appdelegate.client connectToHost:serverIpAddress onPort:[serverIpPort intValue] withTimeout:5 error:&error];
-//            if ( isConnected ) {////$187:super:181125:10
-//                NSString *loginMsg = [NSString stringWithFormat:@"$187:%@:%@:11",user,pwd];
-//                NSLog(@"loginMsg = %@",loginMsg);
-//                NSData *loginMsgData = [loginMsg dataUsingEncoding:NSUTF8StringEncoding];
-//                [appdelegate.client writeData:loginMsgData withTimeout:-1 tag:0];
-//            }
             NSLog(@"%@:%@",serverIpAddress,serverIpPort);
             NSError *error = nil;
-//            AppDelegate *appdelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
-//            appdelegate.client.delegate = self;
             if ( ![self.socket connectToHost:serverIpAddress onPort:[serverIpPort intValue] error:&error] ) {
                 NSLog(@"error = %@",error.description);
             }
@@ -336,6 +323,7 @@
         {
             [self loginPrepareAnimated];
             [self.userPasswordField becomeFirstResponder];
+            [self.socket disconnect];
         }break;
         default:NSLog(@"setp over~ alertView.tag = %d",alertView.tag);
             break;
@@ -376,9 +364,16 @@
 #pragma AsyncSocket
 - (void)onSocket:(AsyncSocket *)sock didConnectToHost:(NSString *)host port:(UInt16)port
 {
+    [self.socket readDataWithTimeout:-1 tag:0];
+    [self.socket readDataWithTimeout:-1 tag:1];
 //    AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
 //    [appDelegate.client readDataWithTimeout:-1 tag:0];
-    [self.socket readDataWithTimeout:-1 tag:0];
+//    if ( self.process == CMProcessLogin ) {
+//        [self.socket readDataWithTimeout:-1 tag:0];
+//    }
+//    else if ( self.process == CMProcessRequireCarsInfoStateFirst ) {
+//        [self.socket readDataWithTimeout:-1 tag:1];
+//    }
     NSLog(@"didConnectToHost");
 //    MainViewController *mainViewController = [[MainViewController alloc] init];
 //    UINavigationController *carInfoNavigationController = [[UINavigationController alloc] initWithRootViewController:mainViewController];
@@ -403,14 +398,14 @@
 - (void)onSocket:(AsyncSocket *)sock didReadData:(NSData *)data withTag:(long)tag
 {
     NSLog(@"recvData = %@",data);
+    NSStringEncoding enc = CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingGB_18030_2000);
+    NSString *recvMsg = [[NSString alloc] initWithData:data encoding:enc];
+    NSLog(@"recvMsg = %@",recvMsg);
     if ( self.process == CMProcessLogin ) {
-        NSStringEncoding enc = CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingGB_18030_2000);
-        NSString *recvMsg = [[NSString alloc] initWithData:data encoding:enc];
         NSLog(@"recvMsg = %@",recvMsg);
         NSMutableArray *carInfoArrays = [NSString parseLoginRecv:recvMsg];
         NSLog(@"Login return carInfoArrays = %@",carInfoArrays);
         CMLoginREsultType loginResultType = [[carInfoArrays objectAtIndex:0] intValue];
-        NSArray *carNos;
         switch ( loginResultType ) {
             case CMLoinResultTypeAcountNotExist:
             {
@@ -440,19 +435,25 @@
                 
                 //登陆成功
 //                NSArray *carNos = [[CMCars getInstance] carNos];
-                carNos = [NSArray arrayWithArray:[[CMCars getInstance] carNos]];
-                NSLog(@"carNos = %@",carNos);
+               NSArray *terminalNos;
+               terminalNos = [NSArray arrayWithArray:[[CMCars getInstance] terminalNos]];
+               NSLog(@"terminalNos = %@",terminalNos);
+               NSString *requireCarsInfoFirstParam = [NSString createRequireCarInfoFirstParam:terminalNos];
+               NSLog(@"requireCarsInfoFirstParam = %@",requireCarsInfoFirstParam);
+               NSData *requireCarsInfoFirstParamData = [requireCarsInfoFirstParam dataUsingEncoding:NSUTF8StringEncoding];
+               [self.socket writeData:requireCarsInfoFirstParamData withTimeout:-1 tag:1];
+                
+//                NSString *requireCarsInfoSecondParam = [NSString createRequireCarInfoSecondParam:terminalNos];
+//                NSLog(@"requireCarsInfoSecondParam = %@",requireCarsInfoSecondParam);
+//                NSData *requireCarsInfoSecondParamData = [requireCarsInfoSecondParam dataUsingEncoding:NSUTF8StringEncoding];
+//                [self.socket writeData:requireCarsInfoSecondParamData withTimeout:-1 tag:0];
+                
+                self.process = CMProcessRequireCarsInfoStateFirst;
             }break;
             default:NSLog(@"Login error~ %d",loginResultType);
                 break;
         }
-        NSString *requireCarsInfoFirstParam = [NSString createRequireCarInfoFirstParam:carNos];
-        NSLog(@"requireCarsInfoFirstParam = %@",requireCarsInfoFirstParam);
-        NSData *requireCarsInfoFirstParamData = [requireCarsInfoFirstParam dataUsingEncoding:NSUTF8StringEncoding];
-        [self.socket writeData:requireCarsInfoFirstParamData withTimeout:-1 tag:1];
         
-        NSLog(@"%@",recvMsg);
-        [recvMsg release];
     }
     else if ( self.process == CMProcessRequireCarsInfoStateFirst ) {
         NSLog(@"CMProcessRequireCarsInfoStateFirst Sucess");
@@ -460,14 +461,13 @@
     else if ( self.process == CMProcessRequireCarsInfoStateSecond ) {
         NSLog(@"CMProcessRequireCarsInfoStateSecond Sucess");
     }
+   
+    [recvMsg release];
 }
-
-/**链接服务器
- *@param hostIp:服务器ip hostPort:服务器端口
- **/
 
 
 @end
 //218.85.134.124:1439 
 //shdzdwcxh  666666
 //shdzfwcqp  666666
+//real 61.191.55.202:1437 dt/5858

@@ -11,7 +11,7 @@
 #import "NSString+CMAdditions.h"
 
 #define kLoginSuccess               @"0;3;1;1"
-#define kLoginWithPasswordWrong     @"0;3;1;0"
+#define kLoginWithPasswordWrong     @"0,3,1,0"
 #define kLoginWithAccountNotExist   @""
 #define kLoginWithServerIpWrong     @""
 #define kLoginWithServerPortWrong     @""
@@ -43,15 +43,14 @@
 /**请求车辆信息口令1
  *@param
  *return*/
-+ (NSString *)createRequireCarInfoFirstParam:(NSArray *)carIds
++ (NSString *)createRequireCarInfoFirstParam:(NSArray *)carNos
 {
-    NSMutableString *tmpParam = [NSMutableString stringWithFormat:@"1"];
+    NSString *param = [NSString stringWithFormat:@"1:"];
     NSString *part;
-    for ( NSString *carId in carIds ) {
-        part = [NSString stringWithFormat:@":%@,-1",carId];
-        [tmpParam stringByAppendingString:part];
+    for ( NSString *carNo in carNos ) {
+        part = [NSString stringWithFormat:@"%@,-1;",carNo];
+        param = [param stringByAppendingString:part];
     }
-    NSString *param = [NSString stringWithString:tmpParam];
     
     return  param;
 }
@@ -59,15 +58,14 @@
 /**请求车辆信息口令2
  *@param
  *return*/
-+ (NSString *)createRequireCarInfoSecondParam:(NSArray *)carIds
++ (NSString *)createRequireCarInfoSecondParam:(NSArray *)carNos
 {
-    NSMutableString *tmpParam = [NSMutableString stringWithFormat:@"2"];
+    NSString *param = [NSString stringWithFormat:@"2:"];
     NSString *part;
-    for ( NSString *carId in carIds ) {
-        part = [NSString stringWithFormat:@":%@,-1",carId];
-        [tmpParam stringByAppendingString:part];
+    for ( NSString *carNo in carNos ) {
+        part = [NSString stringWithFormat:@"%@,-1;",carNo];
+        param = [param stringByAppendingString:part];
     }
-    NSString *param = [NSString stringWithString:tmpParam];
     
     return  param;
 }
@@ -148,10 +146,23 @@
 
 /**车辆信息请求返回解析
  *@param recv:车辆信息请求接收到的数据
- **/
-+ (NSArray *)parseRequestCarInfoRecv:(NSString *)recv
+ *return nil*/
+- (void)parseRequestCarInfoRecv:(NSString *)recv
 {
-
+    NSMutableArray *param = [[NSMutableArray alloc] init];
+    //冒号分割
+    NSArray *colonArray = [recv componentsSeparatedByString:@":"];
+    //逗号分割
+    NSArray *commaArray = [[colonArray objectAtIndex:1] componentsSeparatedByString:@","];
+    for ( NSString *currentCarInfos in commaArray ) {
+        NSArray *currentCarInfoParam = [currentCarInfos componentsSeparatedByString:@","];
+        CurrentCarInfo *currentCarInfo = [[CurrentCarInfo alloc] initWithParam:currentCarInfoParam];
+        [param addObject:currentCarInfo];
+    }
+    
+    CMCurrentCars *currentCars = [[[CMCurrentCars alloc] initWithCurrentCarInfoParam:param] autorelease];
+    NSLog(@"currentCars = %@",currentCars);
+    [param release];
 }
 
 /**拍照返回数据解析
