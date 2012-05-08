@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CF186EDD1558D61A001B5871 /* CMTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CF186EDC1558D61A001B5871 /* CMTableViewCell.m */; };
 		CF255F5D1557D6A3002AC394 /* CarInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = CF255F5C1557D6A3002AC394 /* CarInfo.m */; };
 		CF3709D11553B71D0064A190 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF3709D01553B71D0064A190 /* UIKit.framework */; };
 		CF3709D31553B71D0064A190 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF3709D21553B71D0064A190 /* Foundation.framework */; };
@@ -38,6 +39,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		CF186EDB1558D61A001B5871 /* CMTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CMTableViewCell.h; path = CMClass/CMTableViewCell.h; sourceTree = "<group>"; };
+		CF186EDC1558D61A001B5871 /* CMTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CMTableViewCell.m; path = CMClass/CMTableViewCell.m; sourceTree = "<group>"; };
 		CF255F5B1557D6A3002AC394 /* CarInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CarInfo.h; path = CMClass/CarInfo.h; sourceTree = "<group>"; };
 		CF255F5C1557D6A3002AC394 /* CarInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CarInfo.m; path = CMClass/CarInfo.m; sourceTree = "<group>"; };
 		CF3709CC1553B71D0064A190 /* CarManagement.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CarManagement.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -203,6 +206,8 @@
 				CFE752C015564CF600559A95 /* CMSocket.m */,
 				CFE752C31556504C00559A95 /* NSString+CMAdditions.h */,
 				CFE752C41556504C00559A95 /* NSString+CMAdditions.m */,
+				CF186EDB1558D61A001B5871 /* CMTableViewCell.h */,
+				CF186EDC1558D61A001B5871 /* CMTableViewCell.m */,
 			);
 			name = CMCommon;
 			sourceTree = "<group>";
@@ -304,6 +309,7 @@
 				CFE752D715565E8C00559A95 /* AboutCarManagerViewController.m in Sources */,
 				CFE752DA1556687100559A95 /* CarInfoViewController.m in Sources */,
 				CF255F5D1557D6A3002AC394 /* CarInfo.m in Sources */,
+				CF186EDD1558D61A001B5871 /* CMTableViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

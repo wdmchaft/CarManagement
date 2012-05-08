@@ -31,6 +31,17 @@ typedef enum
     CMCarTypeTruck,
 }CMCarType;
 
+typedef enum
+{
+    CMProcessLogin = 1,
+    CMProcessRequireCarsInfoStateFirst,
+    CMProcessRequireCarsInfoStateSecond,
+    CMProcessRequireTheCarInfo,
+    CMProcessQueryHistoryTrack,
+    CMProcessQueryLeftOil,
+    CMProcessTakePhoto,
+}CMProcess;
+
 
 #define NAVIGATIONBAR_ANIMATION_TIMINTERVAL     0.5
 

@@ -21,17 +21,17 @@
 @implementation DetailViewController
 @synthesize CMTabBarItem = _CMTabBarItem;
 @synthesize tabBarController = _tabBarController;
-@synthesize carID = _carID;
+@synthesize theCarInfo = _theCarInfo;
 //@synthesize detailDeleagte = _detailDelegate;
 
 /**初始化
  *@param param:车辆ID
  *return self*/
-- (id)initwithParam:(NSString *)param
+- (id)initwithParam:(CarInfo *)theCarInfo
 {
     self = [super init];
     if ( self ) {
-        self.carID = [NSString stringWithString:param];
+        self.theCarInfo = [theCarInfo retain];
     }
     
     return self;
@@ -41,6 +41,7 @@
 {
     [_CMTabBarItem release];
     [_tabBarController release];
+    [_theCarInfo release];
     
     [super dealloc];
 }

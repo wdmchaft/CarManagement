@@ -47,6 +47,11 @@
 @property (nonatomic,retain) NSArray *drivers;
 @property (nonatomic) BOOL hasNewPhoto;
 
+
+/**初始化car
+ *@param carInfo:数组,包含car的基本属性字段
+ *return self*/
+- (id)initWithParam:(NSArray *)carInfoParam;
 @end
 
 
@@ -57,5 +62,25 @@
 }
 
 @property (nonatomic,retain) NSMutableDictionary *cars;
+
+/**初始化
+ *@param carsInfoParam:车辆信息数组,数组内容为车辆对象
+ *return 实例*/
+- (id)initwithCarsInfoParam:(NSMutableArray *)carsInfoParam;
+
+/**获取单利
+ *@param nil
+ *return _instance:单利*/
++ (CMCars *)getInstance;
+
+/**获取所有key值(车牌号)
+ *@param nil
+ *return 所有车牌号*/
+- (NSArray *)carNos;
+
+/**由车牌获取车辆信息
+ *@param carNo:车牌号
+ *return theCarInfo:车辆信息*/
+- (CarInfo *)theCarInfo:(NSString *)carNo;
 
 @end

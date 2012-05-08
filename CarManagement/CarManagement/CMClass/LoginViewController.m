@@ -38,6 +38,7 @@
 @synthesize settingBtn = _settingBtn;
 @synthesize reserveTView = _reserveTView;
 @synthesize socket = _socket;
+@synthesize process = _process;
 
 - (void)dealloc
 {
@@ -50,6 +51,7 @@
     [_loginBtn release];
     [_settingBtn release];
     [_reserveTView release];
+    [_socket release];
     
     [super dealloc];
 }
@@ -173,9 +175,10 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
-    AsyncSocket *socket = [[AsyncSocket alloc] initWithDelegate:self];
-    self.socket = socket;
-    [socket release];
+    AppDelegate *appdelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+    appdelegate.client.delegate = self;
+    self.socket = [appdelegate.client retain];
+    self.process = CMProcessLogin;
 }
 
 - (void)viewDidUnload
@@ -239,9 +242,9 @@
 //            }
             NSLog(@"%@:%@",serverIpAddress,serverIpPort);
             NSError *error = nil;
-            AppDelegate *appdelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
-            appdelegate.client.delegate = self;
-            if ( ![appdelegate.client connectToHost:serverIpAddress onPort:[serverIpPort intValue] error:&error] ) {
+//            AppDelegate *appdelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+//            appdelegate.client.delegate = self;
+            if ( ![self.socket connectToHost:serverIpAddress onPort:[serverIpPort intValue] error:&error] ) {
                 NSLog(@"error = %@",error.description);
             }
             else {
@@ -249,7 +252,7 @@
                 NSString *loginParam = [NSString createLoginParam:user password:pwd];
                 NSLog(@"loginMsg = %@",loginParam);
                 NSData *loginMsgData = [loginParam dataUsingEncoding:NSUTF8StringEncoding];
-                [appdelegate.client writeData:loginMsgData withTimeout:-1 tag:0];
+                [self.socket writeData:loginMsgData withTimeout:-1 tag:0];
             }
         }
     }
@@ -373,8 +376,9 @@
 #pragma AsyncSocket
 - (void)onSocket:(AsyncSocket *)sock didConnectToHost:(NSString *)host port:(UInt16)port
 {
-    AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
-    [appDelegate.client readDataWithTimeout:-1 tag:0];
+//    AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+//    [appDelegate.client readDataWithTimeout:-1 tag:0];
+    [self.socket readDataWithTimeout:-1 tag:0];
     NSLog(@"didConnectToHost");
 //    MainViewController *mainViewController = [[MainViewController alloc] init];
 //    UINavigationController *carInfoNavigationController = [[UINavigationController alloc] initWithRootViewController:mainViewController];
@@ -399,46 +403,63 @@
 - (void)onSocket:(AsyncSocket *)sock didReadData:(NSData *)data withTag:(long)tag
 {
     NSLog(@"recvData = %@",data);
-    
-    NSStringEncoding enc = CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingGB_18030_2000);
-    NSString *recvMsg = [[NSString alloc] initWithData:data encoding:enc];
-    NSLog(@"recvMsg = %@",recvMsg);
-    NSMutableArray *carInfoArrays = [NSString parseLoginRecv:recvMsg];
-    NSLog(@"carInfoArrays = %@",carInfoArrays);
-    CMLoginREsultType loginResultType = [[carInfoArrays objectAtIndex:0] intValue];
-    switch ( loginResultType ) {
-        case CMLoinResultTypeAcountNotExist:
-        {
+    if ( self.process == CMProcessLogin ) {
+        NSStringEncoding enc = CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingGB_18030_2000);
+        NSString *recvMsg = [[NSString alloc] initWithData:data encoding:enc];
+        NSLog(@"recvMsg = %@",recvMsg);
+        NSMutableArray *carInfoArrays = [NSString parseLoginRecv:recvMsg];
+        NSLog(@"Login return carInfoArrays = %@",carInfoArrays);
+        CMLoginREsultType loginResultType = [[carInfoArrays objectAtIndex:0] intValue];
+        NSArray *carNos;
+        switch ( loginResultType ) {
+            case CMLoinResultTypeAcountNotExist:
+            {
+            
+            }break;
+            case CMLoinResultTypePasswordWrong:
+            {
+                [self showAlert:kAlertPasswordWrong title:nil message:@"您输入的密码有误，请重新输入"];
+            }break;
+            case CMLoinResultTypeServerIpWrong:
+            {
+            
+            }break;
+            case CMLoinResultTypeServerPortWrong:
+            {
+            
+            }break;
+            case CMLoinResultTypeSuccess:
+            {
+    //            MainViewController *mainViewController = [[MainViewController alloc] initWithParam:carInfoArrays];
+    //            UINavigationController *carInfoNavigationController = [[UINavigationController alloc] initWithRootViewController:mainViewController];
+    //            self.carInfoNavigationController = carInfoNavigationController;
+    //            [self presentModalViewController:carInfoNavigationController animated:NO];
+    //            [mainViewController release];
+    //            [carInfoNavigationController release];
+    //            NSLog(@"LoginViewControllerArrays = %@",self.navigationController.viewControllers);
+                
+                //登陆成功
+//                NSArray *carNos = [[CMCars getInstance] carNos];
+                carNos = [NSArray arrayWithArray:[[CMCars getInstance] carNos]];
+                NSLog(@"carNos = %@",carNos);
+            }break;
+            default:NSLog(@"Login error~ %d",loginResultType);
+                break;
+        }
+        NSString *requireCarsInfoFirstParam = [NSString createRequireCarInfoFirstParam:carNos];
+        NSLog(@"requireCarsInfoFirstParam = %@",requireCarsInfoFirstParam);
+        NSData *requireCarsInfoFirstParamData = [requireCarsInfoFirstParam dataUsingEncoding:NSUTF8StringEncoding];
+        [self.socket writeData:requireCarsInfoFirstParamData withTimeout:-1 tag:1];
         
-        }break;
-        case CMLoinResultTypePasswordWrong:
-        {
-            [self showAlert:kAlertPasswordWrong title:nil message:@"您输入的密码有误，请重新输入"];
-        }break;
-        case CMLoinResultTypeServerIpWrong:
-        {
-        
-        }break;
-        case CMLoinResultTypeServerPortWrong:
-        {
-        
-        }break;
-        case CMLoinResultTypeSuccess:
-        {
-            MainViewController *mainViewController = [[MainViewController alloc] initWithParam:carInfoArrays];
-            UINavigationController *carInfoNavigationController = [[UINavigationController alloc] initWithRootViewController:mainViewController];
-            self.carInfoNavigationController = carInfoNavigationController;
-            [self presentModalViewController:carInfoNavigationController animated:NO];
-            [mainViewController release];
-            [carInfoNavigationController release];
-            NSLog(@"LoginViewControllerArrays = %@",self.navigationController.viewControllers);
-        }break;
-        default:NSLog(@"Login error~ %d",loginResultType);
-            break;
+        NSLog(@"%@",recvMsg);
+        [recvMsg release];
     }
-
-    NSLog(@"%@",recvMsg);
-    [recvMsg release];
+    else if ( self.process == CMProcessRequireCarsInfoStateFirst ) {
+        NSLog(@"CMProcessRequireCarsInfoStateFirst Sucess");
+    }
+    else if ( self.process == CMProcessRequireCarsInfoStateSecond ) {
+        NSLog(@"CMProcessRequireCarsInfoStateSecond Sucess");
+    }
 }
 
 /**链接服务器
@@ -448,3 +469,5 @@
 
 @end
 //218.85.134.124:1439 
+//shdzdwcxh  666666
+//shdzfwcqp  666666

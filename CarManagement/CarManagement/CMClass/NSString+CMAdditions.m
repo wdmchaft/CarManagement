@@ -107,10 +107,11 @@
 
 /**登陆返回解析
  *@param recv:登陆后接收到的数据
- *return */
+ *return param:车辆信息数组，第一个字段为登陆返回码;第二字段为公司名称;之后为车辆信息数组 */
 + (NSMutableArray *)parseLoginRecv:(NSString *)recv
 {
     NSMutableArray *param = [[NSMutableArray alloc] init];
+    NSMutableArray *carsParam = [[NSMutableArray alloc] init];
     if ( [recv hasPrefix:kLoginWithAccountNotExist] ) {
         [param addObject:[NSString stringWithFormat:@"%d",CMLoinResultTypeAcountNotExist]];
     }
@@ -132,9 +133,15 @@
         NSArray *carInfoArray = [carsInfo componentsSeparatedByString:@","];
         for ( NSString *carInfos in carInfoArray ) {
             NSArray *carDetailInfo = [carInfos componentsSeparatedByString:@":"];
-            [param addObject:carDetailInfo];
+            //[param addObject:carDetailInfo];
+            CarInfo *theCarInfo = [[CarInfo alloc] initWithParam:carDetailInfo];
+            [carsParam addObject:theCarInfo];
         }
+        
+        CMCars *cars = [[[CMCars alloc] initwithCarsInfoParam:carsParam] autorelease];
+        NSLog(@"cars = %@",cars);
     }
+    [carsParam release];
     NSLog(@"param = %@",param);
     return [param autorelease];
 }

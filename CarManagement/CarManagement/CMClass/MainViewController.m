@@ -8,6 +8,7 @@
 
 #import "MainViewController.h"
 #import "DetailViewController.h"
+#import "CMTableViewCell.h"
 
 
 @interface MainViewController ()
@@ -177,23 +178,26 @@
 {
     static NSString *cellIndentifier = @"cell";
     
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIndentifier];
+    CMTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIndentifier];
 
     if ( !cell ) {
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier
+        cell = [[[CMTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier
                                                       :cellIndentifier] autorelease];
     }
     
-    NSString *carID;
+    NSString *carNo;
     if ( _isSearchOn ) {
-        carID = [self.searchResult objectAtIndex:[indexPath row]];
+        carNo = [self.searchResult objectAtIndex:[indexPath row]];
     }
     else {
         NSArray *carInfo = [self.carInfoKind objectAtIndex:[indexPath row]];
+        CarInfo *theCarIno = [[CarInfo alloc] initWithParam:carInfo];
+        cell.theCarInfo = theCarIno;
+        [theCarIno release];
         NSLog(@"%d",[indexPath section]);
-        carID = [carInfo objectAtIndex:1];
-        CMCarType carType = [[carInfo objectAtIndex:3] intValue];
-        NSLog(@"carID = %@",carID);
+        carNo = cell.theCarInfo.carNo;
+        CMCarType carType = cell.theCarInfo.carType;
+        NSLog(@"carID = %@",carNo);
         //NSString *carType = [carInfo objectAtIndex:2];
         
         UIImage *image =  [[CMResManager getInstance] imageForKey:@"car_red"];
@@ -208,7 +212,7 @@
         else 
             cell.imageView.image = nil;
     }
-        cell.textLabel.text = carID;
+        cell.textLabel.text = carNo;
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         cell.selectionStyle = UITableViewCellSelectionStyleBlue;
     
