@@ -11,6 +11,7 @@
 @implementation CMTableViewCell
 @synthesize terminalNo = _terminalNo;
 @synthesize carImgView = _carImgView;
+@synthesize carNoCMView = _carNoCMView;
 @synthesize speedCMView = _speedCMView;
 @synthesize stateCMView = _stateCMView;
 @synthesize positionCMView = _positionCMView;
@@ -49,7 +50,7 @@
         //3.0speedCMView
         CMTextView *speedCMView = [[CMTextView alloc] initWithFrame:CGRectMake(70, 25, 230, 20)];
         speedCMView.backgroundColor = [UIColor clearColor];
-        speedCMView.titleLabel.text = @"速度:";
+        speedCMView.titleLabel.text = @"速度(km/h):";
         self.speedCMView = speedCMView;
         [self addSubview:self.speedCMView];
         [speedCMView release];
@@ -63,7 +64,7 @@
         [stateCMView release];
         
         //5.0positionCMView
-        CMTextView *positionCMView = [[CMTextView alloc] initWithFrame:CGRectMake(20, 70, 280, 40)];
+        CMTextView *positionCMView = [[CMTextView alloc] initWithFrame:CGRectMake(20, 70, 280, 60)];
         positionCMView.backgroundColor = [UIColor clearColor];
         positionCMView.titleLabel.text = @"位置:";
         self.positionCMView = positionCMView;
@@ -143,21 +144,32 @@
     [super dealloc];
 }
 
-- (void)drawRect:(CGRect)rect
+/**初始化
+ *@param frame:CMTextView大小
+ *return self*/
+- (id)initWithFrame:(CGRect)frame  
 {
-    CGRect bounds = [self bounds];
-    UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 40, 20)];
-    titleLabel.backgroundColor = [UIColor clearColor];
-    titleLabel.textColor = [UIColor blueColor];
-    self.titleLabel = titleLabel;
-    [titleLabel release];
+    self = [super initWithFrame:frame];
+    if ( self ) {
+ 
+        CGRect bounds = [self bounds];
+        UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 100, 20)];
+        titleLabel.backgroundColor = [UIColor clearColor];
+        titleLabel.textColor = [UIColor blueColor];
+        self.titleLabel = titleLabel;
+        [titleLabel release];
+        
+        UILabel *contentLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, bounds.size.width, bounds.size.height)];
+        contentLabel.numberOfLines = 2;
+        contentLabel.adjustsFontSizeToFitWidth = YES;
+        contentLabel.backgroundColor = [UIColor clearColor];
+        self.contentLabel = contentLabel;
+        [self.contentLabel addSubview:self.titleLabel];
+        [self addSubview:self.contentLabel];
+        [contentLabel release];
+    }
     
-    UILabel *contentLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, bounds.size.width, bounds.size.height)];
-    contentLabel.backgroundColor = [UIColor clearColor];
-    self.contentLabel = contentLabel;
-    [self.contentLabel addSubview:self.titleLabel];
-    [self addSubview:self.contentLabel];
-    [contentLabel release];
+    return self;
 }
 
 @end

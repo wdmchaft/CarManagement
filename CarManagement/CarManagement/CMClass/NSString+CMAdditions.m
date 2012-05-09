@@ -151,21 +151,20 @@
 {
     NSMutableArray *param = [[NSMutableArray alloc] init];
     NSMutableArray *terminalNos = [[NSMutableArray alloc] init];
-    //冒号分割
-    NSArray *colonArray = [recv componentsSeparatedByString:@":"];
     //逗号分割
-    NSArray *commaArray = [[colonArray objectAtIndex:1] componentsSeparatedByString:@","];
-    NSLog(@"commArray = %@",commaArray);
-    for ( NSString *currentCarInfos in commaArray ) {
-        //分号分割
-        if ( ![currentCarInfos isEqualToString:@""] ) {
+    NSArray *commaArray = [recv componentsSeparatedByString:@","];
+    //冒号分割
+    for ( NSString *currentCarInfosWith6 in commaArray ) {
+        if ( ![currentCarInfosWith6 isEqualToString:@""] ) {
+            NSArray *colonArray = [currentCarInfosWith6 componentsSeparatedByString:@":"];
+            NSString *currentCarInfos = [colonArray objectAtIndex:1];
             NSArray *currentCarInfoParam = [currentCarInfos componentsSeparatedByString:@";"];
             CurrentCarInfo *currentCarInfo = [[CurrentCarInfo alloc] initWithParam:currentCarInfoParam];
             [terminalNos addObject:currentCarInfo.terminalNo];
             [param addObject:currentCarInfo];
         }
     }
-    
+
     CMCurrentCars *currentCars = [[[CMCurrentCars alloc] initWithCurrentCarInfoParam:param] autorelease];
     NSLog(@"currentCars = %@",currentCars);
     [param release];
@@ -203,13 +202,13 @@
 + (NSString *)carImage:(CMCarType)carType
 {
     NSString *key = [[NSString alloc] init];
-    if ( carType == CMCarTypeCar ) {
+    if ( carType == CMCarTypeNormal ) {
         key = @"car_red";
     }
-    else if ( carType == CMCarTypeCrane ) {
+    else if ( carType == CMCarTypeMixer ) {
         key = @"crane";
     }
-    else if ( carType == CMCarTypeTruck ) {
+    else if ( carType == CMCarTypeAntiTheft ) {
         key = @"truck";
     }
     
@@ -240,5 +239,46 @@
 /**获取对应车类型的车图片
  *@param carType:车类型
  *return keys:对应车类型的图片的keys*/
+
+
+/**适应cell的车牌号码字符串
+ *@param carNoParam:车牌号
+ *return carNo:适应cell的车牌号*/
++ (NSString *)carNoAdjustmentParam:(NSString *)carNoParam
+{
+    NSString *carNo = [NSString stringWithFormat:@"         %@",carNoParam];
+    
+    return carNo;
+}
+
+/**适应cell的车速字符串
+ *@param carSpeedParam:车速
+ *return carSpeed:适应cell的车速*/
++ (NSString *)carSpeedAdjustmentParam:(float)carSpeedParam
+{
+    NSString *carSpeed = [NSString stringWithFormat:@"                   %f",carSpeedParam];
+    
+    return carSpeed;
+}
+
+/**适应cell的车状态
+ *@param carStateParam:车牌号
+ *return carState:适应cell的车状态*/
++ (NSString *)carStateAdjustmentParam:(NSString *)carStateParam
+{
+    NSString *carState = [NSString stringWithFormat:@"         %@",carStateParam];
+    
+    return carState;
+}
+
+/**适应cell的车位置字符串
+ *@param carPositionParam:车位置
+ *return carPosition:适应cell的车位置*/
++ (NSString *)carPositionAdjustmentParam:(NSString *)carPositionParam
+{
+    NSString *carPosition = [NSString stringWithFormat:@"         %@",carPositionParam];
+    
+    return carPosition;
+}
 
 @end

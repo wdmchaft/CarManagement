@@ -10,7 +10,7 @@
 
 @implementation CurrentCarInfo
 @synthesize location = _location;
-@synthesize state = _state;
+@synthesize warn = _warn;
 @synthesize speed = _speed;
 @synthesize mileage = _mileage;
 @synthesize direction = _direction;
@@ -46,26 +46,28 @@
             NSLog(@"index = %d,key = %@",count ++,key);
         }
         NSArray *currentCarInfo = [NSArray arrayWithArray:currentCarInfoParam];
-        self.terminalNo = [currentCarInfo objectAtIndex:0];
-        CLLocation *location = [[CLLocation alloc] initWithLatitude:[[currentCarInfo objectAtIndex:1] floatValue] 
-                                                          longitude:[[currentCarInfo objectAtIndex:2] floatValue]];
-        self.location = location;
-        [location release];
-        self.speed = [[currentCarInfo objectAtIndex:3] floatValue];
-        self.state = [[currentCarInfo objectAtIndex:4] longLongValue];
-        self.direction = [[currentCarInfo objectAtIndex:5] floatValue];
-        self.mileage = [[currentCarInfo objectAtIndex:6] floatValue];
-        self.lastTransmissionTime = [[currentCarInfo objectAtIndex:7] longLongValue];
-        self.continueDirverTime = [[currentCarInfo objectAtIndex:8] longLongValue];
-        self.oilLeft = [[currentCarInfo objectAtIndex:9] floatValue];
-        self.carPosition = [currentCarInfo objectAtIndex:10];
-        self.voltage = [[currentCarInfo objectAtIndex:11] floatValue];
-        self.expand1 = [currentCarInfo objectAtIndex:12];
-        self.version = [currentCarInfo objectAtIndex:13];
-        self.expand2 = [currentCarInfo objectAtIndex:14];
-        self.photoName = [currentCarInfo objectAtIndex:15];
-        self.uitrasonicWaveDistance = [[currentCarInfo objectAtIndex:16] floatValue];
-        self.lastTakePhotoTime = [[currentCarInfo objectAtIndex:17] longLongValue];
+        if ( [currentCarInfo count] == 18 ) {
+            self.terminalNo = [currentCarInfo objectAtIndex:0];
+            CLLocation *location = [[CLLocation alloc] initWithLatitude:[[currentCarInfo objectAtIndex:1] floatValue] 
+                                                              longitude:[[currentCarInfo objectAtIndex:2] floatValue]];
+            self.location = location;
+            [location release];
+            self.speed = [[currentCarInfo objectAtIndex:3] floatValue];
+            self.warn = [[currentCarInfo objectAtIndex:4] longLongValue];
+            self.direction = [[currentCarInfo objectAtIndex:5] floatValue];
+            self.mileage = [[currentCarInfo objectAtIndex:6] floatValue];
+            self.lastTransmissionTime = [[currentCarInfo objectAtIndex:7] longLongValue];
+            self.continueDirverTime = [[currentCarInfo objectAtIndex:8] longLongValue];
+            self.oilLeft = [[currentCarInfo objectAtIndex:9] floatValue];
+            self.carPosition = [currentCarInfo objectAtIndex:10];
+            self.voltage = [[currentCarInfo objectAtIndex:11] floatValue];
+            self.expand1 = [currentCarInfo objectAtIndex:12];
+            self.version = [currentCarInfo objectAtIndex:13];
+            self.expand2 = [currentCarInfo objectAtIndex:14];
+            self.photoName = [currentCarInfo objectAtIndex:15];
+            self.uitrasonicWaveDistance = [[currentCarInfo objectAtIndex:16] floatValue];
+            self.lastTakePhotoTime = [[currentCarInfo objectAtIndex:17] longLongValue];
+        }
     }
     
     return self;

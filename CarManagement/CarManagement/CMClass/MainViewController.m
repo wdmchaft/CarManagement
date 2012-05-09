@@ -207,12 +207,17 @@
         NSLog(@"theCarInfo.carNo = %@",theCarInfo.carNo);
         NSLog(@"theCurrentCarInfo.carPosition = %@",theCurrentCarInfo.carPosition);
         NSLog(@"carType = %d",theCarInfo.carType);
-        cell.carNoField.text = [[CMCars getInstance] theCarInfo:cell.terminalNo].carNo;
-        NSString *carSpeed = [NSString carSpeedParam:[[CMCurrentCars getInstance] theCurrentCarInfo:cell.terminalNo].speed];
-        cell.speedField.text = carSpeed;
-        cell.stateField.text = @"状态:掉电、停车";
-        NSString *carPosition = [NSString carPositionParam:[[CMCurrentCars getInstance] theCurrentCarInfo:cell.terminalNo].carPosition];
-        cell.positionField.text = carPosition;
+        cell.carNoCMView.contentLabel.text = [NSString carNoAdjustmentParam:[[CMCars getInstance] theCarInfo:cell.terminalNo].carNo];
+        cell.speedCMView.contentLabel.text = [NSString carSpeedAdjustmentParam:[[CMCurrentCars getInstance] theCurrentCarInfo:cell.terminalNo].speed];
+        NSString *carWarn = [[CarWarn globalConfig] currentCarWarn:theCurrentCarInfo.warn carType:theCarInfo.carType logicLevel:nil];
+        cell.stateCMView.contentLabel.text = [NSString carStateAdjustmentParam:carWarn];
+        cell.positionCMView.contentLabel.text =[NSString carPositionAdjustmentParam:[[CMCurrentCars getInstance] theCurrentCarInfo:cell.terminalNo].carPosition];
+//        cell.carNoField.text = [[CMCars getInstance] theCarInfo:cell.terminalNo].carNo;
+//        NSString *carSpeed = [NSString carSpeedParam:[[CMCurrentCars getInstance] theCurrentCarInfo:cell.terminalNo].speed];
+//        cell.speedField.text = carSpeed;
+//        cell.stateField.text = @"状态:掉电、停车";
+//        NSString *carPosition = [NSString carPositionParam:[[CMCurrentCars getInstance] theCurrentCarInfo:cell.terminalNo].carPosition];
+//        cell.positionField.text = carPosition;
         
 //        cell.textLabel.text = theCarInfo.carNo;
 //        cell.detailTextLabel.lineBreakMode = UILineBreakModeWordWrap;
@@ -281,8 +286,10 @@
     NSString *key = [self.terminalNos objectAtIndex:[indexPath row]];
     NSString *carPosition = [[CMCurrentCars getInstance] theCurrentCarInfo:key].carPosition;
     CGSize size = [carPosition sizeWithFont:[UIFont systemFontOfSize:16]];
+    NSLog(@"size.width = %f",size.width);
+    NSLog(@"carPosition.length = %d",carPosition.length);
     
-    return size.width * 0.2;
+    return size.width * 0.4;
 }
 
 #pragma searchBar

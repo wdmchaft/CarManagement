@@ -16,4 +16,5 @@
     #import "CMResManager.h"
     #import "CarInfo.h"
     #import "CurrentCarInfo.h"
+    #import "CarWarn.h"
 #endif

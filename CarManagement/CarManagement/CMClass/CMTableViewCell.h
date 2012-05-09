@@ -43,4 +43,9 @@
 @property (nonatomic,retain) UILabel *titleLabel;
 @property (nonatomic,retain) UILabel *contentLabel;
 
+
+/**初始化
+ *@param frame:CMTextView大小
+ *return self*/
+- (id)initWithFrame:(CGRect)frame;
 @end

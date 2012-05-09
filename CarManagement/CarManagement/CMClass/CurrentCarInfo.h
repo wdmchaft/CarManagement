@@ -16,7 +16,7 @@
     //速度
     float _speed;
     //报警位(车辆状态)
-    long _state;
+    long _warn;
     //里程
     float _mileage;
     //方向
@@ -46,7 +46,7 @@
 }
 @property (nonatomic,retain) CLLocation *location;
 @property (nonatomic) float speed;
-@property (nonatomic) long state;
+@property (nonatomic) long warn;
 @property (nonatomic) float mileage;
 @property (nonatomic) float direction;
 @property (nonatomic) long lastTransmissionTime;

@@ -84,4 +84,28 @@
  *return 位置:value*/
 + (NSString *)carPositionParam:(NSString *)carPosition;
 
+/*******************adjustment NSString for cell
+ *******************/
+
+/**适应cell的车牌号码字符串
+ *@param carNoParam:车牌号
+ *return carNo:适应cell的车牌号*/
++ (NSString *)carNoAdjustmentParam:(NSString *)carNoParam;
+
+/**适应cell的车速字符串
+ *@param carSpeedParam:车速
+ *return carSpeed:适应cell的车速*/
++ (NSString *)carSpeedAdjustmentParam:(float)carSpeedParam;
+
+/**适应cell的车状态
+ *@param carStateParam:车牌号
+ *return carState:适应cell的车状态*/
++ (NSString *)carStateAdjustmentParam:(NSString *)carStateParam;
+
+
+/**适应cell的车位置字符串
+ *@param carPositionParam:车位置
+ *return carPosition:适应cell的车位置*/
++ (NSString *)carPositionAdjustmentParam:(NSString *)carPositionParam;
+
 @end

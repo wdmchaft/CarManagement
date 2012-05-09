@@ -24,6 +24,7 @@
 		CF370A011553BF790064A190 /* CMResManager.m in Sources */ = {isa = PBXBuildFile; fileRef = CF370A001553BF790064A190 /* CMResManager.m */; };
 		CF370A091553C4D70064A190 /* Image.bundle in Resources */ = {isa = PBXBuildFile; fileRef = CF370A081553C4D70064A190 /* Image.bundle */; };
 		CF5223B51556B99D00687FE2 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF5223B41556B99D00687FE2 /* MapKit.framework */; };
+		CF96E212155A6AFA002A2D12 /* CarWarn.m in Sources */ = {isa = PBXBuildFile; fileRef = CF96E211155A6AFA002A2D12 /* CarWarn.m */; };
 		CF9AFC4E1554326200953818 /* AsyncSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = CF9AFC4D1554326200953818 /* AsyncSocket.m */; };
 		CF9AFC56155433BF00953818 /* CMConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = CF9AFC55155433BF00953818 /* CMConfig.m */; };
 		CF9AFC591554386400953818 /* CMUser.m in Sources */ = {isa = PBXBuildFile; fileRef = CF9AFC581554386400953818 /* CMUser.m */; };
@@ -70,6 +71,8 @@
 		CF370A001553BF790064A190 /* CMResManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CMResManager.m; path = CMClass/CMResManager.m; sourceTree = "<group>"; };
 		CF370A081553C4D70064A190 /* Image.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Image.bundle; sourceTree = "<group>"; };
 		CF5223B41556B99D00687FE2 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		CF96E210155A6AFA002A2D12 /* CarWarn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CarWarn.h; path = CMClass/CarWarn.h; sourceTree = "<group>"; };
+		CF96E211155A6AFA002A2D12 /* CarWarn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CarWarn.m; path = CMClass/CarWarn.m; sourceTree = "<group>"; };
 		CF9AFC4C1554326200953818 /* AsyncSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AsyncSocket.h; path = CMClass/AsyncSocket.h; sourceTree = "<group>"; };
 		CF9AFC4D1554326200953818 /* AsyncSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AsyncSocket.m; path = CMClass/AsyncSocket.m; sourceTree = "<group>"; };
 		CF9AFC54155433BF00953818 /* CMConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CMConfig.h; path = CMClass/CMConfig.h; sourceTree = "<group>"; };
@@ -123,6 +126,8 @@
 				CF255F5C1557D6A3002AC394 /* CarInfo.m */,
 				CF186EE715592321001B5871 /* CurrentCarInfo.h */,
 				CF186EE815592321001B5871 /* CurrentCarInfo.m */,
+				CF96E210155A6AFA002A2D12 /* CarWarn.h */,
+				CF96E211155A6AFA002A2D12 /* CarWarn.m */,
 			);
 			name = Car;
 			sourceTree = "<group>";
@@ -320,6 +325,7 @@
 				CF255F5D1557D6A3002AC394 /* CarInfo.m in Sources */,
 				CF186EDD1558D61A001B5871 /* CMTableViewCell.m in Sources */,
 				CF186EE915592321001B5871 /* CurrentCarInfo.m in Sources */,
+				CF96E212155A6AFA002A2D12 /* CarWarn.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
