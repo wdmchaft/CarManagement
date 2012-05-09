@@ -58,14 +58,20 @@
         //4.0stateCMView
         CMTextView *stateCMView = [[CMTextView alloc] initWithFrame:CGRectMake(20, 50, 280, 20)];
         stateCMView.backgroundColor = [UIColor clearColor];
+        //test 2lines
+        stateCMView.titleLabel.backgroundColor = [UIColor blueColor];
+        stateCMView.contentLabel.backgroundColor = [UIColor yellowColor];
         stateCMView.titleLabel.text = @"状态:";
         self.stateCMView = stateCMView;
         [self addSubview:self.stateCMView];
         [stateCMView release];
         
         //5.0positionCMView
-        CMTextView *positionCMView = [[CMTextView alloc] initWithFrame:CGRectMake(20, 70, 280, 60)];
+        CMTextView *positionCMView = [[CMTextView alloc] initWithFrame:CGRectMake(20, 70, 260, 40)];
         positionCMView.backgroundColor = [UIColor clearColor];
+        //test 2lines
+        positionCMView.titleLabel.backgroundColor = [UIColor redColor];
+        positionCMView.contentLabel.backgroundColor = [UIColor purpleColor];
         positionCMView.titleLabel.text = @"位置:";
         self.positionCMView = positionCMView;
         [self addSubview:self.positionCMView];
@@ -153,16 +159,21 @@
     if ( self ) {
  
         CGRect bounds = [self bounds];
-        UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 100, 20)];
+//        UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 100, 20)];
+        UILabel *titleLabel = [[UILabel alloc] init];
         titleLabel.backgroundColor = [UIColor clearColor];
         titleLabel.textColor = [UIColor blueColor];
         self.titleLabel = titleLabel;
         [titleLabel release];
         
-        UILabel *contentLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, bounds.size.width, bounds.size.height)];
-        contentLabel.numberOfLines = 2;
-        contentLabel.adjustsFontSizeToFitWidth = YES;
+//        UILabel *contentLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, bounds.size.width, bounds.size.height)];
+        UILabel *contentLabel = [[UILabel alloc] init];
+//        contentLabel.numberOfLines = 3;
+        contentLabel.baselineAdjustment = UIBaselineAdjustmentAlignBaselines;    
+        //contentLabel.adjustsFontSizeToFitWidth = YES;
         contentLabel.backgroundColor = [UIColor clearColor];
+        contentLabel.contentMode = UIViewContentModeScaleToFill;
+        
         self.contentLabel = contentLabel;
         [self.contentLabel addSubview:self.titleLabel];
         [self addSubview:self.contentLabel];
@@ -172,4 +183,22 @@
     return self;
 }
 
+- (void)layoutSubviews
+{
+    CGSize titleSize = [self.titleLabel.text sizeWithFont:self.titleLabel.font];
+    self.titleLabel.frame = CGRectMake(0, 0, titleSize.width * 1.2, titleSize.height);
+    
+    CGSize contentSize = [self.contentLabel.text sizeWithFont:self.contentLabel.font];
+    NSInteger lineNum  = 1;
+    if ( contentSize.width > 205 ) {
+        lineNum = (NSInteger)(( contentSize.width - 205 ) / 245 + 1 );
+        if ( contentSize.width > 450 ) {
+            lineNum ++;
+        }
+    }
+    NSLog(@"contentSize.width = %f lineNum = %d",contentSize.width,lineNum);  
+    float contentLabelHight = lineNum * contentSize.height;
+    self.contentLabel.frame = CGRectMake(0, 0, 260, contentLabelHight);
+    self.contentLabel.numberOfLines = lineNum;
+}
 @end

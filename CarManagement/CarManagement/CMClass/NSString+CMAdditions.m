@@ -159,9 +159,11 @@
             NSArray *colonArray = [currentCarInfosWith6 componentsSeparatedByString:@":"];
             NSString *currentCarInfos = [colonArray objectAtIndex:1];
             NSArray *currentCarInfoParam = [currentCarInfos componentsSeparatedByString:@";"];
-            CurrentCarInfo *currentCarInfo = [[CurrentCarInfo alloc] initWithParam:currentCarInfoParam];
-            [terminalNos addObject:currentCarInfo.terminalNo];
-            [param addObject:currentCarInfo];
+            if ( [currentCarInfoParam count] == 18 ) {
+                CurrentCarInfo *currentCarInfo = [[CurrentCarInfo alloc] initWithParam:currentCarInfoParam];
+                [terminalNos addObject:currentCarInfo.terminalNo];
+                [param addObject:currentCarInfo];
+            }
         }
     }
 

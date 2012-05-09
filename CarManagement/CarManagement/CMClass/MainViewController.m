@@ -286,10 +286,12 @@
     NSString *key = [self.terminalNos objectAtIndex:[indexPath row]];
     NSString *carPosition = [[CMCurrentCars getInstance] theCurrentCarInfo:key].carPosition;
     CGSize size = [carPosition sizeWithFont:[UIFont systemFontOfSize:16]];
+    NSLog(@"cell.terminalNo = %@",[[CMCars getInstance] theCarInfo:key].carNo);
     NSLog(@"size.width = %f",size.width);
     NSLog(@"carPosition.length = %d",carPosition.length);
+    float cellHight = 75 + ( size.width / 260 + 1 ) * 20;
     
-    return size.width * 0.4;
+    return cellHight;
 }
 
 #pragma searchBar
