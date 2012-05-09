@@ -74,4 +74,14 @@
  *return key:对应车类型的图片的key*/
 + (NSString *)carImage:(CMCarType)carType;
 
+/**车速
+ *@param speed:车速(float类型)
+ *return param:车速:value*/
++ (NSString *)carSpeedParam:(float)speed;
+
+/**位置
+ *@param carPosition:车辆位置
+ *return 位置:value*/
++ (NSString *)carPositionParam:(NSString *)carPosition;
+
 @end

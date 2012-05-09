@@ -216,6 +216,27 @@
     return [key autorelease];
 }
 
+/**车速
+ *@param speed:车速(float类型)
+ *return param:车速:value*/
++ (NSString *)carSpeedParam:(float)speed
+{
+    NSString *param = [[NSString alloc] initWithFormat:@"车速(km/h):\n%f",speed];
+    
+    return [param autorelease];
+}
+
+/**位置
+ *@param carPosition:车辆位置
+ *return 位置:value*/
++ (NSString *)carPositionParam:(NSString *)carPosition
+{
+    NSString *param = [[NSString alloc] initWithFormat:@"位置:%@",carPosition];
+    
+    return [param autorelease];
+}
+
+
 /**获取对应车类型的车图片
  *@param carType:车类型
  *return keys:对应车类型的图片的keys*/

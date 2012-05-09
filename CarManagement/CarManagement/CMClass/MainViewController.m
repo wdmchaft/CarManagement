@@ -207,11 +207,19 @@
         NSLog(@"theCarInfo.carNo = %@",theCarInfo.carNo);
         NSLog(@"theCurrentCarInfo.carPosition = %@",theCurrentCarInfo.carPosition);
         NSLog(@"carType = %d",theCarInfo.carType);
-        cell.textLabel.text = theCarInfo.carNo;
-        cell.detailTextLabel.lineBreakMode = UILineBreakModeWordWrap;
-        cell.detailTextLabel.text = theCurrentCarInfo.carPosition;
+        cell.carNoField.text = [[CMCars getInstance] theCarInfo:cell.terminalNo].carNo;
+        NSString *carSpeed = [NSString carSpeedParam:[[CMCurrentCars getInstance] theCurrentCarInfo:cell.terminalNo].speed];
+        cell.speedField.text = carSpeed;
+        cell.stateField.text = @"状态:掉电、停车";
+        NSString *carPosition = [NSString carPositionParam:[[CMCurrentCars getInstance] theCurrentCarInfo:cell.terminalNo].carPosition];
+        cell.positionField.text = carPosition;
+        
+//        cell.textLabel.text = theCarInfo.carNo;
+//        cell.detailTextLabel.lineBreakMode = UILineBreakModeWordWrap;
+//        cell.detailTextLabel.text = theCurrentCarInfo.carPosition;
         UIImage *carImg = [[CMResManager getInstance] imageForKey:[NSString carImage:theCarInfo.carType]];
-        cell.imageView.image = carImg;
+        cell.carImgView.image = carImg; 
+//        cell.imageView.image = carImg;
         
         
 //        NSArray *carInfo = [self.carInfoKind objectAtIndex:[indexPath row]];
