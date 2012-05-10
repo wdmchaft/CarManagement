@@ -60,9 +60,12 @@
     self.navigationController.navigationBarHidden = YES;
     
     //2.0当前位置
-    UIImage *btnImg = [[CMResManager getInstance] imageForKey:@"current_location"];
-    [self addRightBtn:btnImg controllerEventTouchUpInside:@selector(locationAction) target:self];
-   
+    UIImage *locationBtnImg = [[CMResManager getInstance] imageForKey:@"current_location"];
+    UIImage *historyBtnImg = [[CMResManager getInstance] imageForKey:@"history_trace"];
+    [self setRightBtnEnabled:NO];
+    [self addExtendBtnWithTarget:self touchUpInsideSelector:@selector(locationAction) normalImage:locationBtnImg hightLightedImage:locationBtnImg];
+    [self addExtendBtnWithTarget:self touchUpInsideSelector:@selector(historyTrackAction) normalImage:historyBtnImg hightLightedImage:historyBtnImg];
+
     //3.0mapView
     MKMapView *mapView = [[MKMapView alloc] initWithFrame:CGRectMake(0, kCMNavigationBarHight, kFullScreenWidth, 400)];
     mapView.showsUserLocation = YES;
@@ -127,6 +130,13 @@
     self.mapView.showsUserLocation = YES;
 }
 
+/**查看历史记录
+ *@param 地图上显示历史记录
+ *return nil*/
+- (void)historyTrackAction
+{
+    NSLog(@"historyTrackAction~");
+}
 
 /**地图箭头按钮事件,详细信息
  *@param nil

@@ -113,5 +113,33 @@
 //    }
 }
 
+/**设置右侧按钮是否可用。YES:显示按钮 NO:显示按钮组
+ *@param enable:是否可用
+ *return nil*/
+- (void)setRightBtnEnabled:(BOOL)enable
+{
+    [self.navBar setRightButtonEnable:enable];
+}
 
+
+/**返回按钮是否可用
+*@param enable:是否可用
+*return nil*/
+- (void)setLeftBtnEnable:(BOOL)enable
+{
+    [self.navBar setBackButtonEnable:enable];
+}
+
+/**右侧扩展按钮
+ *@param
+ *return YES:成功 NO:失败*/
+- (BOOL)addExtendBtnWithTarget:(id)target 
+            touchUpInsideSelector:(SEL)selector
+                      normalImage:(UIImage *)normalImage
+                hightLightedImage:(UIImage *)hightLightedImage
+{
+    BOOL isSuccess = [self.navBar addExtendButtonWithTarget:target touchUpInsideSelector:selector normalImage:normalImage hightLightedImage:hightLightedImage];
+    
+    return isSuccess;
+}
 @end
