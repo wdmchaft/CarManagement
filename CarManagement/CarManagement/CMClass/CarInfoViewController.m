@@ -53,16 +53,13 @@
     self.carInfoDisplayView = carInfoDisplayView;
     self.carInfoDisplayView.delegate = self;
     [carInfoDisplayView release];
-    
-    //3.0 barItem
-    UITabBarItem *carInfoItem = [[UITabBarItem alloc] initWithTabBarSystemItem:UITabBarSystemItemFavorites tag:kCarInfoItemTag];
-    carInfoItem.title = @"车辆信息";
-    self.tabBarItem = carInfoItem;
-    [carInfoItem release];
    
     //4.0有call功能
-    UIImage *callImg = [[CMResManager getInstance] imageForKey:@"call"];
-    [self.navBar addExtendButtonWithTarget:self touchUpInsideSelector:@selector(callAction) normalImage:callImg hightLightedImage:callImg];
+//    UIImage *callImg = [[CMResManager getInstance] imageForKey:@"call"];
+//    [self.navBar addExtendButtonWithTarget:self touchUpInsideSelector:@selector(callAction) normalImage:callImg hightLightedImage:callImg];
+    
+    UIImage *btnImg = [[CMResManager getInstance] imageForKey:@"call"];
+    [self addRightBtn:btnImg controllerEventTouchUpInside:@selector(locationAction) target:self];
     
     //carImg
     UIImageView *carImgView = [[UIImageView alloc] initWithFrame:CGRectMake(20, 20, 80, 80)];

@@ -56,18 +56,26 @@
     
     //2.0 tabBarController
     UITabBarController *tabBarController = [[UITabBarController alloc] init];
+    
+    LocationMapViewController *locationMapViewController = [[LocationMapViewController alloc] initWithTerminalNo:self.terminalNo];
+    locationMapViewController.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"GPS定位" image:[[CMResManager getInstance] imageForKey:@"location"]  tag:kCarInfoItemTag];
+    locationMapViewController.delegate = self;
   
     CarInfoViewController *carInfoViewController = [[CarInfoViewController alloc] initWithTerminalNo:self.terminalNo];
+    carInfoViewController.tabBarItem = [[UITabBarItem alloc] initWithTabBarSystemItem:UITabBarSystemItemFavorites tag:kCarInfoItemTag];
     carInfoViewController.delegate = self;
     HistoryTrackViewController *historyTracViewController = [[HistoryTrackViewController alloc] initWithTerminalNo:self.terminalNo];
+    historyTracViewController.tabBarItem = [[UITabBarItem alloc] initWithTabBarSystemItem:UITabBarSystemItemHistory tag:kCarInfoItemTag];
     historyTracViewController.delegate = self;
-    LocationMapViewController *locationMapViewController = [[LocationMapViewController alloc] initWithTerminalNo:self.terminalNo];
-    locationMapViewController.delegate = self;
-    NSArray *viewControllers = [[NSArray alloc] initWithObjects:carInfoViewController,historyTracViewController,locationMapViewController,nil];
+    
+    UINavigationController *locationNavigationCtrl = [[UINavigationController alloc] initWithRootViewController:locationMapViewController];
+    locationNavigationCtrl.navigationBarHidden = YES;
+    NSArray *viewControllers = [[NSArray alloc] initWithObjects:locationNavigationCtrl,historyTracViewController,carInfoViewController,nil];
     tabBarController.viewControllers = viewControllers;
     [carInfoViewController release];
     [locationMapViewController release];
     [historyTracViewController release];
+    [locationNavigationCtrl release];
     [viewControllers release];
     self.tabBarController = tabBarController;
     [tabBarController release];

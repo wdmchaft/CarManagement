@@ -58,9 +58,6 @@
         //4.0stateCMView
         CMTextView *stateCMView = [[CMTextView alloc] initWithFrame:CGRectMake(20, 50, 280, 20)];
         stateCMView.backgroundColor = [UIColor clearColor];
-        //test 2lines
-        stateCMView.titleLabel.backgroundColor = [UIColor blueColor];
-        stateCMView.contentLabel.backgroundColor = [UIColor yellowColor];
         stateCMView.titleLabel.text = @"状态:";
         self.stateCMView = stateCMView;
         [self addSubview:self.stateCMView];
@@ -69,9 +66,6 @@
         //5.0positionCMView
         CMTextView *positionCMView = [[CMTextView alloc] initWithFrame:CGRectMake(20, 70, 260, 40)];
         positionCMView.backgroundColor = [UIColor clearColor];
-        //test 2lines
-        positionCMView.titleLabel.backgroundColor = [UIColor redColor];
-        positionCMView.contentLabel.backgroundColor = [UIColor purpleColor];
         positionCMView.titleLabel.text = @"位置:";
         self.positionCMView = positionCMView;
         [self addSubview:self.positionCMView];
@@ -192,7 +186,11 @@
     NSInteger lineNum  = 1;
     if ( contentSize.width > 205 ) {
         lineNum = (NSInteger)(( contentSize.width - 205 ) / 245 + 1 );
-        if ( contentSize.width > 450 ) {
+        if ( contentSize.width > 490 ) {
+            lineNum ++;
+        }
+        else if ( contentSize.width > 300 && contentSize.width < 450 )
+        {
             lineNum ++;
         }
     }

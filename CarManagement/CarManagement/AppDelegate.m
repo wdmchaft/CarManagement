@@ -28,6 +28,7 @@
 {
     self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
     // Override point for customization after application launch.
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleBlackOpaque];
     AsyncSocket *client = [[AsyncSocket alloc] init];
     self.client = client;
     [client release];

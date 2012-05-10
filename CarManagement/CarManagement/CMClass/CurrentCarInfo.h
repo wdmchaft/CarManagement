@@ -8,11 +8,12 @@
 
 #import "CarInfo.h"
 #import <CoreLocation/CoreLocation.h>
+#import <MapKit/MapKit.h>
 
 @interface CurrentCarInfo : CarInfo
 {
     //位置
-    CLLocation *_location;
+    CLLocationCoordinate2D _currentLocation;
     //速度
     float _speed;
     //报警位(车辆状态)
@@ -44,7 +45,7 @@
     //最后拍摄时间
     long _lastTakePhotoTime;
 }
-@property (nonatomic,retain) CLLocation *location;
+@property (nonatomic) CLLocationCoordinate2D currentLocation;
 @property (nonatomic) float speed;
 @property (nonatomic) long warn;
 @property (nonatomic) float mileage;

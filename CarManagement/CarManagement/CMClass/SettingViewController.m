@@ -45,7 +45,7 @@
     view.backgroundColor = [UIColor whiteColor];
     self.navigationController.navigationBarHidden = NO;
     self.title = @"设置";
-    //[self.navigationController.navigationBar setBackgroundImage:[CMResManager middleStretchableImageWithKey:@"navigationbar_background"] forBarMetrics:UIBarMetricsDefault];
+
     //1.0tableview
     UITableView *settingTView = [[UITableView alloc] initWithFrame:[[UIScreen mainScreen] bounds] style:UITableViewStyleGrouped];
     settingTView.backgroundColor = [UIColor whiteColor];

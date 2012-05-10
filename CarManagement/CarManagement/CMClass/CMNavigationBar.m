@@ -73,7 +73,7 @@
         
         
         self.backButtonEnable = YES;
-        self.rightButtonEnable = NO;
+        self.rightButtonEnable = YES;
         _maxExtendButtonCount = MAX_EXTENDBUTTON_COUNT;
         
     }
@@ -105,7 +105,7 @@
             rightBtnSize = [[self.rightBtn currentBackgroundImage] size];
         }
         
-        CGRect rightBtnFrame = CGRectMake(self.bounds.size.width - RIGHT_BUTTON_X_OFFSET, ( kCMNavigationBarHight - rightBtnSize.height ) / 2, rightBtnSize.width, rightBtnSize.height);
+        CGRect rightBtnFrame = CGRectMake(self.bounds.size.width - RIGHT_BUTTON_X_OFFSET - rightBtnSize.width, ( kCMNavigationBarHight - rightBtnSize.height ) / 2, rightBtnSize.width, rightBtnSize.height);
         self.rightBtn.frame = CGRectIntegral(rightBtnFrame);
     }
     else {

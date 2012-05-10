@@ -9,7 +9,7 @@
 #import "CurrentCarInfo.h"
 
 @implementation CurrentCarInfo
-@synthesize location = _location;
+@synthesize currentLocation = _currentLocation;
 @synthesize warn = _warn;
 @synthesize speed = _speed;
 @synthesize mileage = _mileage;
@@ -28,8 +28,6 @@
 
 - (void)dealloc
 {
-    [_location release];
-    
     [super dealloc];
 }
 /**初始化currentCar
@@ -48,10 +46,7 @@
         NSArray *currentCarInfo = [NSArray arrayWithArray:currentCarInfoParam];
         if ( [currentCarInfo count] == 18 ) {
             self.terminalNo = [currentCarInfo objectAtIndex:0];
-            CLLocation *location = [[CLLocation alloc] initWithLatitude:[[currentCarInfo objectAtIndex:1] floatValue] 
-                                                              longitude:[[currentCarInfo objectAtIndex:2] floatValue]];
-            self.location = location;
-            [location release];
+            self.currentLocation = CLLocationCoordinate2DMake([[currentCarInfo objectAtIndex:1] floatValue], [[currentCarInfo objectAtIndex:2] floatValue]);
             self.speed = [[currentCarInfo objectAtIndex:3] floatValue];
             self.warn = [[currentCarInfo objectAtIndex:4] longLongValue];
             self.direction = [[currentCarInfo objectAtIndex:5] floatValue];

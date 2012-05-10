@@ -40,12 +40,12 @@
     //1.0 view
     self.view.backgroundColor = [UIColor whiteColor];
     self.title = @"历史记录";
-    
-    //2.0 barItem
-    UITabBarItem *historyTrackItem = [[UITabBarItem alloc] initWithTabBarSystemItem:UITabBarSystemItemHistory tag:kCarInfoItemTag];
-    historyTrackItem.title = @"历史轨迹";
-    self.tabBarItem = historyTrackItem;
-    [historyTrackItem release];
+//    
+//    //2.0 barItem
+//    UITabBarItem *historyTrackItem = [[UITabBarItem alloc] initWithTabBarSystemItem:UITabBarSystemItemHistory tag:kCarInfoItemTag];
+//    historyTrackItem.title = @"历史轨迹";
+//    self.tabBarItem = historyTrackItem;
+//    [historyTrackItem release];
 }
 
 - (void)viewDidLoad

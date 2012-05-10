@@ -187,14 +187,16 @@
 #pragma tableView
 - (CMTableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *cellIndentifier = @"cell";
+//    static NSString *cellIndentifier = @"cell";
+//    
+//    CMTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIndentifier];
+//
+//    if ( !cell ) {
+//        cell = [[[CMTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier
+//                                                      :cellIndentifier] autorelease];
+//    }
     
-    CMTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIndentifier];
-
-    if ( !cell ) {
-        cell = [[[CMTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier
-                                                      :cellIndentifier] autorelease];
-    }
+    CMTableViewCell *cell = [[[CMTableViewCell alloc] init] autorelease];
     
     NSString *carNo;
     if ( _isSearchOn ) {
@@ -212,44 +214,10 @@
         NSString *carWarn = [[CarWarn globalConfig] currentCarWarn:theCurrentCarInfo.warn carType:theCarInfo.carType logicLevel:nil];
         cell.stateCMView.contentLabel.text = [NSString carStateAdjustmentParam:carWarn];
         cell.positionCMView.contentLabel.text =[NSString carPositionAdjustmentParam:[[CMCurrentCars getInstance] theCurrentCarInfo:cell.terminalNo].carPosition];
-//        cell.carNoField.text = [[CMCars getInstance] theCarInfo:cell.terminalNo].carNo;
-//        NSString *carSpeed = [NSString carSpeedParam:[[CMCurrentCars getInstance] theCurrentCarInfo:cell.terminalNo].speed];
-//        cell.speedField.text = carSpeed;
-//        cell.stateField.text = @"状态:掉电、停车";
-//        NSString *carPosition = [NSString carPositionParam:[[CMCurrentCars getInstance] theCurrentCarInfo:cell.terminalNo].carPosition];
-//        cell.positionField.text = carPosition;
-        
-//        cell.textLabel.text = theCarInfo.carNo;
-//        cell.detailTextLabel.lineBreakMode = UILineBreakModeWordWrap;
-//        cell.detailTextLabel.text = theCurrentCarInfo.carPosition;
+
         UIImage *carImg = [[CMResManager getInstance] imageForKey:[NSString carImage:theCarInfo.carType]];
         cell.carImgView.image = carImg; 
-//        cell.imageView.image = carImg;
-        
-        
-//        NSArray *carInfo = [self.carInfoKind objectAtIndex:[indexPath row]];
-//        CarInfo *theCarIno = [[CarInfo alloc] initWithParam:carInfo];
-//        cell.theCarInfo = theCarIno;
-//        [theCarIno release];
-//        NSLog(@"%d",[indexPath section]);
-//        carNo = cell.theCarInfo.carNo;
-//        CMCarType carType = cell.theCarInfo.carType;
-//        NSLog(@"carID = %@",carNo);
-//        //NSString *carType = [carInfo objectAtIndex:2];
-//        
-//        UIImage *image =  [[CMResManager getInstance] imageForKey:@"car_red"];
-//        UIImage *craneImg = [[CMResManager getInstance] imageForKey:@"crane"];
-//        NSLog(@"carType = %d",carType);
-//        if ( carType == CMCarTypeCar ) {
-//            cell.imageView.image = image;
-//        }
-//        else if ( carType == CMCarTypeCrane ) {
-//            cell.imageView.image = craneImg;
-//        }
-//        else 
-//            cell.imageView.image = nil;
     }
-//        cell.textLabel.text = carNo;
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         cell.selectionStyle = UITableViewCellSelectionStyleBlue;
     
@@ -289,7 +257,20 @@
     NSLog(@"cell.terminalNo = %@",[[CMCars getInstance] theCarInfo:key].carNo);
     NSLog(@"size.width = %f",size.width);
     NSLog(@"carPosition.length = %d",carPosition.length);
-    float cellHight = 75 + ( size.width / 260 + 1 ) * 20;
+    
+    NSInteger lineNum  = 1;
+    if ( size.width > 205 ) {
+        lineNum = (NSInteger)(( size.width - 205 ) / 245 + 1 );
+        if ( size.width > 455 ) {
+            lineNum ++;
+        }
+        else if ( size.width > 210 && size.width < 455 )
+        {
+            lineNum ++;
+        }
+    }
+    
+    float cellHight = 80 + lineNum * 20;
     
     return cellHight;
 }

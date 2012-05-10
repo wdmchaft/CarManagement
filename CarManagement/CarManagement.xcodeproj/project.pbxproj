@@ -25,6 +25,8 @@
 		CF370A091553C4D70064A190 /* Image.bundle in Resources */ = {isa = PBXBuildFile; fileRef = CF370A081553C4D70064A190 /* Image.bundle */; };
 		CF5223B51556B99D00687FE2 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF5223B41556B99D00687FE2 /* MapKit.framework */; };
 		CF96E212155A6AFA002A2D12 /* CarWarn.m in Sources */ = {isa = PBXBuildFile; fileRef = CF96E211155A6AFA002A2D12 /* CarWarn.m */; };
+		CF984B9D155B8657006C503B /* LocationDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CF984B9C155B8657006C503B /* LocationDetailViewController.m */; };
+		CF984BBB155BB5A7006C503B /* CMAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = CF984BBA155BB5A6006C503B /* CMAnnotation.m */; };
 		CF9AFC4E1554326200953818 /* AsyncSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = CF9AFC4D1554326200953818 /* AsyncSocket.m */; };
 		CF9AFC56155433BF00953818 /* CMConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = CF9AFC55155433BF00953818 /* CMConfig.m */; };
 		CF9AFC591554386400953818 /* CMUser.m in Sources */ = {isa = PBXBuildFile; fileRef = CF9AFC581554386400953818 /* CMUser.m */; };
@@ -73,6 +75,10 @@
 		CF5223B41556B99D00687FE2 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		CF96E210155A6AFA002A2D12 /* CarWarn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CarWarn.h; path = CMClass/CarWarn.h; sourceTree = "<group>"; };
 		CF96E211155A6AFA002A2D12 /* CarWarn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CarWarn.m; path = CMClass/CarWarn.m; sourceTree = "<group>"; };
+		CF984B9B155B8657006C503B /* LocationDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LocationDetailViewController.h; path = CMClass/LocationDetailViewController.h; sourceTree = "<group>"; };
+		CF984B9C155B8657006C503B /* LocationDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LocationDetailViewController.m; path = CMClass/LocationDetailViewController.m; sourceTree = "<group>"; };
+		CF984BB9155BB5A6006C503B /* CMAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CMAnnotation.h; path = CMClass/CMAnnotation.h; sourceTree = "<group>"; };
+		CF984BBA155BB5A6006C503B /* CMAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CMAnnotation.m; path = CMClass/CMAnnotation.m; sourceTree = "<group>"; };
 		CF9AFC4C1554326200953818 /* AsyncSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AsyncSocket.h; path = CMClass/AsyncSocket.h; sourceTree = "<group>"; };
 		CF9AFC4D1554326200953818 /* AsyncSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AsyncSocket.m; path = CMClass/AsyncSocket.m; sourceTree = "<group>"; };
 		CF9AFC54155433BF00953818 /* CMConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CMConfig.h; path = CMClass/CMConfig.h; sourceTree = "<group>"; };
@@ -122,6 +128,8 @@
 		CF255F5A1557D670002AC394 /* Car */ = {
 			isa = PBXGroup;
 			children = (
+				CF984BB9155BB5A6006C503B /* CMAnnotation.h */,
+				CF984BBA155BB5A6006C503B /* CMAnnotation.m */,
 				CF255F5B1557D6A3002AC394 /* CarInfo.h */,
 				CF255F5C1557D6A3002AC394 /* CarInfo.m */,
 				CF186EE715592321001B5871 /* CurrentCarInfo.h */,
@@ -175,12 +183,14 @@
 				CF3709EE1553B7790064A190 /* MainViewController.m */,
 				CF3709F01553B78E0064A190 /* DetailViewController.h */,
 				CF3709F11553B78E0064A190 /* DetailViewController.m */,
+				CFE752D215565E1700559A95 /* LocationMapViewController.h */,
+				CFE752D315565E1700559A95 /* LocationMapViewController.m */,
+				CF984B9B155B8657006C503B /* LocationDetailViewController.h */,
+				CF984B9C155B8657006C503B /* LocationDetailViewController.m */,
 				CFE752D81556687000559A95 /* CarInfoViewController.h */,
 				CFE752D91556687000559A95 /* CarInfoViewController.m */,
 				CFE752CE15565E0100559A95 /* HistoryTrackViewController.h */,
 				CFE752CF15565E0100559A95 /* HistoryTrackViewController.m */,
-				CFE752D215565E1700559A95 /* LocationMapViewController.h */,
-				CFE752D315565E1700559A95 /* LocationMapViewController.m */,
 				CFE752D515565E8B00559A95 /* AboutCarManagerViewController.h */,
 				CFE752D615565E8B00559A95 /* AboutCarManagerViewController.m */,
 				CFCF1D461555054100C1B1E3 /* Navigation */,
@@ -326,6 +336,8 @@
 				CF186EDD1558D61A001B5871 /* CMTableViewCell.m in Sources */,
 				CF186EE915592321001B5871 /* CurrentCarInfo.m in Sources */,
 				CF96E212155A6AFA002A2D12 /* CarWarn.m in Sources */,
+				CF984B9D155B8657006C503B /* LocationDetailViewController.m in Sources */,
+				CF984BBB155BB5A7006C503B /* CMAnnotation.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
