@@ -10,6 +10,7 @@
 #import "SettingViewController.h"
 #import "MainViewController.h"
 #import "AppDelegate.h"
+#import "CMUser.h"
 //test
 #import "CMBaseViewController.h"
 
@@ -241,6 +242,13 @@
                 NSLog(@"loginMsg = %@",loginParam);
                 NSData *loginMsgData = [loginParam dataUsingEncoding:NSUTF8StringEncoding];
                 [self.socket writeData:loginMsgData withTimeout:-1 tag:0];
+                //保存用户信息 line6
+//                CMUser *userInfo = [CMUser getInstance];
+//                userInfo.userAccount = user;
+//                userInfo.userPassword = pwd;
+//                userInfo.serverIpAddress = serverIpAddress;
+//                userInfo.serverIpPort = serverIpPort;
+//                [userInfo persist];
             }
         }
     }
@@ -397,14 +405,14 @@
 }
 
 - (void)onSocket:(AsyncSocket *)sock didReadData:(NSData *)data withTag:(long)tag
-{
-    NSLog(@"recvData = %@",data);
-    NSStringEncoding enc = CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingGB_18030_2000);
-    NSString *recvMsg = [[NSString alloc] initWithData:data encoding:enc];
-    NSLog(@"recvMsg = %@",recvMsg);
+{  
+      NSLog(@"recvData = %@",data);
+//    NSStringEncoding enc = CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingGB_18030_2000);
+//    NSString *recvMsg = [[NSString alloc] initWithData:data encoding:enc];
+//    NSLog(@"recvMsg = %@",recvMsg);
     if ( self.process == CMProcessLogin ) {
-        NSLog(@"recvMsg = %@",recvMsg);
-        NSMutableArray *carInfoArrays = [NSString parseLoginRecv:recvMsg];
+//        NSLog(@"recvMsg = %@",recvMsg);
+        NSMutableArray *carInfoArrays = [NSString parseLoginRecv:data];
         NSLog(@"Login return carInfoArrays = %@",carInfoArrays);
         CMLoginREsultType loginResultType = [[carInfoArrays objectAtIndex:0] intValue];
         switch ( loginResultType ) {
@@ -452,7 +460,7 @@
     }
     else if ( self.process == CMProcessRequireCarsInfoStateFirst ) {
         NSLog(@"CMProcessRequireCarsInfoStateFirst Sucess");
-        NSMutableArray *terminalNos = [NSString parseRequestCarInfoRecv:recvMsg];
+        NSMutableArray *terminalNos = [NSString parseRequestCarInfoRecv:data];
         NSLog(@"Login terminalNos = %@",terminalNos);
         MainViewController *mainViewController = [[MainViewController alloc] initwithCompanyName:self.companyName terminalNos:terminalNos];
         UINavigationController *carInfoNavigationController = [[UINavigationController alloc] initWithRootViewController:mainViewController];
@@ -460,15 +468,13 @@
         [self presentModalViewController:carInfoNavigationController animated:NO];
         [mainViewController release];
         [carInfoNavigationController release];
+        
         NSLog(@"LoginViewControllerArrays = %@",self.navigationController.viewControllers);
     }
     else if ( self.process == CMProcessRequireCarsInfoStateSecond ) {
         NSLog(@"CMProcessRequireCarsInfoStateSecond Sucess");
     }
-   
-    [recvMsg release];
 }
-
 
 @end
 //218.85.134.124:1439 

@@ -11,6 +11,7 @@
 		CF186EE915592321001B5871 /* CurrentCarInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = CF186EE815592321001B5871 /* CurrentCarInfo.m */; };
 		CF186EFC15595612001B5871 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF186EFB15595611001B5871 /* CoreLocation.framework */; };
 		CF255F5D1557D6A3002AC394 /* CarInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = CF255F5C1557D6A3002AC394 /* CarInfo.m */; };
+		CF2D7A82155C190200E171CF /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF2D7A81155C190200E171CF /* CoreData.framework */; };
 		CF3709D11553B71D0064A190 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF3709D01553B71D0064A190 /* UIKit.framework */; };
 		CF3709D31553B71D0064A190 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF3709D21553B71D0064A190 /* Foundation.framework */; };
 		CF3709D51553B71D0064A190 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF3709D41553B71D0064A190 /* CoreGraphics.framework */; };
@@ -40,7 +41,7 @@
 		CFE752D015565E0200559A95 /* HistoryTrackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CFE752CF15565E0100559A95 /* HistoryTrackViewController.m */; };
 		CFE752D415565E1800559A95 /* LocationMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CFE752D315565E1700559A95 /* LocationMapViewController.m */; };
 		CFE752D715565E8C00559A95 /* AboutCarManagerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CFE752D615565E8B00559A95 /* AboutCarManagerViewController.m */; };
-		CFE752DA1556687100559A95 /* CarInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CFE752D91556687000559A95 /* CarInfoViewController.m */; };
+		CFE752DA1556687100559A95 /* TakePhotoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CFE752D91556687000559A95 /* TakePhotoViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -51,6 +52,7 @@
 		CF186EFB15595611001B5871 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		CF255F5B1557D6A3002AC394 /* CarInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CarInfo.h; path = CMClass/CarInfo.h; sourceTree = "<group>"; };
 		CF255F5C1557D6A3002AC394 /* CarInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CarInfo.m; path = CMClass/CarInfo.m; sourceTree = "<group>"; };
+		CF2D7A81155C190200E171CF /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		CF3709CC1553B71D0064A190 /* CarManagement.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CarManagement.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CF3709D01553B71D0064A190 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		CF3709D21553B71D0064A190 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -104,8 +106,8 @@
 		CFE752D315565E1700559A95 /* LocationMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LocationMapViewController.m; path = CMClass/LocationMapViewController.m; sourceTree = "<group>"; };
 		CFE752D515565E8B00559A95 /* AboutCarManagerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AboutCarManagerViewController.h; path = CMClass/AboutCarManagerViewController.h; sourceTree = "<group>"; };
 		CFE752D615565E8B00559A95 /* AboutCarManagerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AboutCarManagerViewController.m; path = CMClass/AboutCarManagerViewController.m; sourceTree = "<group>"; };
-		CFE752D81556687000559A95 /* CarInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CarInfoViewController.h; path = CMClass/CarInfoViewController.h; sourceTree = "<group>"; };
-		CFE752D91556687000559A95 /* CarInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CarInfoViewController.m; path = CMClass/CarInfoViewController.m; sourceTree = "<group>"; };
+		CFE752D81556687000559A95 /* TakePhotoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; name = TakePhotoViewController.h; path = CMClass/TakePhotoViewController.h; sourceTree = "<group>"; };
+		CFE752D91556687000559A95 /* TakePhotoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TakePhotoViewController.m; path = CMClass/TakePhotoViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -113,6 +115,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CF2D7A82155C190200E171CF /* CoreData.framework in Frameworks */,
 				CF186EFC15595612001B5871 /* CoreLocation.framework in Frameworks */,
 				CF5223B51556B99D00687FE2 /* MapKit.framework in Frameworks */,
 				CF9AFC5C1554482300953818 /* CFNetwork.framework in Frameworks */,
@@ -160,6 +163,7 @@
 		CF3709CF1553B71D0064A190 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				CF2D7A81155C190200E171CF /* CoreData.framework */,
 				CF186EFB15595611001B5871 /* CoreLocation.framework */,
 				CF5223B41556B99D00687FE2 /* MapKit.framework */,
 				CF9AFC5B1554482300953818 /* CFNetwork.framework */,
@@ -187,8 +191,8 @@
 				CFE752D315565E1700559A95 /* LocationMapViewController.m */,
 				CF984B9B155B8657006C503B /* LocationDetailViewController.h */,
 				CF984B9C155B8657006C503B /* LocationDetailViewController.m */,
-				CFE752D81556687000559A95 /* CarInfoViewController.h */,
-				CFE752D91556687000559A95 /* CarInfoViewController.m */,
+				CFE752D81556687000559A95 /* TakePhotoViewController.h */,
+				CFE752D91556687000559A95 /* TakePhotoViewController.m */,
 				CFE752CE15565E0100559A95 /* HistoryTrackViewController.h */,
 				CFE752CF15565E0100559A95 /* HistoryTrackViewController.m */,
 				CFE752D515565E8B00559A95 /* AboutCarManagerViewController.h */,
@@ -331,7 +335,7 @@
 				CFE752D015565E0200559A95 /* HistoryTrackViewController.m in Sources */,
 				CFE752D415565E1800559A95 /* LocationMapViewController.m in Sources */,
 				CFE752D715565E8C00559A95 /* AboutCarManagerViewController.m in Sources */,
-				CFE752DA1556687100559A95 /* CarInfoViewController.m in Sources */,
+				CFE752DA1556687100559A95 /* TakePhotoViewController.m in Sources */,
 				CF255F5D1557D6A3002AC394 /* CarInfo.m in Sources */,
 				CF186EDD1558D61A001B5871 /* CMTableViewCell.m in Sources */,
 				CF186EE915592321001B5871 /* CurrentCarInfo.m in Sources */,

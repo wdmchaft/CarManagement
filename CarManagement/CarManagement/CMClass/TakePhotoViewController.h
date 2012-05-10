@@ -10,22 +10,24 @@
 #import "CMBaseViewController.h"
 #import "DetailViewController.h"
 
-@interface CarInfoViewController : CMBaseViewController<UINavigationControllerDelegate,UIScrollViewDelegate>
+@interface TakePhotoViewController : CMBaseViewController<UINavigationControllerDelegate>
 {
     UIButton *_backBtn;
     
     NSString *_terminalNo;
     
-    UIScrollView *_carInfoDisplayView;
-    
+    UILabel *_photoInfoLabel;
     //车照片
     UIImageView *_carImgView;
+    
+    AsyncSocket *_socket;
 }
 
 @property (nonatomic,retain) UIButton *backBtn;
 @property (nonatomic,copy) NSString *terminalNo;
-@property (nonatomic,retain) UIScrollView *carInfoDisplayView;
+@property (nonatomic,retain) UILabel *photoInfoLabel;
 @property (nonatomic,retain) UIImageView *carImgView;
+@property (nonatomic,retain) AsyncSocket *socket;
 
 
 /**初始化

@@ -45,11 +45,13 @@ typedef enum
 
 #define NAVIGATIONBAR_ANIMATION_TIMINTERVAL     0.5
 
+//数据保存相关
 #define kLastUserAccount            @"LastUserAccount"
 #define kLastUserPassword           @"LastUserPassword"
 #define kLastServerIpAddress        @"LastServerIpAddress"
 #define kLastServerIpPort           @"LastServerIpPort"
 #define kMainUserFileName           @"user"
+#define kCarPhotoFileName           @"photo"
 #define kFullScreenWidth            320.0
 #define kFullScreenHight            460.0
 #define kContentWithoutBarWidth     320.0

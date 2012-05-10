@@ -45,4 +45,14 @@
  *return YES:有登陆信息 NO:无*/
 - (BOOL)checkLoginInfo;
 
+/**保存数据到/userName/docName
+ *@param data:要保存的数据 dacName:保存数据的文件名
+ **/
+- (BOOL)saveData:(NSDictionary *)data path:(NSString *)docName;
+
+/**获取数据到/userName/docName
+ *@param dacName:保存数据的文件名
+ *return nil:失败 data:成功读取数据*/
+- (NSDictionary *)readData:(NSString *)docName;
+
 @end

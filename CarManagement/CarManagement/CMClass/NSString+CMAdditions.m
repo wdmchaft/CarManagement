@@ -76,7 +76,7 @@
  *return takePhoteParam:拍照口令*/
 + (NSString *)createTakePhotoParam:(NSString *)terminalId cameraType:(CMCameraType)cameraType;
 {
-    NSString *takePhotoParam = [[NSString alloc] initWithFormat:@"60:%@:$GETPHOTO:1,%d,1",cameraType];
+    NSString *takePhotoParam = [[NSString alloc] initWithFormat:@"60:%@:$GETPHOTO:1,%d,1",terminalId,cameraType];
     
     return [takePhotoParam autorelease];
 }
@@ -103,11 +103,23 @@
 
 }
 
+/**转换接收到的Data至NSString
+ *@param data:接收到的数据
+ *@param result:转换后的NSString*/
++ (NSString *)dataToStringConvert:(NSData *)data
+{
+    NSStringEncoding enc = CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingGB_18030_2000);
+    NSString *result = [[NSString alloc] initWithData:data encoding:enc];
+    
+    return result;
+}
+
 /**登陆返回解析
  *@param recv:登陆后接收到的数据
  *return param:车辆信息数组，第一个字段为登陆返回码;第二字段为公司名称;之后为车辆信息数组 */
-+ (NSMutableArray *)parseLoginRecv:(NSString *)recv
++ (NSMutableArray *)parseLoginRecv:(NSData *)data
 {
+    NSString *recv = [NSString dataToStringConvert:data];
     NSMutableArray *param = [[NSMutableArray alloc] init];
     NSMutableArray *carsParam = [[NSMutableArray alloc] init];
     if ( [recv hasPrefix:kLoginWithAccountNotExist] ) {
@@ -147,8 +159,9 @@
 /**车辆信息请求返回解析
  *@param recv:车辆信息请求接收到的数据
  *return terminalNos:终端号码数组*/
-+ (NSMutableArray *)parseRequestCarInfoRecv:(NSString *)recv
++ (NSMutableArray *)parseRequestCarInfoRecv:(NSData *)data
 {
+    NSString *recv = [NSString dataToStringConvert:data];
     NSMutableArray *param = [[NSMutableArray alloc] init];
     NSMutableArray *terminalNos = [[NSMutableArray alloc] init];
     //逗号分割
@@ -179,6 +192,7 @@
  **/
 + (NSArray *)takePhotoRecv:(NSString *)recv
 {
+    
 
 }
 

@@ -17,8 +17,8 @@
 
 /**持久化路径
  *@param userAccount:用户名
- *return path:归档文件路径*/
-+ (NSString *)persistPath:(NSString *)userAccount;
+ *return dirPath:归档文件路径*/
++ (NSString *)persistPath:(NSString *)basePath relativePath:(NSString *)relativepath;
 
 @end
 
@@ -60,16 +60,16 @@ static CMUser *_instance = nil;
             if ( userAccount ) {
                 _instance = [CMUser readFromDisk:userAccount];
                 if ( !_instance ) {
-                    [[CMUser alloc] init];
+                  _instance = [[CMUser alloc] init];
                 }
             }
             else {
-                [[CMUser alloc] init];
+                _instance = [[CMUser alloc] init];
             }
             
         }
     }
-    
+
     return _instance;
 }
 
@@ -94,7 +94,7 @@ static CMUser *_instance = nil;
     [defaults setObject:docName forKey:kLastUserAccount];
     
     if ( docName ) {
-        NSString *persisPath = [CMUser persistPath:docName];
+        NSString *persisPath = [CMUser persistPath:docName relativePath:nil];
         [NSKeyedArchiver archiveRootObject:self toFile:persisPath];
     }
 }
@@ -114,10 +114,14 @@ static CMUser *_instance = nil;
 #pragma private method
 /**持久化路径
  *@param userAccount:用户名
- *return path:归档文件路径*/
-+ (NSString *)persistPath:(NSString *)userAccount
+ *return dirPath:归档文件路径*/
++ (NSString *)persistPath:(NSString *)basePath relativePath:(NSString *)relativepath
 {
-    NSString *dirPath = [[CMUser documentPath] stringByAppendingPathComponent:userAccount];
+    NSString *dirPath = [[CMUser documentPath] stringByAppendingPathComponent:basePath];
+    
+    if ( !relativepath ) {
+        dirPath = [dirPath stringByAppendingPathComponent:relativepath];    
+    }
     
     NSFileManager *fileManager = [NSFileManager defaultManager];
     if ( ![fileManager fileExistsAtPath:dirPath] ) {
@@ -129,12 +133,11 @@ static CMUser *_instance = nil;
         
         if ( error ) {
             NSLog(@"创建失败~");
+            return nil;
         }
     }
     
-    NSString *path = [dirPath stringByAppendingPathComponent:kMainUserFileName];
-    
-    return path;
+    return dirPath;
 }
 
 /**读取持久化数据user
@@ -142,8 +145,57 @@ static CMUser *_instance = nil;
  *return nil*/
 + (CMUser *)readFromDisk:(NSString *)userAccount
 {
-    NSString *userFile = [CMUser persistPath:userAccount];
+    NSString *userFile = [CMUser persistPath:userAccount relativePath:nil];
     
     return [NSKeyedUnarchiver unarchiveObjectWithFile:userFile];
 }
+
+/**保存数据到/userName/docName
+ *@param data:要保存的数据 dacName:保存数据的文件名
+ *return YES:成功 NO:失败*/
+- (BOOL)saveData:(NSDictionary *)data path:(NSString *)docName
+{
+    NSString *path = [CMUser persistPath:self.userAccount relativePath:docName];
+
+    [data writeToFile:path atomically:NO];
+    
+    return YES;
+}
+
+/**获取数据到/userName/docName
+ *@param dacName:保存数据的文件名
+ *return nil:失败 data:成功读取数据*/
+- (NSDictionary *)readData:(NSString *)docName
+{
+    NSString *path = [CMUser persistPath:self.userAccount relativePath:docName];
+    NSDictionary *data = nil;
+    
+    if ( [[NSFileManager defaultManager] fileExistsAtPath:path] ) {
+        data = [NSDictionary dictionaryWithContentsOfFile:path];
+    }
+    
+    return data;
+}
+
+//执行+ (BOOL)archiveRootObject:(id)rootObject toFile:(NSString *)path; 会默认调用
+- (id)initWithCoder:(NSCoder *)decoder{
+    
+    if ( self = [super init] ) {
+        self.userAccount = [decoder decodeObjectForKey:kLastUserAccount];
+        self.userPassword = [decoder decodeObjectForKey:kLastUserPassword];
+        self.serverIpAddress = [decoder decodeObjectForKey:kLastServerIpAddress];
+        self.serverIpPort = [decoder decodeObjectForKey:kLastServerIpPort];
+    }
+    
+    return self;
+}
+
+- (void)encodeWithCoder:(NSCoder *)encoder{
+    
+    [encoder encodeObject:self.userAccount forKey:kLastUserAccount];
+    [encoder encodeObject:self.userPassword forKey:kLastUserPassword];
+    [encoder encodeObject:self.serverIpAddress forKey:kLastServerIpAddress];
+    [encoder encodeObject:self.serverIpPort forKey:kLastServerIpPort];
+}
+
 @end

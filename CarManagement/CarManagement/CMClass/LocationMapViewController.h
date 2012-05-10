@@ -10,6 +10,7 @@
 #import <MapKit/MapKit.h>
 #import "CMBaseViewController.h"
 #import "CMAnnotation.h"
+#import "AsyncSocket.h"
 
 @interface LocationMapViewController : CMBaseViewController<CLLocationManagerDelegate,MKMapViewDelegate,MKReverseGeocoderDelegate>
 {

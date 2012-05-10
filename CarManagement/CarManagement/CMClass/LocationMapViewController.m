@@ -7,7 +7,8 @@
 //
 
 #import "LocationMapViewController.h"
-#import "LocationDetailViewController.m"
+#import "LocationDetailViewController.h"
+#import "AppDelegate.h"
 
 @interface LocationMapViewController ()
 
@@ -108,6 +109,11 @@
 {
     [super viewDidUnload];
     // Release any retained subviews of the main view.
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [self.locationMgr stopUpdatingLocation];  
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation

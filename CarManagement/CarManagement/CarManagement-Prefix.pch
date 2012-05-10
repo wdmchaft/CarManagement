@@ -17,4 +17,6 @@
     #import "CarInfo.h"
     #import "CurrentCarInfo.h"
     #import "CarWarn.h"
+    #import "CMUser.h"
+    #import "AsyncSocket.h"
 #endif

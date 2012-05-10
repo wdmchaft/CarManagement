@@ -44,15 +44,20 @@
  *return param*/
 + (NSString *)createCarStateParam:(long)state;
 
+/**转换接收到的Data至NSString
+ *@param data:接收到的数据
+ *@param result:转换后的NSString*/
++ (NSString *)dataToStringConvert:(NSData *)data;
+
 /**登陆返回解析
  *@param recv:登陆后接收到的数据
  *return */
-+ (NSMutableArray *)parseLoginRecv:(NSString *)recv;
++ (NSMutableArray *)parseLoginRecv:(NSData *)data;
 
 /**车辆信息请求返回解析
  *@param recv:车辆信息请求接收到的数据
  *return terminalNos:终端号码数组*/
-+ (NSMutableArray *)parseRequestCarInfoRecv:(NSString *)recv;
++ (NSMutableArray *)parseRequestCarInfoRecv:(NSData *)data;
 
 /**拍照返回数据解析
  *@param recv:拍照接收到的数据

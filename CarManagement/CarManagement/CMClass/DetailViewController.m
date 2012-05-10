@@ -10,7 +10,7 @@
 #import "CMBaseViewController.h"
 #import "HistoryTrackViewController.h"
 #import "LocationMapViewController.h"
-#import "CarInfoViewController.h"
+#import "TakePhotoViewController.h"
 
 
 
@@ -61,7 +61,7 @@
     locationMapViewController.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"GPS定位" image:[[CMResManager getInstance] imageForKey:@"location"]  tag:kCarInfoItemTag];
     locationMapViewController.delegate = self;
   
-    CarInfoViewController *carInfoViewController = [[CarInfoViewController alloc] initWithTerminalNo:self.terminalNo];
+    TakePhotoViewController *carInfoViewController = [[TakePhotoViewController alloc] initWithTerminalNo:self.terminalNo];
     carInfoViewController.tabBarItem = [[UITabBarItem alloc] initWithTabBarSystemItem:UITabBarSystemItemFavorites tag:kCarInfoItemTag];
     carInfoViewController.delegate = self;
     HistoryTrackViewController *historyTracViewController = [[HistoryTrackViewController alloc] initWithTerminalNo:self.terminalNo];

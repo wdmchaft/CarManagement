@@ -151,20 +151,14 @@
 {
     self = [super initWithFrame:frame];
     if ( self ) {
- 
-        CGRect bounds = [self bounds];
-//        UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 100, 20)];
         UILabel *titleLabel = [[UILabel alloc] init];
         titleLabel.backgroundColor = [UIColor clearColor];
         titleLabel.textColor = [UIColor blueColor];
         self.titleLabel = titleLabel;
         [titleLabel release];
-        
-//        UILabel *contentLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, bounds.size.width, bounds.size.height)];
+
         UILabel *contentLabel = [[UILabel alloc] init];
-//        contentLabel.numberOfLines = 3;
         contentLabel.baselineAdjustment = UIBaselineAdjustmentAlignBaselines;    
-        //contentLabel.adjustsFontSizeToFitWidth = YES;
         contentLabel.backgroundColor = [UIColor clearColor];
         contentLabel.contentMode = UIViewContentModeScaleToFill;
         
