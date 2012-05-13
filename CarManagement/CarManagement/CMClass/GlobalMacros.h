@@ -65,7 +65,6 @@ typedef enum
 #define kLocationMapItemTag         202
 #define kTackPhotoItemTag           203
 //关于car的key
-#define key                         k 
 
 //报警位(车辆状态相关)
 #define INTERVAL                    1

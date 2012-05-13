@@ -26,10 +26,12 @@
 @synthesize lastTakePhotoTime = _lastTakePhotoTime;
 @synthesize version = _version;
 @synthesize history = _history;
+@synthesize oil = _oil;
 
 - (void)dealloc
 {
     [_history release];
+    [_oil release];
     
     [super dealloc];
 }

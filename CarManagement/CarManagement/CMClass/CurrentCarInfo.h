@@ -46,6 +46,8 @@
     long _lastTakePhotoTime;
     //历史数据
     NSMutableDictionary *_history;
+    //油量分析
+    NSMutableDictionary *_oil;
 }
 @property (nonatomic) CLLocationCoordinate2D currentLocation;
 @property (nonatomic) float speed;
@@ -64,6 +66,7 @@
 @property (nonatomic) float uitrasonicWaveDistance;
 @property (nonatomic) long lastTakePhotoTime;
 @property (nonatomic,retain) NSMutableDictionary *history;
+@property (nonatomic,retain) NSMutableDictionary *oil;
 
 /**初始化currentCar
  *@param currentCarInfo:数组，包含currentCar的基本属性字段

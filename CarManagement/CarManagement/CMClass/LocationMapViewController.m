@@ -165,6 +165,13 @@
     NSString *queryHistoryTrackParam = [NSString createQueryHistoryTrackParam:self.terminalNo beginTime:@"2012-05-04 08" endTime:@"2012-05-04 09"];
     NSLog(@"queryHistoryTrackParamm = %@",queryHistoryTrackParam);
     NSData *query = [queryHistoryTrackParam dataUsingEncoding:NSUTF8StringEncoding];
+    //test
+//    NSString *queryOilAnalysisParam = [NSString createOilAnalysisParam:self.terminalNo beginTime:@"2012-05-01" endTime:@"2012-05-06"];
+//    NSLog(@"queryOilAnalysisParam = %@",queryOilAnalysisParam);
+//    NSData *query2 = [queryOilAnalysisParam dataUsingEncoding:NSUTF8StringEncoding];
+//    [self.socket writeData:query2 withTimeout:-1 tag:4];
+//    [self.socket readDataWithTimeout:-1 tag:4];
+    
     [self.socket writeData:query withTimeout:-1 tag:3];
     [self.socket readDataWithTimeout:-1 tag:3];
     
@@ -282,8 +289,14 @@
 - (void)onSocket:(AsyncSocket *)sock didReadData:(NSData *)data withTag:(long)tag
 {  
     NSLog(@"recvData = %@",data);
-    NSMutableArray *recv = [NSString parseQueryHistoryTrackRecv:data];
-    NSLog(@"LocationMap recv = %@",recv);
+//    if ( tag == 3 ) {
+        NSMutableArray *recv = [NSString parseQueryHistoryTrackRecv:data];
+        NSLog(@"LocationMap recv = %@",recv);
+//    }
+//    else if ( tag == 4 ) {
+//        NSMutableArray *recv = [NSString parseQueryOilAnalysisRecv:data];
+//        NSLog(@"hello~~~");
+//    }
 
 }
 @end

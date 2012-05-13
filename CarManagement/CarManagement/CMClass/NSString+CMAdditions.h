@@ -61,8 +61,13 @@
 
 /**车辆历史信息请求返回解析
  *@param recv:车辆历史信息请求接收到的数据
- *return result:历史数据数组*/
+ *return result:历史数据数组键值*/
 + (NSMutableArray *)parseQueryHistoryTrackRecv:(NSData *)data;
+
+/**车辆油量信息请求返回解析
+ *@param recv:车辆历史信息请求接收到的数据
+ *return result:历史油量数据数组键值*/
++ (NSMutableArray *)parseQueryOilAnalysisRecv:(NSData *)data;
 
 /**拍照返回数据解析
  *@param recv:拍照接收到的数据

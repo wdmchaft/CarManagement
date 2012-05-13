@@ -98,7 +98,7 @@
  *return oilAnalysis*/
 + (NSString *)createOilAnalysisParam:(NSString *)terminalId beginTime:(NSString *)beginTime endTime:(NSString *)endTime
 {
-    NSString *oilAnalysisParam = [[NSString alloc] initWithFormat:@"and2:%@:%@",beginTime,endTime];
+    NSString *oilAnalysisParam = [[NSString alloc] initWithFormat:@"and2:%@:%@:%@",terminalId,beginTime,endTime];
     
     return [oilAnalysisParam autorelease]; 
 
@@ -190,13 +190,13 @@
 
 /**车辆历史信息请求返回解析
  *@param recv:车辆历史信息请求接收到的数据
- *return result:历史数据数组*/
+ *return result:历史数据数组键值*/
 + (NSMutableArray *)parseQueryHistoryTrackRecv:(NSData *)data
 {
     NSString *recv = [NSString dataToStringConvert:data];
-    NSLog(@"recv = %@",recv);
     NSString *terminalNo = nil;
-    NSMutableArray *result = nil;
+    NSMutableArray *result = [[NSMutableArray alloc] init];
+    NSMutableDictionary *history = [[NSMutableDictionary alloc] init];
     //分号分割数据
     NSArray *semicolon = [recv componentsSeparatedByString:@";"];
     if ( [semicolon count] > 0 ) {
@@ -209,18 +209,58 @@
             }
             //]分割
             NSMutableArray *bracket = [NSMutableArray arrayWithArray:[historyInfos componentsSeparatedByString:@"]"]];
-            NSString *key = [bracket objectAtIndex:0];
+            NSString *historyKey = [bracket objectAtIndex:0];
+            [result addObject:historyKey];
             [bracket removeObjectAtIndex:0];
-            [result addObject:key];
-            CurrentCarInfo *theCurrentCar = [[CMCurrentCars getInstance] theCurrentCarInfo:terminalNo];
-            [theCurrentCar.history setObject:bracket forKey:key];
+            [history setObject:bracket forKey:historyKey];
         }
     }
-    
-    CurrentCarInfo *theCar = [[CMCurrentCars getInstance] theCurrentCarInfo:terminalNo];
-    NSLog(@"history = %@",theCar.history);
+
+    CurrentCarInfo *theCurrentCar = [[CMCurrentCars getInstance] theCurrentCarInfo:terminalNo];
+    theCurrentCar.history = history;
+    [history release];
+    NSLog(@"history = %@",theCurrentCar.history);
     return [result autorelease];
 }
+
+/**车辆油量信息请求返回解析
+ *@param recv:车辆历史信息请求接收到的数据
+ *return result:历史油量数据数组键值*/
++ (NSMutableArray *)parseQueryOilAnalysisRecv:(NSData *)data
+{
+    NSString *recv = [NSString dataToStringConvert:data];
+    NSLog(@"recv = %@",recv);
+//    NSString *terminalNo = nil;
+//    NSMutableArray *result = [[NSMutableArray alloc] init];
+//    NSMutableDictionary *oil = [[NSMutableDictionary alloc] init];
+//    //分号分割数据
+//    NSArray *semicolon = [recv componentsSeparatedByString:@";"];
+//    if ( [semicolon count] > 0 ) {
+//        for ( NSString *historyInfos in semicolon ) {
+//            if ( [historyInfos hasPrefix:@"and2:"] ) {
+//                //冒号分割
+//                NSArray *comma = [historyInfos componentsSeparatedByString:@":"];
+//                terminalNo = [comma objectAtIndex:1];
+//                historyInfos = [comma objectAtIndex:2];
+//            }
+//            //]分割
+//            NSMutableArray *bracket = [NSMutableArray arrayWithArray:[historyInfos componentsSeparatedByString:@"]"]];
+//            NSString *historyKey = [bracket objectAtIndex:0];
+//            [result addObject:historyKey];
+//            [bracket removeObjectAtIndex:0];
+//            [history setObject:bracket forKey:historyKey];
+//        }
+//    }
+//    
+//    CurrentCarInfo *theCurrentCar = [[CMCurrentCars getInstance] theCurrentCarInfo:terminalNo];
+//    theCurrentCar.history = history;
+//    [history release];
+//    NSLog(@"history = %@",theCurrentCar.history);
+//    return [result autorelease];
+    
+    return nil;
+}
+
 
 
 /**拍照返回数据解析
