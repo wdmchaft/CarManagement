@@ -156,55 +156,5 @@ static CarWarn *_globalConfig = nil;
     
     return result;
 }
-    
-    
-//    String result = "";
-//        int i = 0;
-//        long j = 1L;
-//        String str[] = MyAppManager.userWarnmess[type-1];
-//        String str1[] = null;
-//        if (logicLevel != null) {
-//            str1 = logicLevel.split("]");
-//        }
-//        for (i = 0; i < str.length; i++) {
-//            if ((warn & j) > 0 && (j == MyAppManager.DOOR || j == MyAppManager.BELOCKED || j == MyAppManager.USERALARM) && str1 != null && str1.length > 0) {
-//                if (j == MyAppManager.DOOR) {
-//                    
-//                    try {
-//                        if (!"".equals(str1[1]) && str1.length > 0) {
-//                            result += str1[1] + ",";
-//                        } else {
-//                            result += str[i] + ",";
-//                        }
-//                    } catch (Exception e) {
-//                    }
-//                    
-//                } else if (j == MyAppManager.BELOCKED && str1.length > 1) {
-//                    if (!"".equals(str1[0])) {
-//                        result += str1[0] + ",";
-//                    } else {
-//                        result += str[i] + ",";
-//                    }
-//                } else if (j == MyAppManager.USERALARM && str1.length > 2) {
-//                    if (!"".equals(str1[2])) {
-//                        result += str1[2] + ",";
-//                    } else {
-//                        result += str[i] + ",";
-//                    }
-//                }
-//            } else {
-//                if ((warn & j) > 0) {
-//                    result += str[i] + ",";
-//                }
-//            }
-//            
-//            j = j * 2L;
-//        }
-//        return result;
-//}
-//    
-//    return nil;
-//}
-
 
 @end

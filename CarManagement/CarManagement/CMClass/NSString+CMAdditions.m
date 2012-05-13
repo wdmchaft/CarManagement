@@ -9,6 +9,7 @@
 
 
 #import "NSString+CMAdditions.h"
+#import "CurrentCarInfo.h"
 
 #define kLoginSuccess               @"0;3;1;1"
 #define kLoginWithPasswordWrong     @"0,3,1,0"
@@ -86,7 +87,7 @@
  *return queryHistoryTrackParam:查看历史轨迹口令*/
 + (NSString *)createQueryHistoryTrackParam:(NSString *)terminalId beginTime:(NSString *)beginTime endTime:(NSString *)endTime
 {
-    NSString *queryHistoryTrackParam = [[NSString alloc] initWithFormat:@"and1:%@:%@",beginTime,endTime];
+    NSString *queryHistoryTrackParam = [[NSString alloc] initWithFormat:@"and1:%@:%@:%@",terminalId,beginTime,endTime];
     
     return [queryHistoryTrackParam autorelease];
 
@@ -186,6 +187,41 @@
     
     return [terminalNos autorelease];
 }
+
+/**车辆历史信息请求返回解析
+ *@param recv:车辆历史信息请求接收到的数据
+ *return result:历史数据数组*/
++ (NSMutableArray *)parseQueryHistoryTrackRecv:(NSData *)data
+{
+    NSString *recv = [NSString dataToStringConvert:data];
+    NSLog(@"recv = %@",recv);
+    NSString *terminalNo = nil;
+    NSMutableArray *result = nil;
+    //分号分割数据
+    NSArray *semicolon = [recv componentsSeparatedByString:@";"];
+    if ( [semicolon count] > 0 ) {
+        for ( NSString *historyInfos in semicolon ) {
+            if ( [historyInfos hasPrefix:@"and1:"] ) {
+                //冒号分割
+                NSArray *comma = [historyInfos componentsSeparatedByString:@":"];
+                terminalNo = [comma objectAtIndex:1];
+                historyInfos = [comma objectAtIndex:2];
+            }
+            //]分割
+            NSMutableArray *bracket = [NSMutableArray arrayWithArray:[historyInfos componentsSeparatedByString:@"]"]];
+            NSString *key = [bracket objectAtIndex:0];
+            [bracket removeObjectAtIndex:0];
+            [result addObject:key];
+            CurrentCarInfo *theCurrentCar = [[CMCurrentCars getInstance] theCurrentCarInfo:terminalNo];
+            [theCurrentCar.history setObject:bracket forKey:key];
+        }
+    }
+    
+    CurrentCarInfo *theCar = [[CMCurrentCars getInstance] theCurrentCarInfo:terminalNo];
+    NSLog(@"history = %@",theCar.history);
+    return [result autorelease];
+}
+
 
 /**拍照返回数据解析
  *@param recv:拍照接收到的数据

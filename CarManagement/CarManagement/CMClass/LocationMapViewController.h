@@ -33,6 +33,10 @@
     MKReverseGeocoder *_geocoder;
     
     UIButton *_detailBtn;
+    
+    AsyncSocket *_socket;
+    
+    UIPickerView *_choseTimePicker;
 }
 
 @property (nonatomic,retain) MKMapView *mapView;
@@ -45,6 +49,7 @@
 @property (nonatomic,copy) NSString *locationAddress;
 @property (nonatomic,retain) MKReverseGeocoder *geocoder;
 @property (nonatomic,retain) UIButton *detailBtn;
+@property (nonatomic,retain) AsyncSocket *socket;
 
 /**初始化
  *@param terminalNo:终端号码

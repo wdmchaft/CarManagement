@@ -21,6 +21,12 @@
     UIImageView *_carImgView;
     
     AsyncSocket *_socket;
+    
+    //加载车辆照片信息
+    UIView *_photoLoadingView;
+    UILabel *_photoLoadLabel;
+    UIActivityIndicatorView *_photoLoadProcessView;
+    
 }
 
 @property (nonatomic,retain) UIButton *backBtn;
@@ -28,6 +34,10 @@
 @property (nonatomic,retain) UILabel *photoInfoLabel;
 @property (nonatomic,retain) UIImageView *carImgView;
 @property (nonatomic,retain) AsyncSocket *socket;
+
+@property (nonatomic,retain) UIView *photoLoadingView;
+@property (nonatomic,retain) UILabel *photoLoadLabel;
+@property (nonatomic,retain) UIActivityIndicatorView *photoLoadProcessView;
 
 
 /**初始化

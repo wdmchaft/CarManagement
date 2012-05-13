@@ -25,9 +25,12 @@
 @synthesize uitrasonicWaveDistance = _uitrasonicWaveDistance;
 @synthesize lastTakePhotoTime = _lastTakePhotoTime;
 @synthesize version = _version;
+@synthesize history = _history;
 
 - (void)dealloc
 {
+    [_history release];
+    
     [super dealloc];
 }
 /**初始化currentCar
@@ -62,6 +65,7 @@
             self.photoName = [currentCarInfo objectAtIndex:15];
             self.uitrasonicWaveDistance = [[currentCarInfo objectAtIndex:16] floatValue];
             self.lastTakePhotoTime = [[currentCarInfo objectAtIndex:17] longLongValue];
+            self.history = nil;
         }
     }
     

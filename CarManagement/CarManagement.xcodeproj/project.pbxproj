@@ -36,7 +36,6 @@
 		CFCF1D4A1555056800C1B1E3 /* CMNavigationBar.m in Sources */ = {isa = PBXBuildFile; fileRef = CFCF1D491555056800C1B1E3 /* CMNavigationBar.m */; };
 		CFCF1D50155505B100C1B1E3 /* CMNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = CFCF1D4F155505B100C1B1E3 /* CMNavigationController.m */; };
 		CFCF1D531555245100C1B1E3 /* CMBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CFCF1D521555245100C1B1E3 /* CMBaseViewController.m */; };
-		CFE752C115564CF600559A95 /* CMSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = CFE752C015564CF600559A95 /* CMSocket.m */; };
 		CFE752C51556504C00559A95 /* NSString+CMAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = CFE752C41556504C00559A95 /* NSString+CMAdditions.m */; };
 		CFE752D015565E0200559A95 /* HistoryTrackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CFE752CF15565E0100559A95 /* HistoryTrackViewController.m */; };
 		CFE752D415565E1800559A95 /* LocationMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CFE752D315565E1700559A95 /* LocationMapViewController.m */; };
@@ -96,8 +95,6 @@
 		CFCF1D4F155505B100C1B1E3 /* CMNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CMNavigationController.m; path = CMClass/CMNavigationController.m; sourceTree = "<group>"; };
 		CFCF1D511555245100C1B1E3 /* CMBaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CMBaseViewController.h; path = CMClass/CMBaseViewController.h; sourceTree = "<group>"; };
 		CFCF1D521555245100C1B1E3 /* CMBaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CMBaseViewController.m; path = CMClass/CMBaseViewController.m; sourceTree = "<group>"; };
-		CFE752BF15564CF600559A95 /* CMSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CMSocket.h; path = CMClass/CMSocket.h; sourceTree = "<group>"; };
-		CFE752C015564CF600559A95 /* CMSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CMSocket.m; path = CMClass/CMSocket.m; sourceTree = "<group>"; };
 		CFE752C31556504C00559A95 /* NSString+CMAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+CMAdditions.h"; path = "CMClass/NSString+CMAdditions.h"; sourceTree = "<group>"; };
 		CFE752C41556504C00559A95 /* NSString+CMAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString+CMAdditions.m"; path = "CMClass/NSString+CMAdditions.m"; sourceTree = "<group>"; };
 		CFE752CE15565E0100559A95 /* HistoryTrackViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HistoryTrackViewController.h; path = CMClass/HistoryTrackViewController.h; sourceTree = "<group>"; };
@@ -106,7 +103,7 @@
 		CFE752D315565E1700559A95 /* LocationMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LocationMapViewController.m; path = CMClass/LocationMapViewController.m; sourceTree = "<group>"; };
 		CFE752D515565E8B00559A95 /* AboutCarManagerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AboutCarManagerViewController.h; path = CMClass/AboutCarManagerViewController.h; sourceTree = "<group>"; };
 		CFE752D615565E8B00559A95 /* AboutCarManagerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AboutCarManagerViewController.m; path = CMClass/AboutCarManagerViewController.m; sourceTree = "<group>"; };
-		CFE752D81556687000559A95 /* TakePhotoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; name = TakePhotoViewController.h; path = CMClass/TakePhotoViewController.h; sourceTree = "<group>"; };
+		CFE752D81556687000559A95 /* TakePhotoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TakePhotoViewController.h; path = CMClass/TakePhotoViewController.h; sourceTree = "<group>"; };
 		CFE752D91556687000559A95 /* TakePhotoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TakePhotoViewController.m; path = CMClass/TakePhotoViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -230,8 +227,6 @@
 				CF9AFC571554386400953818 /* CMUser.h */,
 				CF9AFC581554386400953818 /* CMUser.m */,
 				CF9AFC5A15543BF800953818 /* GlobalMacros.h */,
-				CFE752BF15564CF600559A95 /* CMSocket.h */,
-				CFE752C015564CF600559A95 /* CMSocket.m */,
 				CFE752C31556504C00559A95 /* NSString+CMAdditions.h */,
 				CFE752C41556504C00559A95 /* NSString+CMAdditions.m */,
 				CF186EDB1558D61A001B5871 /* CMTableViewCell.h */,
@@ -330,7 +325,6 @@
 				CFCF1D4A1555056800C1B1E3 /* CMNavigationBar.m in Sources */,
 				CFCF1D50155505B100C1B1E3 /* CMNavigationController.m in Sources */,
 				CFCF1D531555245100C1B1E3 /* CMBaseViewController.m in Sources */,
-				CFE752C115564CF600559A95 /* CMSocket.m in Sources */,
 				CFE752C51556504C00559A95 /* NSString+CMAdditions.m in Sources */,
 				CFE752D015565E0200559A95 /* HistoryTrackViewController.m in Sources */,
 				CFE752D415565E1800559A95 /* LocationMapViewController.m in Sources */,

@@ -53,3 +53,4 @@
 - (NSString *)currentCarWarn:(long)warn carType:(CMCarType)carType logicLevel:(NSString *)logicLevel;
 
 @end
+

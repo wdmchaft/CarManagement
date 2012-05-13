@@ -19,6 +19,10 @@
 @synthesize photoInfoLabel = _photoInfoLabel;
 @synthesize carImgView = _carImgView;
 @synthesize socket = _socket;
+@synthesize photoLoadingView = _photoLoadingView;
+@synthesize photoLoadLabel = _photoLoadLabel;
+@synthesize photoLoadProcessView = _photoLoadProcessView;
+
 /**初始化
  *@param terminalNo:终端号码
  *return self*/
@@ -69,6 +73,27 @@
     self.carImgView = carImgView;
     [self.view addSubview:self.carImgView];
     [carImgView release];    
+    
+    //4.0下载图片加载
+    UIView *photoLoadView = [[UIView alloc] initWithFrame:CGRectMake(10, 55, 300, 400 - 55)];
+    photoLoadView.backgroundColor = [UIColor whiteColor];
+    
+    UIActivityIndicatorView *photoLoadIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    photoLoadIndicator.frame = CGRectMake(60, 40, 30, 30);
+    self.photoLoadProcessView = photoLoadIndicator;
+    [self.photoLoadProcessView startAnimating];
+    [photoLoadView addSubview:self.photoLoadProcessView];
+    [photoLoadIndicator release];
+    
+    UILabel *photoLoadLabel = [[UILabel alloc] initWithFrame:CGRectMake(90, 40, 200, 30)];
+    photoLoadLabel.text = @"正在加载车辆照片...";
+    photoLoadLabel.backgroundColor = [UIColor clearColor];
+    self.photoLoadLabel = photoLoadLabel;
+    [photoLoadView addSubview:self.photoLoadLabel];
+    
+    self.photoLoadingView = photoLoadView;
+    [self.view addSubview:self.photoLoadingView];
+    [photoLoadView release];
 }
 
 - (void)viewDidLoad
@@ -88,9 +113,11 @@
         NSString *theKey = [[photoData allKeys] objectAtIndex:([photoData count] - 1)];
         NSData *imgData = [photoData objectForKey:theKey];
         [self.carImgView setImage:[UIImage imageWithData:imgData]];
+        [self.photoLoadingView removeFromSuperview];
     }
     else {
         NSString *takePhotoParam = [NSString createTakePhotoParam:self.terminalNo cameraType:CMCameraTypeFront];
+        NSLog(@"takePhotoParam = %@",takePhotoParam);
         [self.socket writeData:[takePhotoParam dataUsingEncoding:NSUTF8StringEncoding] withTimeout:-1 tag:0];
     }
 }

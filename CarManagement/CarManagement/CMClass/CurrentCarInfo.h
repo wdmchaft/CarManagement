@@ -44,6 +44,8 @@
     float _uitrasonicWaveDistance;
     //最后拍摄时间
     long _lastTakePhotoTime;
+    //历史数据
+    NSMutableDictionary *_history;
 }
 @property (nonatomic) CLLocationCoordinate2D currentLocation;
 @property (nonatomic) float speed;
@@ -61,12 +63,14 @@
 @property (nonatomic,copy) NSString *photoName;
 @property (nonatomic) float uitrasonicWaveDistance;
 @property (nonatomic) long lastTakePhotoTime;
+@property (nonatomic,retain) NSMutableDictionary *history;
 
 /**初始化currentCar
  *@param currentCarInfo:数组，包含currentCar的基本属性字段
  *return self*/
 - (id)initWithParam:(NSArray *)currentCarInfoParam;
 @end
+
 
 @interface CMCurrentCars : NSObject
 {

@@ -59,6 +59,11 @@
  *return terminalNos:终端号码数组*/
 + (NSMutableArray *)parseRequestCarInfoRecv:(NSData *)data;
 
+/**车辆历史信息请求返回解析
+ *@param recv:车辆历史信息请求接收到的数据
+ *return result:历史数据数组*/
++ (NSMutableArray *)parseQueryHistoryTrackRecv:(NSData *)data;
+
 /**拍照返回数据解析
  *@param recv:拍照接收到的数据
  **/
