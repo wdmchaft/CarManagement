@@ -37,7 +37,7 @@
 		CFCF1D50155505B100C1B1E3 /* CMNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = CFCF1D4F155505B100C1B1E3 /* CMNavigationController.m */; };
 		CFCF1D531555245100C1B1E3 /* CMBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CFCF1D521555245100C1B1E3 /* CMBaseViewController.m */; };
 		CFE752C51556504C00559A95 /* NSString+CMAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = CFE752C41556504C00559A95 /* NSString+CMAdditions.m */; };
-		CFE752D015565E0200559A95 /* HistoryTrackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CFE752CF15565E0100559A95 /* HistoryTrackViewController.m */; };
+		CFE752D015565E0200559A95 /* OilHistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CFE752CF15565E0100559A95 /* OilHistoryViewController.m */; };
 		CFE752D415565E1800559A95 /* LocationMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CFE752D315565E1700559A95 /* LocationMapViewController.m */; };
 		CFE752D715565E8C00559A95 /* AboutCarManagerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CFE752D615565E8B00559A95 /* AboutCarManagerViewController.m */; };
 		CFE752DA1556687100559A95 /* TakePhotoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CFE752D91556687000559A95 /* TakePhotoViewController.m */; };
@@ -97,8 +97,8 @@
 		CFCF1D521555245100C1B1E3 /* CMBaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CMBaseViewController.m; path = CMClass/CMBaseViewController.m; sourceTree = "<group>"; };
 		CFE752C31556504C00559A95 /* NSString+CMAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+CMAdditions.h"; path = "CMClass/NSString+CMAdditions.h"; sourceTree = "<group>"; };
 		CFE752C41556504C00559A95 /* NSString+CMAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString+CMAdditions.m"; path = "CMClass/NSString+CMAdditions.m"; sourceTree = "<group>"; };
-		CFE752CE15565E0100559A95 /* HistoryTrackViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HistoryTrackViewController.h; path = CMClass/HistoryTrackViewController.h; sourceTree = "<group>"; };
-		CFE752CF15565E0100559A95 /* HistoryTrackViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HistoryTrackViewController.m; path = CMClass/HistoryTrackViewController.m; sourceTree = "<group>"; };
+		CFE752CE15565E0100559A95 /* OilHistoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; name = OilHistoryViewController.h; path = CMClass/OilHistoryViewController.h; sourceTree = "<group>"; };
+		CFE752CF15565E0100559A95 /* OilHistoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OilHistoryViewController.m; path = CMClass/OilHistoryViewController.m; sourceTree = "<group>"; };
 		CFE752D215565E1700559A95 /* LocationMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LocationMapViewController.h; path = CMClass/LocationMapViewController.h; sourceTree = "<group>"; };
 		CFE752D315565E1700559A95 /* LocationMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LocationMapViewController.m; path = CMClass/LocationMapViewController.m; sourceTree = "<group>"; };
 		CFE752D515565E8B00559A95 /* AboutCarManagerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AboutCarManagerViewController.h; path = CMClass/AboutCarManagerViewController.h; sourceTree = "<group>"; };
@@ -190,8 +190,8 @@
 				CF984B9C155B8657006C503B /* LocationDetailViewController.m */,
 				CFE752D81556687000559A95 /* TakePhotoViewController.h */,
 				CFE752D91556687000559A95 /* TakePhotoViewController.m */,
-				CFE752CE15565E0100559A95 /* HistoryTrackViewController.h */,
-				CFE752CF15565E0100559A95 /* HistoryTrackViewController.m */,
+				CFE752CE15565E0100559A95 /* OilHistoryViewController.h */,
+				CFE752CF15565E0100559A95 /* OilHistoryViewController.m */,
 				CFE752D515565E8B00559A95 /* AboutCarManagerViewController.h */,
 				CFE752D615565E8B00559A95 /* AboutCarManagerViewController.m */,
 				CFCF1D461555054100C1B1E3 /* Navigation */,
@@ -326,7 +326,7 @@
 				CFCF1D50155505B100C1B1E3 /* CMNavigationController.m in Sources */,
 				CFCF1D531555245100C1B1E3 /* CMBaseViewController.m in Sources */,
 				CFE752C51556504C00559A95 /* NSString+CMAdditions.m in Sources */,
-				CFE752D015565E0200559A95 /* HistoryTrackViewController.m in Sources */,
+				CFE752D015565E0200559A95 /* OilHistoryViewController.m in Sources */,
 				CFE752D415565E1800559A95 /* LocationMapViewController.m in Sources */,
 				CFE752D715565E8C00559A95 /* AboutCarManagerViewController.m in Sources */,
 				CFE752DA1556687100559A95 /* TakePhotoViewController.m in Sources */,

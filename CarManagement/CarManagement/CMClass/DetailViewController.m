@@ -8,7 +8,7 @@
 
 #import "DetailViewController.h"
 #import "CMBaseViewController.h"
-#import "HistoryTrackViewController.h"
+#import "OilHistoryViewController.h"
 #import "LocationMapViewController.h"
 #import "TakePhotoViewController.h"
 
@@ -64,7 +64,7 @@
     TakePhotoViewController *carInfoViewController = [[TakePhotoViewController alloc] initWithTerminalNo:self.terminalNo];
     carInfoViewController.tabBarItem = [[UITabBarItem alloc] initWithTabBarSystemItem:UITabBarSystemItemFavorites tag:kCarInfoItemTag];
     carInfoViewController.delegate = self;
-    HistoryTrackViewController *historyTracViewController = [[HistoryTrackViewController alloc] initWithTerminalNo:self.terminalNo];
+    OilHistoryViewController *historyTracViewController = [[OilHistoryViewController alloc] initWithTerminalNo:self.terminalNo];
     historyTracViewController.tabBarItem = [[UITabBarItem alloc] initWithTabBarSystemItem:UITabBarSystemItemHistory tag:kCarInfoItemTag];
     historyTracViewController.delegate = self;
     

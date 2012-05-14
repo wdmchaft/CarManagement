@@ -42,6 +42,11 @@ typedef enum
     CMProcessTakePhoto,
 }CMProcess;
 
+typedef enum
+{
+    CMDateChoiceProcessBegin = 1,
+    CMDateChoiceProcessEnd,
+}CMDateChoiceProcess;
 
 #define NAVIGATIONBAR_ANIMATION_TIMINTERVAL     0.5
 
@@ -64,7 +69,12 @@ typedef enum
 #define kHistoryTrackItemTag        201
 #define kLocationMapItemTag         202
 #define kTackPhotoItemTag           203
-//关于car的key
+//查询相关
+#define kQueryOilTimeInterval       10
+#define kQueryHistoryTimeInterval   7
+
+//时间格式
+#define kDateFormater               @"yyyy-MM-dd"
 
 //报警位(车辆状态相关)
 #define INTERVAL                    1

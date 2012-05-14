@@ -54,8 +54,10 @@
     self.view.backgroundColor = [UIColor whiteColor];
     self.title = @"车辆照片";
     
-    UIImage *btnImg = [[CMResManager getInstance] imageForKey:@"take_photo"];
-    [self addRightBtn:btnImg controllerEventTouchUpInside:@selector(takePhotoAction) target:self];
+    UIImage *takePhotoImg = [[CMResManager getInstance] imageForKey:@"take_photo"];
+    UIImage *callImg = [[CMResManager getInstance] imageForKey:@"call"];
+    [self addExtendBtnWithTarget:self touchUpInsideSelector:@selector(takePhotoAction) normalImage:takePhotoImg hightLightedImage:nil];
+    [self addExtendBtnWithTarget:self touchUpInsideSelector:@selector(callAction) normalImage:callImg hightLightedImage:nil];
     
     //2.0标题
     UILabel *photoInfoLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 55, 300, 40)];
