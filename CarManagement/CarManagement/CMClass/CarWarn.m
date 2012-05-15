@@ -153,6 +153,17 @@ static CarWarn *_globalConfig = nil;
         
         flag = flag * 2L;
     }
+    //冒号分割,去除多余,
+    NSArray *comma = [result componentsSeparatedByString:@","];
+    result = @"";
+    for ( NSInteger i = 0; i < [comma count]; i ++ ) {
+        if ( ![[comma objectAtIndex:i] isEqualToString:@" "] && ![[comma objectAtIndex:i] isEqualToString:@""] ) {
+            result = [result stringByAppendingFormat:@"%@,",[comma objectAtIndex:i]];
+        }
+    }
+    while ( [result hasSuffix:@","] ) {
+        result = [result substringToIndex:result.length - 1];
+    }
     
     return result;
 }

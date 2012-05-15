@@ -90,8 +90,8 @@
 - (void)loadView
 {
     [super loadView];
-    self.title = self.companyName;
     [self.navigationItem.titleView sizeToFit];
+    self.title = self.companyName;
     
     //0.0
     UIView *view = [[UIView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
@@ -306,18 +306,6 @@
     self.carInfoTView.scrollEnabled = NO;
     [searchBar setShowsCancelButton:YES animated:YES];
 }
-
-//- (BOOL)textFieldShouldReturn:(UITextField *)textField
-//{
-//    _isSearchOn = NO;
-//    _canSelectRow = YES;
-//    self.carInfoTView.scrollEnabled = YES;
-//    [self.searchBar resignFirstResponder];
-//    
-//    [self.carInfoTView reloadData];
-//    
-//    return YES;
-//}
 
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText 
 {

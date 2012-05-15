@@ -171,12 +171,14 @@
     for ( NSString *currentCarInfosWith6 in commaArray ) {
         if ( ![currentCarInfosWith6 isEqualToString:@""] ) {
             NSArray *colonArray = [currentCarInfosWith6 componentsSeparatedByString:@":"];
-            NSString *currentCarInfos = [colonArray objectAtIndex:1];
-            NSArray *currentCarInfoParam = [currentCarInfos componentsSeparatedByString:@";"];
-            if ( [currentCarInfoParam count] == 18 ) {
-                CurrentCarInfo *currentCarInfo = [[CurrentCarInfo alloc] initWithParam:currentCarInfoParam];
-                [terminalNos addObject:currentCarInfo.terminalNo];
-                [param addObject:currentCarInfo];
+            if ( [colonArray count] >= 2 ) {
+                NSString *currentCarInfos = [colonArray objectAtIndex:1];
+                NSArray *currentCarInfoParam = [currentCarInfos componentsSeparatedByString:@";"];
+                if ( [currentCarInfoParam count] == 18 ) {
+                    CurrentCarInfo *currentCarInfo = [[CurrentCarInfo alloc] initWithParam:currentCarInfoParam];
+                    [terminalNos addObject:currentCarInfo.terminalNo];
+                    [param addObject:currentCarInfo];
+                }
             }
         }
     }

@@ -10,7 +10,7 @@
 #import "CMBaseViewController.h"
 #import "DetailViewController.h"
 
-@interface TakePhotoViewController : CMBaseViewController<UINavigationControllerDelegate>
+@interface TakePhotoViewController : CMBaseViewController
 {
     UIButton *_backBtn;
     

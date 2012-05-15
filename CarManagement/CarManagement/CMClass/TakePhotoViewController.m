@@ -56,6 +56,7 @@
     
     UIImage *takePhotoImg = [[CMResManager getInstance] imageForKey:@"take_photo"];
     UIImage *callImg = [[CMResManager getInstance] imageForKey:@"call"];
+    [self setRightBtnEnabled:NO];
     [self addExtendBtnWithTarget:self touchUpInsideSelector:@selector(takePhotoAction) normalImage:takePhotoImg hightLightedImage:nil];
     [self addExtendBtnWithTarget:self touchUpInsideSelector:@selector(callAction) normalImage:callImg hightLightedImage:nil];
     
