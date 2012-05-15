@@ -8,6 +8,13 @@
 
 #import <UIKit/UIKit.h>
 #import "CarInfo.h"
+typedef enum {
+    UITextVerticalTop,
+    UITextVerticalMiddle,
+    UITextVerticalBottom,
+} UITextVertical;
+
+
 
 @class CMTextView;
 @interface CMTableViewCell : UITableViewCell
@@ -35,13 +42,21 @@
 @end
 
 
+@interface CMLabel : UILabel
+{
+    UITextVertical _textVertical;
+}
+@property (nonatomic,assign) UITextVertical textVertical;
+@end
+
+
 @interface CMTextView : UIView
 {
     UILabel *_titleLabel;
-    UILabel *_contentLabel;
+    CMLabel *_contentLabel;
 }
 @property (nonatomic,retain) UILabel *titleLabel;
-@property (nonatomic,retain) UILabel *contentLabel;
+@property (nonatomic,retain) CMLabel *contentLabel;
 
 
 /**初始化

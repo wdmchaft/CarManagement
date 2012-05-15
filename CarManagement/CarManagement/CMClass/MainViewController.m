@@ -9,6 +9,7 @@
 #import "MainViewController.h"
 #import "DetailViewController.h"
 #import "CMTableViewCell.h"
+#import "AppDelegate.h"
 
 
 @interface MainViewController ()
@@ -90,6 +91,7 @@
 {
     [super loadView];
     self.title = self.companyName;
+    [self.navigationItem.titleView sizeToFit];
     
     //0.0
     UIView *view = [[UIView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
@@ -177,28 +179,36 @@
 - (void)refreshAction
 {
     NSLog(@"刷新啦~");
+    NSLog(@"refresh~");
 }
 
 - (void)logoutAction
 {
     NSLog(@"退出啦~");
+    NSLog(@"logout~");
+    //断开socket
+    AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+    [appDelegate.client disconnect];
+    //清除缓存
+    
+    //切换到登陆页面
 }
 
 #pragma tableView
 - (CMTableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-//    static NSString *cellIndentifier = @"cell";
-//    
-//    CMTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIndentifier];
-//
-//    if ( !cell ) {
-//        cell = [[[CMTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier
-//                                                      :cellIndentifier] autorelease];
-//    }
+    static NSString *cellIndentifier = @"cell";
     
-    CMTableViewCell *cell = [[[CMTableViewCell alloc] init] autorelease];
+    CMTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIndentifier];
+
+    if ( !cell ) {
+        cell = [[[CMTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier
+                                                      :cellIndentifier] autorelease];
+    }
     
-    NSString *carNo;
+    //CMTableViewCell *cell = [[[CMTableViewCell alloc] init] autorelease];
+    
+    NSString *carNo = nil;
     if ( _isSearchOn ) {
         carNo = [self.searchResult objectAtIndex:[indexPath row]];
     }

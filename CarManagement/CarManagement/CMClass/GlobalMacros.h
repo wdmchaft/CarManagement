@@ -71,10 +71,11 @@ typedef enum
 #define kTackPhotoItemTag           203
 //查询相关
 #define kQueryOilTimeInterval       10
-#define kQueryHistoryTimeInterval   7
+#define kQueryHistoryTimeInterval   1
 
 //时间格式
 #define kDateFormater               @"yyyy-MM-dd"
+#define kDateAndTimeHourFormater    @"yyyy-MM-dd HH"
 
 //报警位(车辆状态相关)
 #define INTERVAL                    1

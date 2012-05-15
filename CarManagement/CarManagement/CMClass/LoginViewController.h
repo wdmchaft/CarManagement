@@ -49,5 +49,4 @@
 @property (nonatomic) CMProcess process;
 @property (nonatomic,copy) NSString *companyName;
 
-- (int)connectServer:(NSString *)hostIp port:(int)hostPort;
 @end

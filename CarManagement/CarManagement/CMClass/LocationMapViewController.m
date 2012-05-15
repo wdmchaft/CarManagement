@@ -10,6 +10,12 @@
 #import "LocationDetailViewController.h"
 #import "AppDelegate.h"
 
+#define FIELD_DATE_BEGIN_Y            5
+#define FIELD_DATE_BEGIN_MAX_X        155
+#define FIELD_DATE_END_BEGIN_MIN_X    165  
+#define kAlertEndDateWrong            2000
+#define kAlertDatesIntervalWrong      2001
+
 @interface LocationMapViewController ()
 
 @end
@@ -26,7 +32,13 @@
 @synthesize geocoder = _geocoder;
 @synthesize detailBtn = _detailBtn;
 @synthesize socket = _socket;
-
+@synthesize dateView = _dateView;
+@synthesize dateBegin = _dateBegin;
+@synthesize dateEnd = _dateEnd;
+@synthesize segLabel = _segLabel;
+@synthesize datePicker = _datePicker;
+@synthesize dateChoiceProcess = _dateChoiceProcess;
+@synthesize isQueryOk = _isQueryOk;
 /**初始化
  *@param terminalNo:终端号码
  *return self*/
@@ -47,6 +59,11 @@
     [_annotation release];
     [_detailBtn release];
     [_socket release];
+    [_dateView release];
+    [_dateBegin release];
+    [_dateEnd release];
+    [_datePicker release];
+    [_segLabel release];
  
     self.locationAddress = nil;
     self.terminalNo = nil;
@@ -67,7 +84,7 @@
     UIImage *historyBtnImg = [[CMResManager getInstance] imageForKey:@"history_trace"];
     [self setRightBtnEnabled:NO];
     [self addExtendBtnWithTarget:self touchUpInsideSelector:@selector(locationAction) normalImage:locationBtnImg hightLightedImage:nil];
-    [self addExtendBtnWithTarget:self touchUpInsideSelector:@selector(historyTrackAction) normalImage:historyBtnImg hightLightedImage:nil];
+    [self addExtendBtnWithTarget:self touchUpInsideSelector:@selector(queryHistoryTrackAction) normalImage:historyBtnImg hightLightedImage:nil];
 
     //3.0mapView
     MKMapView *mapView = [[MKMapView alloc] initWithFrame:CGRectMake(0, kCMNavigationBarHight, kFullScreenWidth, 400)];
@@ -85,6 +102,51 @@
     detailBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
     [detailBtn addTarget:self action:@selector(detailAction) forControlEvents:UIControlEventTouchUpInside];
     self.detailBtn = detailBtn;
+    
+    //5.0时间选择
+    //5.1背景view
+    UIView *dateView = [[UIView alloc] initWithFrame:CGRectMake(0, kFullScreenHight, kFullScreenWidth, 256)];
+    dateView.backgroundColor = [UIColor whiteColor];
+    //5.2开始查询时间
+    UITextField *dateBegin = [[UITextField alloc] initWithFrame:CGRectMake(20,5,135,30)];
+    dateBegin.backgroundColor = [UIColor clearColor];
+    dateBegin.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
+    dateBegin.textAlignment = UITextAlignmentCenter;
+    dateBegin.userInteractionEnabled = NO;
+    dateBegin.placeholder = @"查询开始日期";
+    self.dateBegin = dateBegin;
+    self.dateBegin.delegate = self;
+    [dateView addSubview:self.dateBegin];
+    [dateBegin release];
+    //5.3中间分割，
+    UILabel *segLabel = [[UILabel alloc] initWithFrame:CGRectMake(155, 5, 10, 30)];
+    segLabel.backgroundColor = [UIColor clearColor];
+    segLabel.textAlignment = UITextAlignmentCenter;
+    segLabel.text = @"-";
+    self.segLabel = segLabel;
+    [dateView addSubview:self.segLabel];
+    [segLabel release];
+    //5.4结束时间
+    UITextField *dateEnd = [[UITextField alloc] initWithFrame:CGRectMake(165, 5, 135, 30)];
+    dateEnd.backgroundColor = [UIColor clearColor];
+    dateEnd.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
+    dateEnd.textAlignment = UITextAlignmentCenter;
+    dateEnd.placeholder = @"查询结束日期";
+    self.dateEnd = dateEnd;
+    self.dateEnd.delegate = self;
+    [dateView addSubview:self.dateEnd];
+    [dateEnd release];
+    //5.5滚轮
+    UIDatePicker *datePicker = [[UIDatePicker alloc] initWithFrame:CGRectMake(0,40, kFullScreenWidth, 216)];
+    datePicker.datePickerMode = UIDatePickerModeDateAndTime;
+    [datePicker addTarget:self action:@selector(pickerValueChangedAction) forControlEvents:UIControlEventValueChanged];
+    self.datePicker = datePicker;
+    [dateView addSubview:self.datePicker];
+    [datePicker release];
+    
+    self.dateView = dateView;
+    [self.view addSubview:self.dateView];
+    [dateView release];
 }
 
 - (void)viewDidLoad
@@ -97,6 +159,20 @@
 //    self.locationMgr = locationMgr;
 //    self.locationMgr.delegate = self;
 //    [locationMgr release];
+    
+    //1.0查询日期默认
+    //1.1获取当前时间
+    NSDateFormatter *dateFormater = [[[NSDateFormatter alloc] init] autorelease];
+    [dateFormater setDateFormat:kDateAndTimeHourFormater];
+    NSString *theRightEndDate = [dateFormater stringFromDate:[NSDate date]];
+    //1.2获取一周前的时间
+    NSDate *now = [NSDate date];
+    NSString *theRightBeginDate = [dateFormater stringFromDate:[now dateByAddingTimeInterval:-3600 * 24 * kQueryHistoryTimeInterval]];
+    self.dateBegin.text = theRightBeginDate;
+    self.dateEnd.text = theRightEndDate;
+    //1.3滚轮初始化选择时间
+    NSDate *currentTime = [[NSDate alloc] init];
+    [self.datePicker setDate:currentTime animated:YES];
     
     self.currentLocation = [[CMCurrentCars getInstance] theCurrentCarInfo:self.terminalNo].currentLocation;
     self.mapView.centerCoordinate = self.currentLocation;
@@ -113,15 +189,18 @@
         [self.annotation moveAnnotation:self.currentLocation];
     }
     else {
-        CMAnnotation *annotation = [[CMAnnotation alloc] initWithCoordinate:self.currentLocation title:@"You are here" subTitle:@"great"];
+        CurrentCarInfo *theCurrentCar = [[CMCurrentCars getInstance] theCurrentCarInfo:self.terminalNo];
+        CMAnnotation *annotation = [[CMAnnotation alloc] initWithCoordinate:self.currentLocation title:@"Here" subTitle:theCurrentCar.carPosition];
         self.annotation = annotation;
         [self.mapView addAnnotation:self.annotation];
         [annotation release];
     }
+    //socket
     AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
     self.socket = appDelegate.client;
     self.socket.delegate = self;
 
+    self.isQueryOk = NO;
 }
 
 - (void)viewDidUnload
@@ -147,6 +226,73 @@
 }
 
 #pragma buttonAction
+/*@手指触发事件*/
+- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    UITouch *touch = [touches anyObject];
+    CGPoint point = [touch locationInView:self.dateView];
+    if ( point.y > FIELD_DATE_BEGIN_Y - 5 && point.y < FIELD_DATE_BEGIN_Y + 35 ) {
+        
+//        [self showPickerView];
+        if ( point.x < FIELD_DATE_BEGIN_MAX_X ) {
+            self.dateBegin.text = @"";
+            self.dateChoiceProcess = CMDateChoiceProcessBegin;
+        }
+        else {
+            self.dateEnd.text = @"";
+            self.dateChoiceProcess = CMDateChoiceProcessEnd;
+        }
+    }
+}
+
+/**显示滚轮
+ *@param nil
+ *return nil*/
+- (void)showPickerView
+{
+    [UIView beginAnimations:@"Animation" context:nil];
+    [UIView setAnimationDuration:0.3];
+    self.dateView.center = CGPointMake(160, 283);
+    [UIView commitAnimations];
+}
+
+/**隐藏滚轮
+ *@param nil
+ *return nil*/
+- (void)hidePickerView
+{
+    [UIView beginAnimations:@"Animation" context:nil];
+    [UIView setAnimationDuration:0.3];
+    self.dateView.center = CGPointMake(160, 588);
+    [UIView commitAnimations];    
+}
+
+/**滚轮数值改变
+ *@param nil
+ *return nil*/
+- (void)pickerValueChangedAction
+{
+    NSDate *selected = [self.datePicker date];
+    NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+    [dateFormat setDateFormat:kDateAndTimeHourFormater];
+    NSString *theDate = [dateFormat stringFromDate:selected];
+    switch ( self.dateChoiceProcess ) {
+        case CMDateChoiceProcessBegin:
+        {
+            self.dateBegin.text = theDate;
+        }break;
+        case CMDateChoiceProcessEnd:
+        {
+            self.dateEnd.text = theDate;
+        }break;
+        default:NSLog(@"date choice error～");
+            break;
+    }
+}
+
+/**当前用户所在位置
+ *
+ **/
 - (void)locationAction
 {
     self.mapView.showsUserLocation = YES;
@@ -156,32 +302,19 @@
     self.mapView.centerCoordinate = userCoord;
 }
 
-/**查看历史记录
- *@param 地图上显示历史记录
- *return nil*/
-- (void)historyTrackAction
-{
-    NSLog(@"historyTrackAction~");
-    NSString *queryHistoryTrackParam = [NSString createQueryHistoryTrackParam:self.terminalNo beginTime:@"2012-05-04 08" endTime:@"2012-05-04 09"];
-    NSLog(@"queryHistoryTrackParamm = %@",queryHistoryTrackParam);
-    NSData *query = [queryHistoryTrackParam dataUsingEncoding:NSUTF8StringEncoding];
-    //test
-//    NSString *queryOilAnalysisParam = [NSString createOilAnalysisParam:self.terminalNo beginTime:@"2012-05-01" endTime:@"2012-05-06"];
-//    NSLog(@"queryOilAnalysisParam = %@",queryOilAnalysisParam);
-//    NSData *query2 = [queryOilAnalysisParam dataUsingEncoding:NSUTF8StringEncoding];
-//    [self.socket writeData:query2 withTimeout:-1 tag:4];
-//    [self.socket readDataWithTimeout:-1 tag:4];
-    
-    [self.socket writeData:query withTimeout:-1 tag:3];
-    [self.socket readDataWithTimeout:-1 tag:3];
-    
-//    //test
-//    NSString *loginParam = [NSString createLoginParam:@"super1" password:@"181125"];
-//    NSLog(@"longinParam = %@",loginParam);
-//    NSData *param = [loginParam dataUsingEncoding:NSUTF8StringEncoding];
-//    [self.socket writeData:param withTimeout:-1 tag:12];
+///**查看历史记录
+// *@param 地图上显示历史记录
+// *return nil*/
+//- (void)historyTrackAction
+//{
+//    NSLog(@"historyTrackAction~");
+//    NSString *queryHistoryTrackParam = [NSString createQueryHistoryTrackParam:self.terminalNo beginTime:@"2012-05-04 08" endTime:@"2012-05-04 09"];
+//    NSLog(@"queryHistoryTrackParamm = %@",queryHistoryTrackParam);
+//    NSData *query = [queryHistoryTrackParam dataUsingEncoding:NSUTF8StringEncoding];
 //    
-}
+//    [self.socket writeData:query withTimeout:-1 tag:3];
+//    [self.socket readDataWithTimeout:-1 tag:3];
+//}
 
 /**地图箭头按钮事件,详细信息
  *@param nil
@@ -192,6 +325,74 @@
     [self.navigationController pushViewController:detailViewController animated:YES];
     [detailViewController release];
 }
+
+/**滚轮选择值改变触发
+ *@param nil    
+ *return nil*/
+- (void)queryHistoryTrackAction
+{
+    if ( !self.isQueryOk ) {
+        [self showPickerView];
+        self.isQueryOk = YES;
+    }
+    else {
+        //1.0时间判断
+        //1.1获取日期之差,判断是否大于系统查询间隔
+        NSDateFormatter *formater = [[[NSDateFormatter alloc] init] autorelease];
+        [formater setDateFormat:kDateAndTimeHourFormater];
+        NSDate *beginDate = [formater dateFromString:self.dateBegin.text];
+        NSDate *endDate = [formater dateFromString:self.dateEnd.text];
+        NSDate *currentDate = [NSDate date];
+        
+        float daysBetweenEB = [endDate timeIntervalSinceDate:beginDate] / ( 3600 * 24 );
+        float daysBetweenNE = [currentDate timeIntervalSinceDate:endDate] / ( 3600 * 24 );
+        float daysBetweenNB = [currentDate timeIntervalSinceDate:beginDate] / ( 3600 * 24 );
+        
+        NSLog(@"daysBetweenEB=%f,daysBetweenNE=%f,daysBetweenNB=%f",daysBetweenEB,daysBetweenNE,daysBetweenNB);
+        NSLog(@"beginDate=%@,endDate=%@,currentDate=%@",beginDate,endDate,currentDate);
+        if ( daysBetweenNE >= 0.000001 && daysBetweenNB >= 0.000001 ) {
+            if ( daysBetweenEB < 0.000001 ) {
+                [self showAlert:kAlertDatesIntervalWrong title:nil message:@"查询开始时间不可大于结束时间"];
+            }
+            else if ( daysBetweenEB > kQueryHistoryTimeInterval ) {
+                [self showAlert:kAlertDatesIntervalWrong title:nil message:[NSString stringWithFormat:@"查询日期差不可超过%d天",kQueryHistoryTimeInterval]];
+            }
+            else {
+                NSString *historyTrackQueryParam = [NSString createQueryHistoryTrackParam:self.terminalNo beginTime:self.dateBegin.text endTime:self.dateEnd.text];
+                NSLog(@"historyTrackQueryParam = %@",historyTrackQueryParam);
+                NSData *query = [historyTrackQueryParam dataUsingEncoding:NSUTF8StringEncoding];
+                [self.socket writeData:query withTimeout:-1 tag:3];
+                [self.socket readDataWithTimeout:-1 tag:3];
+                [self hidePickerView];
+                self.isQueryOk = NO;
+            }
+        }
+        else {
+            [self showAlert:kAlertEndDateWrong title:nil message:@"查询开始/结束时间不可超过当日"];
+        }
+    }
+}
+
+/**提醒
+ *@param
+ *return nil*/
+- (void)showAlert:(NSInteger)alertTag title:(NSString *)title message:(NSString *)message
+{
+    if ( !title ) {
+        title = kAlertTitleDefault;
+    }
+    UIAlertView *tip = [[UIAlertView alloc] initWithTitle:title message:message delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil];
+    tip.tag = alertTag;
+    [tip show];
+    [tip release];
+}
+#pragma mark - UITextFieldDelegate
+/*@=UITextFieldDelegate*/
+- (void)textFieldDidBeginEditing:(UITextField *)textField
+{
+    [textField resignFirstResponder];
+}
+
 #pragma mark - MKMapViewDelegate
 /*@地图缩放时*/
 - (void)mapView:(MKMapView *)mapView regionWillChangeAnimated:(BOOL)animated    
@@ -269,35 +470,11 @@
 }
 
 #pragma AsyncSocket
-- (void)onSocket:(AsyncSocket *)sock didConnectToHost:(NSString *)host port:(UInt16)port
-{
-    [self.socket readDataWithTimeout:-1 tag:0];
-    NSLog(@"didConnectToHost");
-}
-
-- (void)onSocket:(AsyncSocket *)sock willDisconnectWithError:(NSError *)err 
-{
-    NSLog(@"Error");
-
-}
-
-- (void)onSocketDidDisconnect:(AsyncSocket *)sock
-{
-    NSLog(@"Sorry this connect is failure");
-}
-
 - (void)onSocket:(AsyncSocket *)sock didReadData:(NSData *)data withTag:(long)tag
 {  
     NSLog(@"recvData = %@",data);
-//    if ( tag == 3 ) {
-        NSMutableArray *recv = [NSString parseQueryHistoryTrackRecv:data];
-        NSLog(@"LocationMap recv = %@",recv);
-//    }
-//    else if ( tag == 4 ) {
-//        NSMutableArray *recv = [NSString parseQueryOilAnalysisRecv:data];
-//        NSLog(@"hello~~~");
-//    }
-
+    NSMutableArray *recv = [NSString parseQueryHistoryTrackRecv:data];
+    NSLog(@"LocationMap recv = %@",recv);
 }
 @end
 //test 59.77.15.2:1440

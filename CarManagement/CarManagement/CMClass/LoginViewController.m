@@ -272,7 +272,7 @@
 {
     [UIView beginAnimations:nil context:nil];
     [UIView setAnimationDuration:0.5];
-    [self.loginBtn setAlpha:0.0];
+    [self.loginBtn setTitle:nil forState:UIControlStateNormal];
     [self.loginIndicatorView setHidden:NO];
     [UIView commitAnimations];
 }
@@ -284,7 +284,8 @@
 {
     [UIView beginAnimations:nil context:nil];
     [UIView setAnimationDuration:0.2];
-    [self.loginBtn setAlpha:1.0];
+//    [self.loginBtn setAlpha:1.0];
+    [self.loginBtn setTitle:@"登陆" forState:UIControlStateNormal];
     [self.loginIndicatorView setHidden:YES];
     self.userAccountField.enabled = YES;
     self.userPasswordField.enabled = YES;

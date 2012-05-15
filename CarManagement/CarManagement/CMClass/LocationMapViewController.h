@@ -12,7 +12,7 @@
 #import "CMAnnotation.h"
 #import "AsyncSocket.h"
 
-@interface LocationMapViewController : CMBaseViewController<CLLocationManagerDelegate,MKMapViewDelegate,MKReverseGeocoderDelegate>
+@interface LocationMapViewController : CMBaseViewController<CLLocationManagerDelegate,MKMapViewDelegate,MKReverseGeocoderDelegate,UITextFieldDelegate>
 {
     MKMapView *_mapView;
     
@@ -35,8 +35,17 @@
     UIButton *_detailBtn;
     
     AsyncSocket *_socket;
+    //时间选择
+    UIView *_dateView;
+    UITextField *_dateBegin;
+    UILabel *_segLabel;
+    UITextField *_dateEnd;
+    UIDatePicker *_datePicker;
+    CMDateChoiceProcess _dateChoiceProcess;
+    //地图
+    UIImageView *_historyTrackView;
+    UIColor *_lineColor;
     
-    UIPickerView *_choseTimePicker;
 }
 
 @property (nonatomic,retain) MKMapView *mapView;
@@ -50,6 +59,13 @@
 @property (nonatomic,retain) MKReverseGeocoder *geocoder;
 @property (nonatomic,retain) UIButton *detailBtn;
 @property (nonatomic,retain) AsyncSocket *socket;
+@property (nonatomic,retain) UIView *dateView;
+@property (nonatomic,retain) UITextField *dateBegin;
+@property (nonatomic,retain) UITextField *dateEnd;
+@property (nonatomic,retain) UILabel *segLabel;
+@property (nonatomic,retain) UIDatePicker *datePicker;
+@property (nonatomic) CMDateChoiceProcess dateChoiceProcess;
+@property (nonatomic) BOOL isQueryOk;
 
 /**初始化
  *@param terminalNo:终端号码

@@ -112,7 +112,7 @@
     NSStringEncoding enc = CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingGB_18030_2000);
     NSString *result = [[NSString alloc] initWithData:data encoding:enc];
     
-    return result;
+    return [result autorelease];
 }
 
 /**登陆返回解析

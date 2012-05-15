@@ -180,7 +180,7 @@
     NSString *theRightEndDate = [dateFormater stringFromDate:[NSDate date]];
     //获取一周前的时间
     NSDate *now = [NSDate date];
-    NSString *theRightBeginDate = [dateFormater stringFromDate:[now dateByAddingTimeInterval:-7*3600*24]];
+    NSString *theRightBeginDate = [dateFormater stringFromDate:[now dateByAddingTimeInterval:-kQueryOilTimeInterval*3600*24]];
     self.dateBegin.text = theRightBeginDate;
     self.dateEnd.text = theRightEndDate;
     
@@ -215,7 +215,6 @@
 - (void)oilHistoryAction
 {
     NSLog(@"History Oil~");
-    [self hidePickerView];
     //1.0时间判断
     //1.1获取日期之差,判断是否大于系统查询间隔
     NSDateFormatter *formater = [[[NSDateFormatter alloc] init] autorelease];
@@ -223,18 +222,13 @@
     NSDate *beginDate = [formater dateFromString:self.dateBegin.text];
     NSDate *endDate = [formater dateFromString:self.dateEnd.text];
     NSDate *currentDate = [NSDate date];
-    NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];  
-    NSUInteger unitFlags = NSMonthCalendarUnit | NSDayCalendarUnit;  
-    NSDateComponents *components1 = [gregorian components:unitFlags fromDate:beginDate toDate:endDate options:0];  
-    //查询begin和end日期差
-    NSInteger daysBetweenEB = [components1 day];  
-    NSDateComponents *components2 = [gregorian components:unitFlags fromDate:endDate toDate:currentDate options:0];
-    //当前时间和end日期差
-    NSInteger daysBetweenNE = [components2 day];
-    NSDateComponents *components3 = [gregorian components:unitFlags fromDate:beginDate toDate:currentDate options:0];
-    //当前时间和begin日期差
-    NSInteger daysBetweenNB = [components3 day];
+    
+    NSInteger daysBetweenEB = (NSInteger)([endDate timeIntervalSinceDate:beginDate] / ( 3600 * 24 ));
+    NSInteger daysBetweenNE = (NSInteger)([currentDate timeIntervalSinceDate:endDate] / ( 3600 * 24 ));
+    NSInteger daysBetweenNB = (NSInteger)([currentDate timeIntervalSinceDate:beginDate] / ( 3600 * 24 ));
+
     NSLog(@"daysBetweenEB=%d,daysBetweenNE=%d,daysBetweenNB=%d",daysBetweenEB,daysBetweenNE,daysBetweenNB);
+    NSLog(@"beginDate=%@,endDate=%@,currentDate=%@",beginDate,endDate,currentDate);
     if ( daysBetweenNE >= 0 && daysBetweenNB >= 0 ) {
         if ( daysBetweenEB < 0 ) {
             [self showAlert:kAlertDatesIntervalWrong title:nil message:@"查询开始时间不可大于结束时间"];
@@ -248,6 +242,7 @@
             NSData *query = [oilHistoryQueryParam dataUsingEncoding:NSUTF8StringEncoding];
             [self.socket writeData:query withTimeout:-1 tag:12];
             [self.socket readDataWithTimeout:-1 tag:12];
+            [self hidePickerView];
         }
     }
     else {

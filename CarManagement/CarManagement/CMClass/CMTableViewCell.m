@@ -120,21 +120,60 @@
 }
 
 @end
+//CMLabel
+@implementation CMLabel
+@synthesize textVertical = _textVertical;
 
+- (id)initWithFrame:(CGRect)frame
+{
+    self = [super initWithFrame:frame];
+    if ( self ) {
+        self.textVertical = UITextVerticalMiddle;
+    }
+    
+    return self;
+}
+
+- (void)setTextVertical:(UITextVertical)textVertical
+{
+    _textVertical = textVertical;
+    [self setNeedsLayout];
+}
+
+- (CGRect)textRectForBounds:(CGRect)bounds limitedToNumberOfLines:(NSInteger)numberOfLines
+{
+    CGRect textRect = [super textRectForBounds:bounds limitedToNumberOfLines:numberOfLines];
+    switch ( self.textVertical ) {
+        case UITextVerticalTop:
+        {
+            textRect.origin.y = bounds.origin.y;
+        }break;
+        case UITextVerticalBottom:
+        {
+            textRect.origin.y = bounds.origin.y + bounds.size.height - textRect.size.height;
+        }break;
+        case UITextVerticalMiddle:
+        default:textRect.origin.y = bounds.origin.y + ( bounds.size.height - textRect.size.height ) / 2.0;
+            break;
+    }    
+    
+    return textRect;
+}
+
+- (void)drawTextInRect:(CGRect)rect
+{
+    CGRect actualRect = [self textRectForBounds:rect limitedToNumberOfLines:self.numberOfLines];
+    [super drawTextInRect:actualRect];
+}
+
+@end
+
+//CMTextView
 @implementation CMTextView
 @synthesize titleLabel = _titleLabel;
 @synthesize contentLabel = _contentLabel;
 
-///**初始化
-// *@param title:标题 content:内容
-// *return self*/
-//- (id)initWithTitle:(NSString *)title content:(NSString *)content
-//{
-//    self = [super init];
-//    if ( self ) {
-//        
-//    }
-//}
+
 
 - (void)dealloc
 {
@@ -157,10 +196,11 @@
         self.titleLabel = titleLabel;
         [titleLabel release];
 
-        UILabel *contentLabel = [[UILabel alloc] init];
+        CMLabel *contentLabel = [[CMLabel alloc] init];
         contentLabel.baselineAdjustment = UIBaselineAdjustmentAlignBaselines;    
         contentLabel.backgroundColor = [UIColor clearColor];
         contentLabel.contentMode = UIViewContentModeScaleToFill;
+        contentLabel.textVertical = UITextVerticalTop;
         
         self.contentLabel = contentLabel;
         [self.contentLabel addSubview:self.titleLabel];
