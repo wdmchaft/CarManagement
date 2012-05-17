@@ -49,6 +49,22 @@ static CMUser *_instance = nil;
     return self;
 }
 
+/**清除数据
+ *@param nil
+ *return nil*/
+- (void)clear
+{
+    self.userAccount = nil;
+    self.userPassword = nil;
+    self.serverIpAddress = nil;
+    self.serverIpPort = nil;
+    
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults removeObjectForKey:kLastUserAccount];
+    [defaults removeObjectForKey:kLastUserPassword];
+}
+
+
 + (CMUser *)getInstance
 {
     @synchronized(self){
@@ -155,6 +171,7 @@ static CMUser *_instance = nil;
  *@param data:要保存的数据 dacName:保存数据的文件名
  *return YES:成功 NO:失败*/
 - (BOOL)saveData:(NSDictionary *)data path:(NSString *)docName
+
 {
     NSString *path = [CMUser persistPath:self.userAccount relativePath:docName];
 

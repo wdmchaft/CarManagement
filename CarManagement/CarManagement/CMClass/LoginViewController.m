@@ -196,6 +196,17 @@
 {
     [super viewDidUnload];
     // Release any retained subviews of the main view.
+    self.logoImageView = nil;
+    self.loginInputView = nil;
+    self.userAccountField = nil;
+    self.userPasswordField = nil;
+    self.loginBtn = nil;
+    
+    self.settingBtn = nil;
+    
+    UITextView *_reserveTView;
+    
+    UIView *_logionIndicatorView;
 }
 
 - (void)viewWillAppear:(BOOL)animated

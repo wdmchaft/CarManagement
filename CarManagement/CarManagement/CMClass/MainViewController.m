@@ -163,12 +163,20 @@
 {
     [super viewDidUnload];
     // Release any retained subviews of the main view.
+    self.searchBar = nil;
+    self.carInfoTView = nil;
+    self.refreshBtn = nil;
+    self.logoutBtn = nil;
+    self.toolBar = nil;
+
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [self.navigationController setNavigationBarHidden:NO animated:YES];
+    [self printout:@"lyfing"];
 }
+
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
@@ -191,6 +199,11 @@
     tip.tag = kAlertLogoutTag;
     [tip show];
     [tip release];
+}
+
+- (void)printout:(NSString *)string
+{
+    NSLog(@"hello %@",string);
 }
 
 #pragma UIAlertDelegate

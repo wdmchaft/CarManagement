@@ -185,7 +185,7 @@
         if ( contentSize.width > 490 ) {
             lineNum ++;
         }
-        else if ( contentSize.width > 300 && contentSize.width < 450 )
+        else if ( contentSize.width > 255 && contentSize.width < 450 )
         {
             lineNum ++;
         }

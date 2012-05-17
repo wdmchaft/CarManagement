@@ -68,6 +68,7 @@
             self.uitrasonicWaveDistance = [[currentCarInfo objectAtIndex:16] floatValue];
             self.lastTakePhotoTime = [[currentCarInfo objectAtIndex:17] longLongValue];
             self.history = nil;
+            self.oil = nil;
         }
     }
     

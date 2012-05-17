@@ -173,12 +173,10 @@
 {
     NSLog(@"call~");
     if ( _isReadyCall ) {
-       // [self showCallList];
         self.callList.hidden = NO;
         _isReadyCall = NO;
     }
     else {
-       // [self hideCallList];
         self.callList.hidden = YES;
         _isReadyCall = YES;
     }
@@ -279,6 +277,7 @@
 {
     NSString *url = [NSString stringWithFormat:@"tel://%@",[tableView cellForRowAtIndexPath:indexPath].detailTextLabel.text];
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
+    [self.callList setHidden:YES];
     [tableView deselectRowAtIndexPath:[tableView indexPathForSelectedRow] animated:YES];
 }
 @end

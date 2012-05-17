@@ -75,7 +75,7 @@
 /**拍照口令
  *@param terminalId:终端编号 cameraType:摄像头类型(前置/后置)
  *return takePhoteParam:拍照口令*/
-+ (NSString *)createTakePhotoParam:(NSString *)terminalId cameraType:(CMCameraType)cameraType;
++ (NSString *)createTakePhotoParam:(NSString *)terminalId cameraType:(CMCameraType)cameraType
 {
     NSString *takePhotoParam = [[NSString alloc] initWithFormat:@"60:%@:$GETPHOTO:1,%d,1",terminalId,cameraType];
     
@@ -227,40 +227,48 @@
 
 /**车辆油量信息请求返回解析
  *@param recv:车辆历史信息请求接收到的数据
- *return result:历史油量数据数组键值*/
-+ (NSMutableArray *)parseQueryOilAnalysisRecv:(NSData *)data
+ *return result:历史油量数据*/
++ (NSString *)parseQueryOilAnalysisRecv:(NSData *)data
 {
     NSString *recv = [NSString dataToStringConvert:data];
     NSLog(@"recv = %@",recv);
-//    NSString *terminalNo = nil;
-//    NSMutableArray *result = [[NSMutableArray alloc] init];
-//    NSMutableDictionary *oil = [[NSMutableDictionary alloc] init];
-//    //分号分割数据
-//    NSArray *semicolon = [recv componentsSeparatedByString:@";"];
-//    if ( [semicolon count] > 0 ) {
-//        for ( NSString *historyInfos in semicolon ) {
-//            if ( [historyInfos hasPrefix:@"and2:"] ) {
-//                //冒号分割
-//                NSArray *comma = [historyInfos componentsSeparatedByString:@":"];
-//                terminalNo = [comma objectAtIndex:1];
-//                historyInfos = [comma objectAtIndex:2];
-//            }
-//            //]分割
-//            NSMutableArray *bracket = [NSMutableArray arrayWithArray:[historyInfos componentsSeparatedByString:@"]"]];
-//            NSString *historyKey = [bracket objectAtIndex:0];
-//            [result addObject:historyKey];
-//            [bracket removeObjectAtIndex:0];
-//            [history setObject:bracket forKey:historyKey];
-//        }
-//    }
-//    
-//    CurrentCarInfo *theCurrentCar = [[CMCurrentCars getInstance] theCurrentCarInfo:terminalNo];
-//    theCurrentCar.history = history;
-//    [history release];
-//    NSLog(@"history = %@",theCurrentCar.history);
-//    return [result autorelease];
+    NSString *terminalNo = nil;
+    NSString *result = [[NSString alloc] init];
+    NSMutableArray *oil = [[NSMutableArray alloc] init];
+    //分号分割数据
+    NSArray *semicolon = [recv componentsSeparatedByString:@";"];
+    if ( [semicolon count] > 0 ) {
+        for ( NSString *oilHistoryInfos in semicolon ) {
+            if ( [oilHistoryInfos hasPrefix:@"and2:"] ) {
+                //冒号分割
+                NSArray *comma = [oilHistoryInfos componentsSeparatedByString:@":"];
+                if ( [comma count] > 1 ) {
+                    terminalNo = [comma objectAtIndex:1];
+                    oilHistoryInfos = [comma objectAtIndex:[comma count] -1];
+                }
+            }
+            else if ( [oilHistoryInfos isEqualToString:@""] || oilHistoryInfos == nil ) {
+                
+            }
+            else {
+                [oil addObject:oilHistoryInfos];
+                result = [result stringByAppendingFormat:@"%@\n",oilHistoryInfos];
+            }
+
+        }
+    }
     
-    return nil;
+    CurrentCarInfo *theCurrentCar = [[CMCurrentCars getInstance] theCurrentCarInfo:terminalNo];
+    theCurrentCar.oil = oil;
+    [oil release];
+    NSLog(@"result = %@",result);
+    if ( [result hasPrefix:@"and2:"] || [result isEqualToString:@""] || result == nil ) {
+        return @"查询时间段内没有油量历史数据,请重新选择查询时段";
+    }
+    
+    NSLog(@"oil = %@",theCurrentCar.oil);
+    
+    return result;
 }
 
 

@@ -17,7 +17,6 @@
     NSString *_serverIpAddress;
     
     NSString *_serverIpPort;
-    
 }
 
 @property (nonatomic,copy) NSString *userAccount;

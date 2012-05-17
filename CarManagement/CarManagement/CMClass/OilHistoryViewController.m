@@ -99,6 +99,7 @@
     dateBegin.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
     dateBegin.textAlignment = UITextAlignmentCenter;
     dateBegin.userInteractionEnabled = NO;
+    dateBegin.textColor = [UIColor blueColor];
     dateBegin.placeholder = @"查询开始日期";
     self.dateBegin = dateBegin;
     self.dateBegin.delegate = self;
@@ -118,6 +119,7 @@
     dateEnd.backgroundColor = [UIColor clearColor];
     dateEnd.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
     dateEnd.textAlignment = UITextAlignmentCenter;
+    dateEnd.textColor = [UIColor blueColor];
     dateEnd.placeholder = @"查询结束日期";
     self.dateEnd = dateEnd;
     self.dateEnd.delegate = self;
@@ -129,36 +131,36 @@
     [dateView release];    
     
     //5.0UItextView 
-    UITextView *oilHistoryView = [[UITextView alloc] initWithFrame:CGRectMake(10, kCMNavigationBarHight + 75, 300, 400)];
+    UITextView *oilHistoryView = [[UITextView alloc] initWithFrame:CGRectMake(10, kCMNavigationBarHight + 75, 300,292)];
     oilHistoryView.backgroundColor = [UIColor clearColor];
+    oilHistoryView.font = [UIFont systemFontOfSize:18];
     oilHistoryView.userInteractionEnabled = YES;
     oilHistoryView.editable = NO;
-    oilHistoryView.text = @"hello\nlyfing\nwelcome\ncome\nI\njust\ntake\na\nexample\nto\nhave\na\ntest\nI\nfind\nit\nis\ndifficult\nto\nhave\a\ndinner\nbecause\ni\nhave\nno\nmoney\ncan\nyou\nborrow\nme\nsome\nRMB";
     self.oilHistoryView = oilHistoryView;
     self.oilHistoryView.delegate = self;
     [self.view addSubview:self.oilHistoryView];
     [oilHistoryView release];
     
     //6.0进度指示
-//    UIView *loadView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 100, 100)];
-//    UIActivityIndicatorView *indicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-//    indicator.frame = CGRectMake(35, 20, 30, 30);
-//    [indicator startAnimating];
-//    self.indicator = indicator;
-//    [loadView addSubview:self.indicator];
-//    [indicator release];
-//    UILabel *tipLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 50, 100, 30)];
-//    tipLabel.backgroundColor = [UIColor clearColor];
-//    tipLabel.textAlignment = UITextAlignmentCenter;
-//    tipLabel.text = @"正在加载数据...";
-//    self.tipLabel = tipLabel;
-//    [loadView addSubview:self.tipLabel];
-//    [tipLabel release];
-//    self.loadView = loadView;
-//    self.loadView.center = self.view.center;
-//    [loadView release];
-//    
-//    [self.view addSubview:self.loadView];
+    UIView *loadView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 100, 100)];
+    UIActivityIndicatorView *indicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    indicator.frame = CGRectMake(35, 20, 30, 30);
+    [indicator startAnimating];
+    self.indicator = indicator;
+    [loadView addSubview:self.indicator];
+    [indicator release];
+    UILabel *tipLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 50, 100, 30)];
+    tipLabel.backgroundColor = [UIColor clearColor];
+    tipLabel.textAlignment = UITextAlignmentCenter;
+    tipLabel.text = @"正在加载数据...";
+    self.tipLabel = tipLabel;
+    [loadView addSubview:self.tipLabel];
+    [tipLabel release];
+    self.loadView = loadView;
+    self.loadView.center = self.view.center;
+    [loadView release];
+    
+    [self.view addSubview:self.loadView];
     
     //7.0UIPickerView
     UIDatePicker *datePicker = [[UIDatePicker alloc] initWithFrame:CGRectMake(0,460 - kCMNavigationBarHight, kFullScreenWidth, 216)];
@@ -201,6 +203,12 @@
 {
     [super viewDidUnload];
     // Release any retained subviews of the main view.
+    self.tipLabel = nil;
+    self.titleLabel = nil;
+    self.dateView = nil;
+    self.dateBegin = nil;
+    self.dateEnd = nil;
+    self.datePicker = nil;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -343,8 +351,9 @@
 - (void)onSocket:(AsyncSocket *)sock didReadData:(NSData *)data withTag:(long)tag
 {  
     NSLog(@"Tag = %ld ,recvData = %@",tag,data);
-    NSMutableArray *recv = [NSString parseQueryHistoryTrackRecv:data];
-    NSLog(@"Tag = %ld ,oilHistoruQuery recv = %@",tag,recv);    
+    NSString *recv = [NSString parseQueryOilAnalysisRecv:data];
+    NSLog(@"Tag = %ld ,oilHistoruQuery recv = %@",tag,recv); 
+    self.oilHistoryView.text = recv;
 }
 @end
 
