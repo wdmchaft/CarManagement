@@ -31,5 +31,10 @@
 - (void)popViewController:(BOOL)animated;
 
 - (void)presentModleViewController:(UIViewController *)viewController animated:(BOOL)animated;
+
+/**清空堆栈里面所有viewController,在push新viewController
+ *@param viewController:新viewController animated:是否动画
+ *return nil*/
+- (void)pushViewControllerWithClearAll:(UIViewController *)viewController animate:(BOOL)animated;
  
 @end

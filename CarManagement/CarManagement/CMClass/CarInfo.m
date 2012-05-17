@@ -55,10 +55,17 @@
         self.cameraNum = [[carInfo objectAtIndex:4] intValue];
         Dirver *dirver1 = [[Dirver alloc] initWithParam:[carInfo objectAtIndex:5] tel:[carInfo objectAtIndex:6]];
         Dirver *dirver2 = [[Dirver alloc] initWithParam:[carInfo objectAtIndex:7] tel:[carInfo objectAtIndex:8]];
-        self.drivers = [NSArray arrayWithObjects:dirver1,dirver2,nil];
+        if ( [dirver1.dirverName isEqualToString:dirver2.dirverName] && [dirver1.dirverTel isEqualToString:dirver2.dirverTel] ) {
+            Dirver *test1 = [[Dirver alloc] initWithParam:@"lyfing" tel:@"18705925519"];
+            Dirver *test2 = [[Dirver alloc] initWithParam:@"fenge" tel:@"18600345330"];
+            self.drivers = [NSArray arrayWithObjects:dirver1,test2,nil];
+            
+//            self.drivers = [NSArray arrayWithObjects:dirver1,nil];
+        }
+        else 
+            self.drivers = [NSArray arrayWithObjects:dirver1,dirver2,nil];
         [dirver1 release];
         [dirver2 release];
-        //self.
     }
     
     return self;

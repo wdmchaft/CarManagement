@@ -52,6 +52,7 @@
 		CFE752D415565E1800559A95 /* LocationMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CFE752D315565E1700559A95 /* LocationMapViewController.m */; };
 		CFE752D715565E8C00559A95 /* AboutCarManagerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CFE752D615565E8B00559A95 /* AboutCarManagerViewController.m */; };
 		CFE752DA1556687100559A95 /* TakePhotoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CFE752D91556687000559A95 /* TakePhotoViewController.m */; };
+		CFF6657115635E170010C1B5 /* LoginAssistant.m in Sources */ = {isa = PBXBuildFile; fileRef = CFF6657015635E160010C1B5 /* LoginAssistant.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -139,6 +140,8 @@
 		CFE752D615565E8B00559A95 /* AboutCarManagerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AboutCarManagerViewController.m; path = CMClass/AboutCarManagerViewController.m; sourceTree = "<group>"; };
 		CFE752D81556687000559A95 /* TakePhotoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TakePhotoViewController.h; path = CMClass/TakePhotoViewController.h; sourceTree = "<group>"; };
 		CFE752D91556687000559A95 /* TakePhotoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TakePhotoViewController.m; path = CMClass/TakePhotoViewController.m; sourceTree = "<group>"; };
+		CFF6656F15635E160010C1B5 /* LoginAssistant.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LoginAssistant.h; path = CMClass/LoginAssistant.h; sourceTree = "<group>"; };
+		CFF6657015635E160010C1B5 /* LoginAssistant.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LoginAssistant.m; path = CMClass/LoginAssistant.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -212,6 +215,8 @@
 				CF3709E01553B71D0064A190 /* AppDelegate.m */,
 				CF3709E71553B7570064A190 /* LoginViewController.h */,
 				CF3709E81553B7570064A190 /* LoginViewController.m */,
+				CFF6656F15635E160010C1B5 /* LoginAssistant.h */,
+				CFF6657015635E160010C1B5 /* LoginAssistant.m */,
 				CF3709EA1553B76C0064A190 /* SettingViewController.h */,
 				CF3709EB1553B76C0064A190 /* SettingViewController.m */,
 				CF3709ED1553B7790064A190 /* MainViewController.h */,
@@ -412,6 +417,7 @@
 				CF387DF615627F1A002DE8B4 /* SBJsonTokeniser.m in Sources */,
 				CF387DF715627F1A002DE8B4 /* SBJsonUTF8Stream.m in Sources */,
 				CF387DF815627F1A002DE8B4 /* SBJsonWriter.m in Sources */,
+				CFF6657115635E170010C1B5 /* LoginAssistant.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

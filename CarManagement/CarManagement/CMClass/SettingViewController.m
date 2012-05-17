@@ -7,6 +7,7 @@
 //
 
 #import "SettingViewController.h"
+#import "AboutCarManagerViewController.h"
 #import "CMResManager.h"
 
 #define kServerSettingKey             @"服务器配置"
@@ -179,6 +180,15 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+    if ( [cell.textLabel.text isEqualToString:kSetAoubtCarManager] ) {
+        AboutCarManagerViewController *aboutCarManagerViewController = [[AboutCarManagerViewController alloc] init];
+        aboutCarManagerViewController.navigationItem.backBarButtonItem.title = kSetAoubtCarManager;
+        [self.navigationController pushViewController:aboutCarManagerViewController animated:YES];
+        [aboutCarManagerViewController release];
+    }
+    
+    
     [tableView deselectRowAtIndexPath:[tableView indexPathForSelectedRow] animated:YES];
 }
 

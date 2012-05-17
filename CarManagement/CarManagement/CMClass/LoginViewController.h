@@ -48,5 +48,10 @@
 @property (nonatomic,retain) UINavigationController *carInfoNavigationController;
 @property (nonatomic) CMProcess process;
 @property (nonatomic,copy) NSString *companyName;
+@property (nonatomic) BOOL automaticLogin;
 
+/**初始化
+ *@param login:是否自动登陆
+ *return self*/
+- (id)initWithAutomaticLogin:(BOOL)login;
 @end

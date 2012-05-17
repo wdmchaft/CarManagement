@@ -88,6 +88,16 @@ static CMResManager *_instance = nil;
     return [image stretchableImageWithLeftCapWidth:image.size.width/2 topCapHeight:image.size.height/2];
 }
 
+/**获取纵向拉伸image
+ *@param key:png图片名称
+ *return image:拉伸后的图片*/
++ (UIImage *)longitudinalStretchableImageWithKey:(NSString *)key
+{
+    UIImage *image = [[CMResManager getInstance] imageForKey:key];
+    
+    return [image stretchableImageWithLeftCapWidth:image.size.width / 2 topCapHeight:image.size.height];
+}
+
 + (id) allocWithZone:(NSZone*) zone {
 	@synchronized(self) { 
 		if (_instance == nil) {

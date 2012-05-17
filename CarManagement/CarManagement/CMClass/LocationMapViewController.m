@@ -131,6 +131,7 @@
     dateEnd.backgroundColor = [UIColor clearColor];
     dateEnd.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
     dateEnd.textAlignment = UITextAlignmentCenter;
+    dateEnd.userInteractionEnabled = NO;
     dateEnd.placeholder = @"查询结束日期";
     self.dateEnd = dateEnd;
     self.dateEnd.delegate = self;
@@ -197,7 +198,7 @@
     }
     //socket
     AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
-    self.socket = appDelegate.client;
+    self.socket = [appDelegate.client retain];
     self.socket.delegate = self;
 
     self.isQueryOk = NO;
@@ -212,6 +213,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
 //    [self.locationMgr startUpdatingLocation];
+
 
 }
 
@@ -233,12 +235,11 @@
     CGPoint point = [touch locationInView:self.dateView];
     if ( point.y > FIELD_DATE_BEGIN_Y - 5 && point.y < FIELD_DATE_BEGIN_Y + 35 ) {
         
-//        [self showPickerView];
         if ( point.x < FIELD_DATE_BEGIN_MAX_X ) {
             self.dateBegin.text = @"";
             self.dateChoiceProcess = CMDateChoiceProcessBegin;
         }
-        else {
+        else if ( point.x > FIELD_DATE_END_BEGIN_MIN_X ){
             self.dateEnd.text = @"";
             self.dateChoiceProcess = CMDateChoiceProcessEnd;
         }
@@ -301,20 +302,6 @@
     NSLog(@"userCoord = %f , %f",userCoord.latitude,userCoord.longitude);
     self.mapView.centerCoordinate = userCoord;
 }
-
-///**查看历史记录
-// *@param 地图上显示历史记录
-// *return nil*/
-//- (void)historyTrackAction
-//{
-//    NSLog(@"historyTrackAction~");
-//    NSString *queryHistoryTrackParam = [NSString createQueryHistoryTrackParam:self.terminalNo beginTime:@"2012-05-04 08" endTime:@"2012-05-04 09"];
-//    NSLog(@"queryHistoryTrackParamm = %@",queryHistoryTrackParam);
-//    NSData *query = [queryHistoryTrackParam dataUsingEncoding:NSUTF8StringEncoding];
-//    
-//    [self.socket writeData:query withTimeout:-1 tag:3];
-//    [self.socket readDataWithTimeout:-1 tag:3];
-//}
 
 /**地图箭头按钮事件,详细信息
  *@param nil

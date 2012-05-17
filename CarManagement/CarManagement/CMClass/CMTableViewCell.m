@@ -70,44 +70,6 @@
         self.positionCMView = positionCMView;
         [self addSubview:self.positionCMView];
         [positionCMView release];
-        
-
-        
-//        //2.0speedField
-//        UITextField *carNoField = [[UITextField alloc] initWithFrame:CGRectMake(70, 5, 220, 20)];
-//        carNoField.backgroundColor = [UIColor clearColor];
-//        carNoField.font = [UIFont systemFontOfSize:15];
-//        carNoField.enabled = NO;
-//        self.carNoField = carNoField;
-//        [self addSubview:self.carNoField];
-//        [carNoField release];
-//        
-//        //3.0speedField
-//        UITextField *speedField = [[UITextField alloc] initWithFrame:CGRectMake(70, 25, 220, 20)];
-//        speedField.backgroundColor = [UIColor clearColor];
-//        speedField.font = [UIFont systemFontOfSize:15];
-//        speedField.enabled = NO;
-//        self.speedField = speedField;
-//        [self addSubview:self.speedField];
-//        [speedField release];
-//        
-//        //4.0carState
-//        UITextField *stateField = [[UITextField alloc] initWithFrame:CGRectMake(20, 46, 263, 20)];
-//        stateField.backgroundColor = [UIColor clearColor];
-//        stateField.font = [UIFont systemFontOfSize:15];
-//        stateField.enabled = NO;
-//        self.stateField = stateField;
-//        [self addSubview:self.stateField];
-//        [stateField release];
-//        
-//        //5.0carPosition
-//        UITextField *positionField = [[UITextField alloc] initWithFrame:CGRectMake(20, 66, 263, 40)];
-//        positionField.backgroundColor = [UIColor clearColor];
-//        positionField.font = [UIFont systemFontOfSize:15];
-//        positionField.enabled = NO;
-//        self.positionField = positionField;
-//        [self addSubview:self.positionField];
-//        [positionField release];
     }
     return self;
 }
@@ -197,7 +159,7 @@
         [titleLabel release];
 
         CMLabel *contentLabel = [[CMLabel alloc] init];
-        contentLabel.baselineAdjustment = UIBaselineAdjustmentAlignBaselines;    
+//        contentLabel.baselineAdjustment = UIBaselineAdjustmentAlignBaselines;    
         contentLabel.backgroundColor = [UIColor clearColor];
         contentLabel.contentMode = UIViewContentModeScaleToFill;
         contentLabel.textVertical = UITextVerticalTop;

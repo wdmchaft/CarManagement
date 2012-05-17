@@ -36,5 +36,10 @@
  *@param key:png图片名称
  *return image:拉伸后的图片*/
 + (UIImage*)middleStretchableImageWithKey:(NSString*)key;
+
+/**获取纵向拉伸image
+ *@param key:png图片名称
+ *return image:拉伸后的图片*/
++ (UIImage *)longitudinalStretchableImageWithKey:(NSString *)key;
 @end
 

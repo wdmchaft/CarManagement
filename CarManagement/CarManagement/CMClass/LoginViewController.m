@@ -13,7 +13,8 @@
 #import "CMUser.h"
 //test
 #import "CMBaseViewController.h"
-
+#define kLoginInputViewTopY             130
+#define kLoginInputViewBottomY          220
 #define kAlertLoginMsgLoss              2000
 #define kAlertServerMsgLoss             2001
 #define kAlertNetWorkUnusable           2002
@@ -21,9 +22,6 @@
 #define kAlertPasswordWrong             2004
 #define kAlertServerIpWrong             2005
 #define kAlertServerPortWrong           2006
-#define kLoginInputViewTopY             130
-#define kLoginInputViewBottomY          220
-
 @interface LoginViewController ()
 
 @end
@@ -41,6 +39,21 @@
 @synthesize socket = _socket;
 @synthesize process = _process;
 @synthesize companyName = _companyName;
+@synthesize automaticLogin = _automaticLogin;
+
+
+/**初始化
+ *@param login:是否自动登陆
+ *return self*/
+- (id)initWithAutomaticLogin:(BOOL)login
+{
+    self = [super init];
+    if ( self ) {
+        _automaticLogin = login;
+    }
+    
+    return self;
+}
 
 - (void)dealloc
 {
@@ -177,10 +190,6 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
-    AppDelegate *appdelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
-    appdelegate.client.delegate = self;
-    self.socket = [appdelegate.client retain];
-    self.process = CMProcessLogin;
 }
 
 - (void)viewDidUnload
@@ -194,6 +203,15 @@
     [self.navigationController setNavigationBarHidden:YES];
     [self loginPrepareAnimated];
     [self.userAccountField becomeFirstResponder];
+    
+    AppDelegate *appdelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+    appdelegate.client.delegate = self;
+    self.socket = [appdelegate.client retain];
+    self.process = CMProcessLogin;
+    
+    if ( _automaticLogin ) {
+        [self loginAction];
+    }
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -243,12 +261,12 @@
                 NSData *loginMsgData = [loginParam dataUsingEncoding:NSUTF8StringEncoding];
                 [self.socket writeData:loginMsgData withTimeout:-1 tag:0];
                 //保存用户信息 line6
-//                CMUser *userInfo = [CMUser getInstance];
-//                userInfo.userAccount = user;
-//                userInfo.userPassword = pwd;
-//                userInfo.serverIpAddress = serverIpAddress;
-//                userInfo.serverIpPort = serverIpPort;
-//                [userInfo persist];
+                CMUser *userInfo = [CMUser getInstance];
+                userInfo.userAccount = user;
+                userInfo.userPassword = pwd;
+                userInfo.serverIpAddress = serverIpAddress;
+                userInfo.serverIpPort = serverIpPort;
+                [userInfo persist];
             }
         }
     }
@@ -402,7 +420,7 @@
 
 - (void)onSocketDidDisconnect:(AsyncSocket *)sock
 {
-    NSLog(@"Sorry this connect is failure");
+    NSLog(@"Sorry this connect is failure in LoginViewController");
 }
 
 - (void)onSocket:(AsyncSocket *)sock didReadData:(NSData *)data withTag:(long)tag
@@ -465,7 +483,7 @@
         NSLog(@"Login terminalNos = %@",terminalNos);
         MainViewController *mainViewController = [[MainViewController alloc] initwithCompanyName:self.companyName terminalNos:terminalNos];
         UINavigationController *carInfoNavigationController = [[UINavigationController alloc] initWithRootViewController:mainViewController];
-        self.carInfoNavigationController = carInfoNavigationController;
+//        self.carInfoNavigationController = carInfoNavigationController;
         [self presentModalViewController:carInfoNavigationController animated:NO];
         [mainViewController release];
         [carInfoNavigationController release];

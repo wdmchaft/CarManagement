@@ -14,13 +14,16 @@
 
 @implementation AboutCarManagerViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+- (void)dealloc
 {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
+    [super dealloc];
+}
+
+- (void)loadView
+{
+    [super loadView];
+    
+    self.title = @"胖总车管";
 }
 
 - (void)viewDidLoad

@@ -33,18 +33,7 @@
     self.client = client;
     [client release];
     
-    UIViewController *firstViewController = nil;
-    
-    CMUser *user = [CMUser getInstance];
-    if ( [user checkLoginInfo] ) {
-        NSLog(@"MainViewController");
-        firstViewController = [[MainViewController alloc] init];    
-    }
-    else {
-        firstViewController = [[LoginViewController alloc] init];
-        NSLog(@"LoginViewController");
-    }
-    
+    UIViewController *firstViewController = [[LoginViewController alloc] initWithAutomaticLogin:[[CMUser getInstance] checkLoginInfo]];
     UINavigationController *rootViewController = [[UINavigationController alloc] initWithRootViewController:firstViewController];
     [rootViewController.navigationBar setBackgroundColor:[UIColor colorWithPatternImage:[CMResManager middleStretchableImageWithKey:@"navigationbar_background"]]];
     self.rootViewController = rootViewController;
@@ -109,6 +98,20 @@
     if ( viewController ) {
         [self presentModleViewController:viewController animated:YES];
     }
+}
+
+- (void)removeAllViewControllerFrowStack
+{
+    self.rootViewController.viewControllers = nil;
+}
+
+/**清空堆栈里面所有viewController,在push新viewController
+ *@param viewController:新viewController animated:是否动画
+ *return nil*/
+- (void)pushViewControllerWithClearAll:(UIViewController *)viewController animate:(BOOL)animated
+{
+    self.rootViewController.viewControllers = nil;
+    [self.rootViewController pushViewController:viewController animated:YES];
 }
 
 @end

@@ -22,6 +22,8 @@
 @synthesize photoLoadingView = _photoLoadingView;
 @synthesize photoLoadLabel = _photoLoadLabel;
 @synthesize photoLoadProcessView = _photoLoadProcessView;
+@synthesize callList = _callList;
+@synthesize isReadyCall = _isReadyCall;
 
 /**初始化
  *@param terminalNo:终端号码
@@ -97,6 +99,23 @@
     self.photoLoadingView = photoLoadView;
     [self.view addSubview:self.photoLoadingView];
     [photoLoadView release];
+    
+    CarInfo *testcar = [[CMCars getInstance] theCarInfo:self.terminalNo];
+    for ( Dirver *dirver in testcar.drivers ) {
+        NSLog(@"dirver.dirverName = %@,dirver.dirverTel = %@",dirver.dirverName,dirver.dirverTel);
+    }
+    
+    //5.0callList
+    CarInfo *theCarInfo = [[CMCars getInstance] theCarInfo:self.terminalNo];
+    NSInteger rows = [theCarInfo.drivers count] > 0 ? [theCarInfo.drivers count] : 1;
+    UITableView *callList = [[UITableView alloc] initWithFrame:CGRectMake(10,kCMNavigationBarHight + 10, kFullScreenWidth - 20, 40 + rows * 40) style:UITableViewStyleGrouped];
+    callList.backgroundColor = [UIColor grayColor];
+    callList.tableHeaderView = nil;
+    callList.delegate = self;
+    callList.dataSource = self;
+    self.callList = callList;
+    [self.view addSubview:self.callList];
+    [callList release];
 }
 
 - (void)viewDidLoad
@@ -123,6 +142,10 @@
         NSLog(@"takePhotoParam = %@",takePhotoParam);
         [self.socket writeData:[takePhotoParam dataUsingEncoding:NSUTF8StringEncoding] withTimeout:-1 tag:0];
     }
+    
+    //_isReadyCall = NO 不显示电话列表
+    _isReadyCall = YES;
+    self.callList.hidden = YES;
 }
 
 - (void)viewDidUnload
@@ -149,6 +172,38 @@
 - (void)callAction
 {
     NSLog(@"call~");
+    if ( _isReadyCall ) {
+       // [self showCallList];
+        self.callList.hidden = NO;
+        _isReadyCall = NO;
+    }
+    else {
+       // [self hideCallList];
+        self.callList.hidden = YES;
+        _isReadyCall = YES;
+    }
+}
+
+/**显示电话列表
+ *@param nil
+ *return nil*/
+- (void)showCallList
+{
+    [UIView beginAnimations:@"Animation" context:nil];
+    [UIView setAnimationDuration:0.3];
+    self.callList.center = CGPointMake(160, 100);
+    [UIView commitAnimations];
+}
+
+/**隐藏电话列表
+ *@param nil
+ *return nil*/
+- (void)hideCallList
+{
+    [UIView beginAnimations:@"Animation" context:nil];
+    [UIView setAnimationDuration:0.3];
+    self.callList.center = CGPointMake(160, -80);
+    [UIView commitAnimations];
 }
 
 #pragma mark - AsyncSocketDelegate
@@ -181,4 +236,49 @@
     }
 }
 
+#pragma mark for - CallList
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    static NSString *identifier = @"cell";
+    
+    UITableViewCell *cell  = [tableView dequeueReusableCellWithIdentifier:identifier];
+    if ( !cell ) {
+        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:identifier] autorelease];
+    }
+    
+    NSString *cellValue = nil;
+    CarInfo *theCarInfo = [[CMCars getInstance] theCarInfo:self.terminalNo];
+    if ( [theCarInfo.drivers count] == 0 ) {
+        cellValue = @"无电话信息";
+    }
+    else {
+        Dirver *dirver = [theCarInfo.drivers objectAtIndex:[indexPath row]];
+        cell.textLabel.text = dirver.dirverName;
+        cell.detailTextLabel.text = dirver.dirverTel;
+    }
+
+    return cell;
+}
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    CarInfo *theCarInfo = [[CMCars getInstance] theCarInfo:self.terminalNo];
+    if ( [theCarInfo.drivers count] < 1 || theCarInfo.drivers == nil ) {
+        return 1;
+    }
+    
+    return [theCarInfo.drivers count];
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSString *url = [NSString stringWithFormat:@"tel://%@",[tableView cellForRowAtIndexPath:indexPath].detailTextLabel.text];
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
+    [tableView deselectRowAtIndexPath:[tableView indexPathForSelectedRow] animated:YES];
+}
 @end

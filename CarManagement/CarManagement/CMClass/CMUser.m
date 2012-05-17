@@ -146,6 +146,7 @@ static CMUser *_instance = nil;
 + (CMUser *)readFromDisk:(NSString *)userAccount
 {
     NSString *userFile = [CMUser persistPath:userAccount relativePath:nil];
+    NSLog(@"[NSKeyedUnarchiver unarchiveObjectWithFile:userFile] = %@",[NSKeyedUnarchiver unarchiveObjectWithFile:userFile]);
     
     return [NSKeyedUnarchiver unarchiveObjectWithFile:userFile];
 }

@@ -8,8 +8,11 @@
 
 #import "MainViewController.h"
 #import "DetailViewController.h"
+#import "LoginViewController.h"
 #import "CMTableViewCell.h"
 #import "AppDelegate.h"
+
+#define kAlertLogoutTag         2000
 
 
 @interface MainViewController ()
@@ -184,14 +187,31 @@
 
 - (void)logoutAction
 {
-    NSLog(@"退出啦~");
-    NSLog(@"logout~");
-    //断开socket
-    AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
-    [appDelegate.client disconnect];
-    //清除缓存
-    
-    //切换到登陆页面
+    UIAlertView *tip = [[UIAlertView alloc] initWithTitle:kAlertTitleDefault message:@"您确定要退出?" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+    tip.tag = kAlertLogoutTag;
+    [tip show];
+    [tip release];
+}
+
+#pragma UIAlertDelegate
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex  
+{
+    NSLog(@"alertView.tag = %d,buttonIndex = %d",alertView.tag,buttonIndex);
+    if ( alertView.tag == kAlertLogoutTag ) {
+        if ( buttonIndex == 1 ) {
+            //确定退出
+            NSLog(@"退出啦~");
+            NSLog(@"logout~");
+            //断开socket
+            AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+            appDelegate.client.delegate = self;
+            [appDelegate.client disconnect];
+            //清除缓存
+            
+            //切换到登陆页面
+            [self dismissModalViewControllerAnimated:NO];
+        }
+    }
 }
 
 #pragma tableView

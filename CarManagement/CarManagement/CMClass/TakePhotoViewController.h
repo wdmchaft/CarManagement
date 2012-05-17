@@ -10,7 +10,7 @@
 #import "CMBaseViewController.h"
 #import "DetailViewController.h"
 
-@interface TakePhotoViewController : CMBaseViewController
+@interface TakePhotoViewController : CMBaseViewController<UITableViewDelegate,UITableViewDataSource>
 {
     UIButton *_backBtn;
     
@@ -27,6 +27,7 @@
     UILabel *_photoLoadLabel;
     UIActivityIndicatorView *_photoLoadProcessView;
     
+    UITableView *_callList;
 }
 
 @property (nonatomic,retain) UIButton *backBtn;
@@ -38,6 +39,8 @@
 @property (nonatomic,retain) UIView *photoLoadingView;
 @property (nonatomic,retain) UILabel *photoLoadLabel;
 @property (nonatomic,retain) UIActivityIndicatorView *photoLoadProcessView;
+@property (nonatomic,retain) UITableView *callList;
+@property (nonatomic) BOOL isReadyCall;
 
 
 /**初始化
