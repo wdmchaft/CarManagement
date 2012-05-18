@@ -14,6 +14,8 @@
 {
     //位置
     CLLocationCoordinate2D _currentLocation;
+    //当前位置数据
+    NSMutableArray *_currentLocations;
     //速度
     float _speed;
     //报警位(车辆状态)
@@ -50,6 +52,7 @@
     NSMutableArray *_oil;
 }
 @property (nonatomic) CLLocationCoordinate2D currentLocation;
+@property (nonatomic,retain) NSMutableArray *currentLocations;
 @property (nonatomic) float speed;
 @property (nonatomic) long warn;
 @property (nonatomic) float mileage;
@@ -101,3 +104,4 @@
  *return theCarInfo:车辆信息*/
 - (CurrentCarInfo *)theCurrentCarInfo:(NSString *)terminalNo;
 @end
+

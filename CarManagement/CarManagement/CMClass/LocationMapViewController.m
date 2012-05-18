@@ -175,6 +175,7 @@
     NSDate *currentTime = [[NSDate alloc] init];
     [self.datePicker setDate:currentTime animated:YES];
     
+    
     self.currentLocation = [[CMCurrentCars getInstance] theCurrentCarInfo:self.terminalNo].currentLocation;
     self.mapView.centerCoordinate = self.currentLocation;
     NSLog(@"terminalNo = %@:latitude = %f,longitude = %f",self.terminalNo,self.currentLocation.latitude,self.currentLocation.longitude);

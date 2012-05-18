@@ -142,25 +142,25 @@
     [oilHistoryView release];
     
     //6.0进度指示
-    UIView *loadView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 100, 100)];
-    UIActivityIndicatorView *indicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-    indicator.frame = CGRectMake(35, 20, 30, 30);
-    [indicator startAnimating];
-    self.indicator = indicator;
-    [loadView addSubview:self.indicator];
-    [indicator release];
-    UILabel *tipLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 50, 100, 30)];
-    tipLabel.backgroundColor = [UIColor clearColor];
-    tipLabel.textAlignment = UITextAlignmentCenter;
-    tipLabel.text = @"正在加载数据...";
-    self.tipLabel = tipLabel;
-    [loadView addSubview:self.tipLabel];
-    [tipLabel release];
-    self.loadView = loadView;
-    self.loadView.center = self.view.center;
-    [loadView release];
-    
-    [self.view addSubview:self.loadView];
+//    UIView *loadView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 100, 100)];
+//    UIActivityIndicatorView *indicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+//    indicator.frame = CGRectMake(35, 20, 30, 30);
+//    [indicator startAnimating];
+//    self.indicator = indicator;
+//    [loadView addSubview:self.indicator];
+//    [indicator release];
+//    UILabel *tipLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 50, 100, 30)];
+//    tipLabel.backgroundColor = [UIColor clearColor];
+//    tipLabel.textAlignment = UITextAlignmentCenter;
+//    tipLabel.text = @"正在加载数据...";
+//    self.tipLabel = tipLabel;
+//    [loadView addSubview:self.tipLabel];
+//    [tipLabel release];
+//    self.loadView = loadView;
+//    self.loadView.center = self.view.center;
+//    [loadView release];
+//    
+//    [self.view addSubview:self.loadView];
     
     //7.0UIPickerView
     UIDatePicker *datePicker = [[UIDatePicker alloc] initWithFrame:CGRectMake(0,460 - kCMNavigationBarHight, kFullScreenWidth, 216)];

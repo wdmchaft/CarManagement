@@ -10,6 +10,7 @@
 
 @implementation CurrentCarInfo
 @synthesize currentLocation = _currentLocation;
+@synthesize currentLocations = _currentLocations;
 @synthesize warn = _warn;
 @synthesize speed = _speed;
 @synthesize mileage = _mileage;
@@ -32,6 +33,7 @@
 {
     [_history release];
     [_oil release];
+    [_currentLocations release];
     
     [super dealloc];
 }
@@ -51,7 +53,23 @@
         NSArray *currentCarInfo = [NSArray arrayWithArray:currentCarInfoParam];
         if ( [currentCarInfo count] == 18 ) {
             self.terminalNo = [currentCarInfo objectAtIndex:0];
-            self.currentLocation = CLLocationCoordinate2DMake([[currentCarInfo objectAtIndex:1] floatValue], [[currentCarInfo objectAtIndex:2] floatValue]);
+            //获取当前位置
+            CLLocationCoordinate2D currentLocation = CLLocationCoordinate2DMake([[currentCarInfo objectAtIndex:1] floatValue], [[currentCarInfo objectAtIndex:2] floatValue]);
+            //line 59 测试
+            self.currentLocation = currentLocation;
+            //获取最近一次位置数据
+            if ( [self.currentLocations count] > 0 ) {
+                NSData *lastLocationData = [self.currentLocations objectAtIndex:0];
+                CLLocationCoordinate2D lastLocation;
+                [lastLocationData getBytes:&lastLocation length:sizeof(CLLocationCoordinate2D)];
+                //如果两次数据相同则不加入数组
+                if ( currentLocation.latitude == lastLocation.latitude && currentLocation.longitude == lastLocation.longitude ) {
+                    
+                }
+                else {
+                    [self.currentLocations addObject:[NSData dataWithBytes:&currentLocation length:sizeof(CLLocationCoordinate2D)]];
+                }
+            }
             self.speed = [[currentCarInfo objectAtIndex:3] floatValue];
             self.warn = [[currentCarInfo objectAtIndex:4] longLongValue];
             self.direction = [[currentCarInfo objectAtIndex:5] floatValue];
